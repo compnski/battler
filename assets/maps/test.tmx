@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="51" height="36" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" source="tilesets/terrain.tsx"/>
+ <tileset firstgid="465" source="tilesets/playerkill.tsx"/>
+ <layer name="Terrain" width="51" height="36">
+  <data encoding="base64" compression="zlib">
+   eJzNmFtoXFUUhvdJm8ZblUJEKyoKSnyQRgRp1VarNoaE1ijFiijFGPGC4EO12ChWpX3S0hcR9MGKIIp4wZoabRERpONjQQTnRRoEQR9EtChF0PovZv3kPyv7nJmpmunDl3Odyf72Wmtfpj+l1B/4AHwEPgTvgHfBG6CvSOlMMARuB7cFxsHNzldyTg6DW+W9UXAtuBD8iO//FBx3LsG9K8Hj3hZjv7TxPfCm83Z4pnwGLsD3rATLvP12PigO45m21tEQR3qa1wRYBQprL/7cjeOd4AlwTPgD/CZOe8ABvN+H4zXghwqX18DZoe8n/Do6HO7QJcap4VhsrgL9YBL/dyN4EOcPBLaBfUXL6Vd36ROGKlxeByvwuY3yvzU3uvXIxecWMALGwFL8v9U4NnHcAV7G+R0Zpi3nirLLTFHvYjl2qbjkcl+xdm3o0EH7hvE2F+bZGHgEJ7vAc358VnxeBL/gnd3gfpxPtXFhjm3qoI2s4ap3q2LXkM/SxWplxPP/Szk+JD7m8pLn3aNgR3B538cqjl2vguV450aJTWxTI5Mnm/y6G/hZcxkLNaA87C4vgFckTtHF4jCAexeD88A9uN4FLivKNRPzytqxHlyX4Xpwg7Ou4h1jrX/HFcFF86cvxIY8D7YHF9a69Y+NKTYGX1QsdGEc2J9sQ2HjpPfBVGqNR0+DJc73fp/P9L2z5DvUxeIwnfHZ6VgtPQNWhHGMtW4uxOawoeAyGuLANhBr/yxO5nCcBn+Kj/GJP6PnnHtN+ufHwemh3duLcq5x3LJaOub1VBWXSHSxvN7vqIddaxsL9zkeaAYXe+dbsEV8zhCnTqHL514bORcdn+iiDsyXKa+xmFOaWxo/dbbcOj+8ozGKWGwYnwFwDhgOOXYQHHKnQ8XC2ORctC7qUD91nnQXy5lvUvm7GSNF/cwnziu5HDtYlGPDeq9ysYuYT0asGasnqxtez6X5mj83tdZiW1I57vf5fWMkxOhy8FZaOM/HeOSwcW5pUV0jMf8YAxKdm+5yGhhMrXHJnO4C96bWGpP13a5WdJ5ne9v5rBIX1nezwuPjotz+ZirXmeWY5dJadz0i/b27jUMnLlW5xnOuNxh35kTV/HJU3iVPhme8Nheu5SOsc2N5hUvdmFwVF63LldIeq4Wjqbz/YI584W20fNoQ4mC1b+v5r9P8/FfX/3vFazgtrBf2e1WO2f7F1rVWM8scq50xaQ/bzr4dCH1orHGPE6lcC7xf5RPrvG6/wr3XRFG9Bx4N7w2DzdJHEesz3TcxJtFDY2U1Zj6DaX486NSHcyXnEe67cvsWfWZea4rW3qiur9SFuXRE7lkMGRMbs0/4O6y3GKc6n7j30jV+3d7xZFyYS3RhPa8PeUfn2aI7n9yeWH9riHtCXfPb3vanDly45mAu0UXXUWwz82o1+LvL+MQcawc9bipav/ts6yIuzKUqlyXy3No6A34Xp+gT1zDMsU73hdy7XG1zJvj5X7rYb12zGRft/5k0X0PqE11srrQ9EfeC6/yc+0E9173LU6m9h7owv6wG4vxujrpOUxcdN3TOyq0t94GtYCf4C3zn53ZMcr418FgHHupSNa/oszqXdvPnYrAn5ecVzqfWv9rncczW8S7Ou71wiXvaqjYecK9Gyo9ZunaJ65fFcom5wZiwX/eGPqePzvuLHYMcbGdc/8bazflovp0KLmxn1Xot5635xrxknvXa5WTieCqMW/9lHHs9bv0fTr0at3rFP/aUmJE=
+  </data>
+ </layer>
+ <layer name="PlayerKill" width="51" height="36" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJzt10sKgDAMANH2/rfzRFLcuAitbcyHMA/cRclgN23tX1efP++5TFZ7f+2KpG2I6pHOhkeDRffOXpb/w6tnZ1bTZNniTToDJ9+I7pB20bxfAS150QIAwGN1H5Hmssp6vz1RpWOo0gEAAAB/N170j2s=
+  </data>
+ </layer>
+ <layer name="Collision" width="51" height="36" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T20MH6AAAAAAAAAAPgYcsAAB
+  </data>
+ </layer>
+</map>

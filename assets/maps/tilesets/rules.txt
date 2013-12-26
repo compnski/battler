@@ -1,0 +1,2 @@
+automap/collision_rules.tmx
+automap/player_kill_rules.tmx
