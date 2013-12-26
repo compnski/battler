@@ -1,0 +1,59 @@
+Important Screens:
+
+- Battle
+- Char / Inventory
+- Barracks
+- Shops
+- Overworld map
+- Battle animations
+
+
+Flows:
+
+Battle
+* Start
+ * Choose Units
+ * Equip
+ * Set positioning
+* Show details info on a unit
+* Unit Turn
+ * Move
+ * Select target
+ * Select action [attack / ability]
+ * choose weapon
+* Battle forecast
+* Character dialog
+
+Possible unit actions?
+* attack
+* ability
+* item
+
+Char / Inventory
+* See all stats
+* Change classes ?
+* Change gear
+
+Barracks
+* Upgrade gear
+* Try gear/weapons on a dummy?
+* Talk to party members?
+
+Shops
+* Buy gear
+* Sell stuff
+
+Overworld map
+* Quick travel?
+* Graph or overland?
+* Find loots
+* Do side-quests?
+
+Battle animations?
+* Animation showing all effects
+
+
+Open questions?
+* how to resolve speed ties
+* Maybe some actions do / don't allow counter-attack
+* defend to guard a nearby friendly?
