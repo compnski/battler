@@ -34,6 +34,18 @@ package io.arkeus.tiled {
 			properties[key] = value;
 		}
 		
+		public function has(key:String):Boolean {
+			return properties.hasOwnProperty(key);
+		}
+		
+		public function extend(props:TiledProperties):void {
+			for (var key:String in props.properties) {
+				if(!has(key)) {
+					set(key, props.get(key));
+				}
+			}
+		}
+		
 		/**
 		 * Creates a list of all properties.
 		 */
