@@ -2,6 +2,8 @@ package com.dreamofninjas.battler
 {
 	import com.dreamofninjas.core.app.BaseModel;
 	
+	import io.arkeus.tiled.TiledObject;
+	
 	public class BattleModel extends BaseModel
 	{
 		
@@ -10,6 +12,12 @@ package com.dreamofninjas.battler
 		}
 		public function get targetUnit():UnitModel {
 			return _targetUnit;
+		}
+		public function get units():Vector.<UnitModel> {
+			return _units;
+		}
+		public function get mapModel():MapModel {
+			return _mapModel;
 		}
 		
 		public var active:Boolean;
@@ -20,14 +28,20 @@ package com.dreamofninjas.battler
 		// Child Models -- Ownership??
 		private var _units:Vector.<UnitModel> = new Vector.<UnitModel>();
 		private var _mapModel:MapModel;
-		private var _playerModel:PlayerModel;
 		private var _factions:Vector.<FactionModel>;
 		
-		public function BattleModel(mapModel:MapModel, playerModel:PlayerModel, factions:Vector.<FactionModel>)	{
+		public function BattleModel(mapModel:MapModel, factions:Vector.<FactionModel>)	{
 			super();
-			_playerModel = playerModel;
 			_mapModel = mapModel;
 			_factions = factions;
+			for  each(var faction:FactionModel in factions) {
+				for each(var spawn:TiledObject in _mapModel.getSpawnsForFaction(faction.name)) {
+					_units.push(faction.spawnUnit(spawn));				
+				}
+			}
+			if( _units.length > 0) {
+				_targetUnit = _units[0];
+			}
 		}	
 	}
 }

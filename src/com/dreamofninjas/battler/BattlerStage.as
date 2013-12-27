@@ -1,6 +1,5 @@
 package com.dreamofninjas.battler
 {
-	import com.dreamofninjas.UnitDetailView;
 	import com.dreamofninjas.core.app.BaseView;
 	import com.dreamofninjas.core.util.MultiLoader;
 	
@@ -22,8 +21,6 @@ package com.dreamofninjas.battler
 		private var _timerController:*;
 		private var _timerView:BaseView;
 		
-		private var _targetUnitView:UnitDetailView;
-		private var _selectedUnitView:UnitDetailView;
 		
 		private var _item:BattleModel;
 		
@@ -54,23 +51,13 @@ package com.dreamofninjas.battler
 				_assetManager.addTextureAtlas(atlas.name, atlas.textures);
 			}
 			var mapModel:MapModel = new MapModel(map);
-			var mapView:MapView = new MapView(new Rectangle(0, 0, 1280, 720), mapModel);			
-			addChild(mapView);
 
 			var playerModel:PlayerModel = new PlayerModel();
 			var factions:Vector.<FactionModel> = new Vector.<FactionModel>;
-			_item = new BattleModel(mapModel, playerModel, factions);
+			factions.push(new FactionModel("Enemy"));
+			factions.push(playerModel);
 			
-			_targetUnitView = new TargetUnitDetailView(_item, null);
-			_targetUnitView.x = 96;
-			_targetUnitView.y = 64;
-			addChild(_targetUnitView);	
-			
-			_selectedUnitView = new CurrentUnitDetailView(_item, null);
-			_selectedUnitView.x = 892;
-			_selectedUnitView.y = 64;
-			addChild(_selectedUnitView);
-			
+			_item = new BattleModel(mapModel, factions);
 			
 			
 			sortChildren(function(a:BaseView, b:BaseView):int {

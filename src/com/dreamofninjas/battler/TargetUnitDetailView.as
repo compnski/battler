@@ -1,6 +1,5 @@
 package com.dreamofninjas.battler
 {
-	import com.dreamofninjas.UnitDetailView;
 	
 	import flash.geom.Rectangle;
 	
@@ -10,7 +9,7 @@ package com.dreamofninjas.battler
 	{
 		public function TargetUnitDetailView(battleModel:BattleModel, clipRect:Rectangle)
 		{
-			super(null, clipRect);
+			super(battleModel.targetUnit, clipRect);
 			battleModel.addEventListener(Event.CHANGE, battleModelUpdated);
 		}
 		

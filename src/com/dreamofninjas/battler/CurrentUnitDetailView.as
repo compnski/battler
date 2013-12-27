@@ -1,6 +1,5 @@
 package com.dreamofninjas.battler
 {
-	import com.dreamofninjas.UnitDetailView;
 	
 	import flash.geom.Rectangle;
 	
@@ -9,7 +8,7 @@ package com.dreamofninjas.battler
 	public class CurrentUnitDetailView extends UnitDetailView
 	{
 		public function CurrentUnitDetailView(battleModel:BattleModel, clipRect:Rectangle) {
-			super(null, clipRect);
+			super(battleModel.currentUnit, clipRect);
 		
 			battleModel.addEventListener(Event.CHANGE, battleModelUpdated);
 		}

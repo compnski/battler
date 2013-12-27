@@ -27,6 +27,7 @@ package com.dreamofninjas.battler
 			_item = mapModel;
 			this.width = _item.cols * _tileWidth;
 			this.height = _item.rows * _tileHeight;
+			
 			this.scaleX = 1.5;
 			this.scaleY = 1.5;
 			
@@ -37,6 +38,10 @@ package com.dreamofninjas.battler
 
 			addChild(_gridLayer);
 			addChild(_unitLayer);
+		}
+		
+		public function addUnit(unit:Sprite):void {
+			_unitLayer.addChild(unit);
 		}
 		
 		private function drawTiles():void {

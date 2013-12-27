@@ -22,6 +22,10 @@ package com.dreamofninjas.battler
 		
 		protected var _map:TiledMap;
 		
+		public function get factionNames():Array {
+			return ["Player", "Enemy"]
+		};
+		
 		public function MapModel(map:TiledMap) {
 			super();
 			_map = map;
@@ -43,7 +47,7 @@ package com.dreamofninjas.battler
 		
 		public function getSpawnsForFaction(faction:String):Vector.<TiledObject> {
 			return (_typeMap[MapObjects.SPAWN] as Vector.<TiledObject>).filter(
-					function(item:TiledObject):Boolean { return item.properties[MapProperties.FACTION] == faction; });
+					function(item:TiledObject, i:int, v:Vector.<TiledObject>):Boolean { return item.properties.get(MapProperties.FACTION) == faction; });
 		}
 		
 		private function loadObjects(layer:TiledObjectLayer):void {
@@ -51,9 +55,8 @@ package com.dreamofninjas.battler
 				var obj:Vector.<TiledObject> = layer.typeMap[type];
 				
 				// Apply layer properties to tile
-				obj.every(function(item:TiledObject, index:int, vector:Vector.<TiledObject>):Boolean {
+				obj.forEach(function(item:TiledObject, index:int, vector:Vector.<TiledObject>):void {
 					item.properties.extend(layer.properties);
-					return true;
 				});
 				
 				if (_typeMap.hasOwnProperty(type)) {
