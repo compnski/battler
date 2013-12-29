@@ -8,7 +8,7 @@ package com.dreamofninjas.battler
 		private var _faction:String;
 		private var _type:String;
 		private var _properties:Dictionary = new Dictionary();
-		
+
 		public function UnitModelBuilder(faction:String, type:String, x:int, y:int) {
 			_properties["TYPE"] = type;
 			_properties["NAME"] = type;
@@ -18,27 +18,32 @@ package com.dreamofninjas.battler
 			_x = x;
 			_y = y;
 		}
-		
+
 		public function withAtk(amt:int):UnitModelBuilder {
 			_properties["ATK"] = amt;
 			return this;
 		}
-		
+
+		public function withSpd(amt:int):UnitModelBuilder {
+			_properties["SPD"] = amt;
+			return this;
+		}
+
 		public function withDef(amt:int):UnitModelBuilder {
 			_properties["DEF"] = amt;
 			return this;
 		}
-		
+
 		public function withHp(amt:int):UnitModelBuilder {
 			_properties["HP"] = amt;
 			return this;
 		}
-		
+
 		public function withMp(amt:int):UnitModelBuilder {
 			_properties["MP"] = amt;
 			return this;
 		}
-		
+
 		public function withName(name:String):UnitModelBuilder {
 			_properties["NAME"] = name;
 			return this;

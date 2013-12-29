@@ -30,7 +30,7 @@
   <properties>
    <property name="faction" value="Player"/>
   </properties>
-  <object name="1" type="Spawn" x="192" y="448" width="32" height="32">
+  <object name="1" type="Spawn" x="160" y="384" width="32" height="32">
    <properties>
     <property name="faction" value="Player"/>
    </properties>
@@ -40,7 +40,7 @@
     <property name="faction" value="Player"/>
    </properties>
   </object>
-  <object name="3" type="Spawn" x="256" y="416" width="32" height="32"/>
+  <object name="3" type="Spawn" x="160" y="320" width="32" height="32"/>
  </objectgroup>
  <objectgroup color="#ff0000" name="EnemySpawn" width="51" height="36">
   <properties>

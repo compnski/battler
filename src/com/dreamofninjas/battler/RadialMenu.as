@@ -25,6 +25,7 @@ package com.dreamofninjas.battler
 			super(new Rectangle(-300,-300, 600, 600));
 			_context = context;
 			_properties = properties;
+			this.touchable = true;
 			addEventListener(Event.ADDED_TO_STAGE, addedToStage);
 		}
 

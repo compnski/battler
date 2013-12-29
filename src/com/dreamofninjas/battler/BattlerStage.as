@@ -28,6 +28,7 @@ package com.dreamofninjas.battler
 		{
 			super(new Rectangle(0, 0, 1280, 720));
 			this.y = 50;
+			this.touchable = true;
 			trace("BattlerStage");
 			mapLoader = new MapLoader("assets/maps/", "test.tmx");
 			mapLoader.addEventListener(Event.COMPLETE, mapLoaded);

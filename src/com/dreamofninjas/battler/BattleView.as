@@ -3,6 +3,7 @@ package com.dreamofninjas.battler
 	import com.dreamofninjas.core.app.BaseView;
 	
 	import flash.geom.Rectangle;
+	import flash.utils.Dictionary;
 	
 	import starling.display.Sprite;
 	import starling.events.Event;
@@ -12,18 +13,22 @@ package com.dreamofninjas.battler
 		private var mapView:MapView;
 		
 		
-		protected var _uiLayer:Sprite = new Sprite();
-		protected var _mapLayer:Sprite = new Sprite();
+		protected var _uiLayer:Sprite = DisplayFactory.getSprite();
+		protected var _mapLayer:Sprite = DisplayFactory.getSprite();
 		
 		private var _targetUnitView:UnitDetailView;
 		private var _selectedUnitView:UnitDetailView;
+		
+		private var unitModelToView:Dictionary = new Dictionary(true);
 
 		
 		public function BattleView(battleModel:BattleModel)
 		{
 			super(new Rectangle(0, 0, 1280, 720));
 			this.battleModel = battleModel;
-			mapView = new MapView(new Rectangle(0, 0, 1280, 720), battleModel.mapModel);			
+			mapView = new MapView(new Rectangle(0, 0, 1280, 720), battleModel.mapModel);
+			this.touchable = true;
+			_mapLayer.touchable = true;
 
 			addEventListener(Event.ADDED_TO_STAGE, addedToStage);
 		}
@@ -38,16 +43,21 @@ package com.dreamofninjas.battler
 			_selectedUnitView.x = 96;
 			_selectedUnitView.y = 64;
 			addChild(_selectedUnitView);
+			//mapView.addEventListener(TileEvent.CLICKED, tileClicked);
+		}
+
+		public function drawRangeOverlay(unit:UnitModel):void {
+			mapView.drawRangeOverlay(unit);
 		}
 		
 		private function addedToStage(evt:Event):void {
 			addChild(mapView);
 			initUi();
-			
 			for each(var unit:UnitModel in battleModel.units) {
-				mapView.addUnit(new UnitView(unit));
+				var unitView:UnitView = new UnitView(unit);
+				unitModelToView[unit] = unitView;
+				mapView.addUnit(unitView);
 			}
-		}
-		
+		}		
 	}
 }

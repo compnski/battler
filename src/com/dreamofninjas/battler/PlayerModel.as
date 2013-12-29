@@ -16,6 +16,7 @@ package com.dreamofninjas.battler
 				.withDef(10)
 				.withHp(50)
 				.withMp(20)
+				.withSpd(30)
 				.withCharId(id++)
 				.build());
 		}

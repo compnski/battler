@@ -18,6 +18,7 @@ package com.dreamofninjas.battler
 		public function BattleSetupView(battleModel:BattleModel) {
 			super();
 			addChild(_setupMenu);
+			this.touchable = true;
 		}
 		
 		private function selectInventory():void {

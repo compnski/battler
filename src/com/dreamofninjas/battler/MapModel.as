@@ -26,6 +26,10 @@ package com.dreamofninjas.battler
 			return ["Player", "Enemy"]
 		};
 		
+		public function getTileAt(r:int, c:int):TileModel {
+			return new TileModel();
+		}
+		
 		public function MapModel(map:TiledMap) {
 			super();
 			_map = map;
@@ -44,6 +48,18 @@ package com.dreamofninjas.battler
 				throw new Error("Failed to load any terrain for map");
 			}
 		}	
+		
+		public function getPathCost(fromR, fromC, toR, toC:int):int {	
+			return Math.abs(toR - fromR) + Math.abs(toC - fromC);
+		}
+		
+		/**
+		 * destination is an object {r:r, c:c}
+		 */
+		
+		public function getRouteForUnit(unit:UnitModel, destination:Object):Route {
+			return new Route(this, unit, destination);
+		}
 		
 		public function getSpawnsForFaction(faction:String):Vector.<TiledObject> {
 			return (_typeMap[MapObjects.SPAWN] as Vector.<TiledObject>).filter(

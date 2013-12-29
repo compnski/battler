@@ -9,5 +9,14 @@ package com.dreamofninjas.battler
 		}
 		// gets all tiles from map
 		// merges all properties?
+		
+		public function getTerrain():String {
+			return "";
+		}
+		
+		public function getTileAuras():Vector.<String> {
+			return new Vector.<String>();
+		}
+		
 	}
 }
