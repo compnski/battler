@@ -7,7 +7,6 @@ package com.dreamofninjas.battler
 	import flash.geom.Rectangle;
 	
 	import starling.animation.Tween;
-	import starling.core.Starling;
 	import starling.display.BlendMode;
 	import starling.display.DisplayObject;
 	import starling.display.Quad;
@@ -74,7 +73,11 @@ package com.dreamofninjas.battler
 				}
 				//TOOD: Signal if it hit something interesting like a unit
 				trace(unitSprite, overlay);
-				dispatchEvent(new TileEvent(TileEvent.CLICKED, loc.x, loc.y, true));
+				//new Point(loc.x, loc.y))
+				var r:int = Math.floor(loc.y / _tileHeight);
+				var c:int = Math.floor(loc.x / _tileWidth);
+
+				dispatchEvent(new TileEvent(TileEvent.CLICKED, true, new GPoint(r, c)));
 			}
 		}			
 			
@@ -82,6 +85,30 @@ package com.dreamofninjas.battler
 			_unitLayer.addChild(unit);
 		}
 		
+		public function drawOverlay(tiles:Array,centerR:int=0, centerC:int=0):void {
+			var overlayBatch:QuadBatch = DisplayFactory.getQuadBatch();
+			overlayBatch.x = centerC * 32;
+			overlayBatch.y = centerR * 32;
+			for each(var tile:Object in tiles) {
+				var q:Quad = new Quad(32, 32, MOVE_OVERLAY_COLOR);
+			//q.touchable = true;
+				q.x = (tile.c - centerR) * 32;
+				q.y = (tile.r - centerC) * 32;
+				overlayBatch.addQuad(q);
+			}
+			overlayBatch.alpha = 0.3;
+			const FADE_TIME:Number = 1.0;
+			var fadeOverlay:Tween = new Tween(overlayBatch, FADE_TIME, "easeOut");
+			fadeOverlay.repeatDelay = 0;
+			fadeOverlay.reverse = true;
+			fadeOverlay.repeatCount = 0;
+			fadeOverlay.fadeTo(0.0);
+			// listen to the progress t.onUpdate = onProgress; // listen to the end t.onComplete = onComplete;
+			
+			
+			//Starling.juggler.add(fadeOverlay);
+			_overlayLayer.addChild(overlayBatch);
+		}
 		
 		public function drawRangeOverlay(unit:UnitModel):void {
 			_overlayLayer.addChild(buildRangeOverlay(unit));

@@ -39,6 +39,9 @@ package com.dreamofninjas.battler
 			_flowController.setNextFlow(flow);
 		}
 			
+		public function name():String {
+			return getQualifiedClassName(this);
+		}
 		
 	}
 }

@@ -46,8 +46,12 @@ package com.dreamofninjas.battler
 			//mapView.addEventListener(TileEvent.CLICKED, tileClicked);
 		}
 
-		public function drawRangeOverlay(unit:UnitModel):void {
-			mapView.drawRangeOverlay(unit);
+		public function getUnit(unit:UnitModel):UnitView {
+			return unitModelToView[unit];
+		}
+		
+		public function drawOverlay(tiles:Array):void {
+			mapView.drawOverlay(tiles);
 		}
 		
 		private function addedToStage(evt:Event):void {

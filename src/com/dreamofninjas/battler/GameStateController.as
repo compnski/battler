@@ -11,6 +11,7 @@ package com.dreamofninjas.battler
 		}
 		
 		public function setNextFlow(flow:IFlow):void {
+			trace("Starting flow " + flow.name());
 			if (currentFlow != null) {
 				flowStack.push(currentFlow);
 				currentFlow.Suspended();
@@ -22,7 +23,7 @@ package com.dreamofninjas.battler
 		
 		private function flowComplete(evt:Event):void {
 			var flow:IFlow = evt.target as IFlow;
-			if (flow != currentFlow) {
+			if (flow.name() != currentFlow.name()) {
 				throw new Error("Only currentFlow can complete. flow=" + flow + " currentFlow=" + currentFlow);
 			}
 			currentFlow = flowStack.pop();

@@ -9,6 +9,6 @@ package com.dreamofninjas.battler
 		function Execute():void;
 		function Suspended():void;
 		function Restored(evt:Event):void;
-
+		function name():String;
 	}
 }
