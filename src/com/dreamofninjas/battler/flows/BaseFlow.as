@@ -1,22 +1,30 @@
-package com.dreamofninjas.battler
+package com.dreamofninjas.battler.flows
 {
 	import avmplus.getQualifiedClassName;
 	
 	import starling.events.Event;
 	import starling.events.EventDispatcher;
+	import com.dreamofninjas.battler.GameStateController;
 
-	public class BaseFlow extends EventDispatcher implements IFlow
+	internal class BaseFlow extends EventDispatcher implements IFlow
 	{
 		private static const _flowController:GameStateController = new GameStateController();
+		private var _active:Boolean = false;
+		
+		public function get active():Boolean {
+			return _active;
+		}
 		
 		public function BaseFlow()
 		{
 		}
 		
 		public function Restored(evt:Event):void {
-			
+			_active = true;
 		}
+
 		public function Suspended():void {
+			_active = false;
 			
 		}
 		
@@ -26,11 +34,13 @@ package com.dreamofninjas.battler
 		}
 		
 		public function Execute():void {
-			trace("Default execute for " + getQualifiedClassName(this));
-			Complete();
+			_active = true;
+//			trace("Default execute for " + getQualifiedClassName(this));
+			//Complete();
 		}
 		
 		protected function Complete():void {
+			_active = false;
 			dispatchEvent(new Event(Event.COMPLETE));
 			removeEventListeners();
 		}
@@ -45,3 +55,4 @@ package com.dreamofninjas.battler
 		
 	}
 }
+

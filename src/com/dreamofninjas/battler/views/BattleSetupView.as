@@ -1,8 +1,9 @@
-package com.dreamofninjas.battler
+package com.dreamofninjas.battler.views
 {
 	import com.dreamofninjas.core.app.BaseView;
 	
 	import starling.events.Event;
+	import com.dreamofninjas.battler.models.BattleModel;
 	
 
 	public class BattleSetupView extends BaseView

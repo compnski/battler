@@ -1,4 +1,4 @@
-package com.dreamofninjas.battler
+package com.dreamofninjas.battler.views
 {
 	
 	import com.dreamofninjas.core.app.BaseView;
@@ -15,6 +15,11 @@ package com.dreamofninjas.battler
 	import starling.events.Event;
 	import starling.events.Touch;
 	import starling.events.TouchEvent;
+	import com.dreamofninjas.battler.models.MapModel;
+	import com.dreamofninjas.battler.models.UnitModel;
+	import com.dreamofninjas.battler.DisplayFactory;
+	import com.dreamofninjas.battler.GPoint;
+	import com.dreamofninjas.battler.TileEvent;
 
 	public class MapView extends BaseView
 	{
@@ -167,7 +172,7 @@ package com.dreamofninjas.battler
 			for (var r:uint = 0; r < _item.rows; r++) {
 				for (var c:uint = 0; c < _item.cols; c++) {
 					var tileId:int = _item.terrainData[r][c];
-					var tile:Tile = new Tile(tileId, _assetManager.getTexture("tile_" + tileId));
+					var tile:TileView = new TileView(tileId, _assetManager.getTexture("tile_" + tileId));
 					tile.x = c * tile.width;
 					tile.y = r * tile.height;
 					_tileLayer.addChild(tile);

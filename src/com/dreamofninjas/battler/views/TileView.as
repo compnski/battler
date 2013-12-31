@@ -1,15 +1,15 @@
-package com.dreamofninjas.battler
+package com.dreamofninjas.battler.views
 {
 	import com.dreamofninjas.core.app.BaseView;
 	
 	import starling.display.Image;
 	import starling.textures.Texture;
 	
-	public class Tile extends BaseView
+	public class TileView extends BaseView
 	{ 
 		protected var _backgroundImage:Image;
 		
-		public function Tile(tileId:int, backgroundTexture:Texture)
+		public function TileView(tileId:int, backgroundTexture:Texture)
 		{
 			super();
 			this.touchable = true;

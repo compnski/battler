@@ -1,4 +1,4 @@
-package com.dreamofninjas.battler
+package com.dreamofninjas.battler.views
 {
 	public class RadialMenuBuilder {
 		public function RadialMenuBuilder() {		}

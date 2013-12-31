@@ -1,10 +1,11 @@
-package com.dreamofninjas.battler
+package com.dreamofninjas.battler.views
 {
 	import com.dreamofninjas.core.app.BaseView;
 	
 	import starling.display.Quad;
 	import starling.events.Event;
 	import starling.filters.BlurFilter;
+	import com.dreamofninjas.battler.models.UnitModel;
 
 	public class UnitView extends BaseView {
 		

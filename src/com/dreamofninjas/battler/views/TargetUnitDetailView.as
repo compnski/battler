@@ -1,9 +1,10 @@
-package com.dreamofninjas.battler
+package com.dreamofninjas.battler.views
 {
 	
 	import flash.geom.Rectangle;
 	
 	import starling.events.Event;
+	import com.dreamofninjas.battler.models.BattleModel;
 	
 	public class TargetUnitDetailView extends UnitDetailView
 	{

@@ -1,4 +1,4 @@
-package com.dreamofninjas.battler
+package com.dreamofninjas.battler.views
 {
 	import com.dreamofninjas.core.app.BaseView;
 	
@@ -8,6 +8,7 @@ package com.dreamofninjas.battler
 	import starling.events.Event;
 	import starling.filters.BlurFilter;
 	import starling.text.TextField;
+	import com.dreamofninjas.battler.models.UnitModel;
 	
 	public class UnitDetailView extends BaseView {
 		

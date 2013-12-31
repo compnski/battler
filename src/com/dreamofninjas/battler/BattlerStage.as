@@ -9,6 +9,12 @@ package com.dreamofninjas.battler
 	
 	import starling.display.Quad;
 	import starling.events.Event;
+	import com.dreamofninjas.battler.flows.BattleFlow;
+	import com.dreamofninjas.battler.flows.InitialFlow;
+	import com.dreamofninjas.battler.models.MapModel;
+	import com.dreamofninjas.battler.models.PlayerModel;
+	import com.dreamofninjas.battler.models.BattleModel;
+	import com.dreamofninjas.battler.views.MapView;
 
 	public class BattlerStage extends BaseView {
 		protected var initialAssetLoader:MultiLoader = new MultiLoader();

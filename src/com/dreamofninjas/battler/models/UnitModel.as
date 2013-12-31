@@ -1,10 +1,11 @@
-package com.dreamofninjas.battler
+package com.dreamofninjas.battler.models
 {
 	import com.dreamofninjas.core.app.BaseModel;
 	
 	import flash.utils.Dictionary;
 	
 	import starling.events.Event;
+	import com.dreamofninjas.battler.UnitModelBuilder;
 
 	public class UnitModel extends BaseModel {
 		public static const Builder:Class = UnitModelBuilder;

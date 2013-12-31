@@ -1,4 +1,4 @@
-package com.dreamofninjas.battler
+package com.dreamofninjas.battler.models
 {
 	import com.dreamofninjas.core.app.BaseModel;
 	
@@ -9,6 +9,9 @@ package com.dreamofninjas.battler
 	import io.arkeus.tiled.TiledObject;
 	import io.arkeus.tiled.TiledObjectLayer;
 	import io.arkeus.tiled.TiledTileLayer;
+	import com.dreamofninjas.battler.MapObjects;
+	import com.dreamofninjas.battler.MapProperties;
+	import com.dreamofninjas.battler.Route;
 	
 	public class MapModel extends BaseModel
 	{

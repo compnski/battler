@@ -1,6 +1,7 @@
 package com.dreamofninjas.battler
 {
 	import flash.utils.Dictionary;
+	import com.dreamofninjas.battler.models.UnitModel;
 
 	public class UnitModelBuilder {
 		private var _x:int;

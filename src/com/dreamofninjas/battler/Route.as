@@ -1,5 +1,7 @@
 package com.dreamofninjas.battler
 {
+	import com.dreamofninjas.battler.models.MapModel;
+	import com.dreamofninjas.battler.models.UnitModel;
 	
 	/**
 	 * Route holds a path for a given unit to a given destination.

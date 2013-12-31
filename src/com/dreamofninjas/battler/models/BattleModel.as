@@ -1,10 +1,11 @@
-package com.dreamofninjas.battler
+package com.dreamofninjas.battler.models
 {
 	import com.dreamofninjas.core.app.BaseModel;
 	
 	import io.arkeus.tiled.TiledObject;
 	
 	import starling.events.Event;
+	import com.dreamofninjas.battler.FactionModel;
 
 	public class BattleModel extends BaseModel
 	{

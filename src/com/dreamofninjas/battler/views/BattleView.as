@@ -1,4 +1,4 @@
-package com.dreamofninjas.battler
+package com.dreamofninjas.battler.views
 {
 	import com.dreamofninjas.core.app.BaseView;
 	
@@ -7,6 +7,9 @@ package com.dreamofninjas.battler
 	
 	import starling.display.Sprite;
 	import starling.events.Event;
+	import com.dreamofninjas.battler.models.UnitModel;
+	import com.dreamofninjas.battler.models.BattleModel;
+	import com.dreamofninjas.battler.DisplayFactory;
 	
 	public class BattleView extends BaseView {
 		private var battleModel:BattleModel;

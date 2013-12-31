@@ -1,6 +1,7 @@
 package com.dreamofninjas.battler
 {
 	import flash.geom.Point;
+	import com.dreamofninjas.battler.models.TileModel;
 
 	public class PathUtils
 	{
