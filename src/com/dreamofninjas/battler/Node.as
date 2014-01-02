@@ -1,5 +1,7 @@
 package com.dreamofninjas.battler
 {
+	import com.dreamofninjas.core.ui.GPoint;
+
 	public class Node {
 		public var cost:int;
 		public var totalCost:int;

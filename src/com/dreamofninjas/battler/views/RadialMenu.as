@@ -6,7 +6,7 @@ package com.dreamofninjas.battler.views
 	import flash.utils.Dictionary;
 	
 	import starling.events.Event;
-	import com.dreamofninjas.battler.StandardButton;
+	import com.dreamofninjas.core.ui.StandardButton;
 	
 	public class RadialMenu extends BaseView
 	{

@@ -4,6 +4,7 @@ package com.dreamofninjas.battler.flows
 	import com.dreamofninjas.battler.models.BattleModel;
 	import com.dreamofninjas.battler.views.BattleSetupView;
 	import com.dreamofninjas.battler.views.BattleView;
+	import com.dreamofninjas.core.app.BaseFlow;
 	
 	public class BattleSetupFlow extends BaseFlow {
 		

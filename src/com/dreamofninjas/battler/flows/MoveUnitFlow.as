@@ -2,8 +2,9 @@ package com.dreamofninjas.battler.flows
 {
 	import starling.animation.Juggler;
 	import starling.animation.Tween;
-	import com.dreamofninjas.battler.GPoint;
+	import com.dreamofninjas.core.ui.GPoint;
 	import com.dreamofninjas.battler.views.UnitView;
+	import com.dreamofninjas.core.app.BaseFlow;
 	
 	internal class MoveUnitFlow extends BaseFlow {
 		

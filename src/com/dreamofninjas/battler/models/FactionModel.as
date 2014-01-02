@@ -1,9 +1,8 @@
-package com.dreamofninjas.battler
+package com.dreamofninjas.battler.models
 {
 	import com.dreamofninjas.core.app.BaseModel;
 
 	import io.arkeus.tiled.TiledObject;
-	import com.dreamofninjas.battler.models.UnitModel;
 
 	/*
 	*	Reads faction from properties, eventually read name/type — do lookup from there. Optionally override.

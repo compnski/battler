@@ -3,6 +3,7 @@ package com.dreamofninjas.battler
 	import com.dreamofninjas.battler.models.Terrain;
 	import com.dreamofninjas.battler.models.TileModel;
 	import com.dreamofninjas.battler.models.UnitModel;
+	import com.dreamofninjas.core.ui.GPoint;
 
 	public class PathUtils
 	{

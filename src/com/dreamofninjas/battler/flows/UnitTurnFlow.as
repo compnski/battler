@@ -1,6 +1,6 @@
 package com.dreamofninjas.battler.flows
 {
-	import com.dreamofninjas.battler.GPoint;
+	import com.dreamofninjas.core.ui.GPoint;
 	import com.dreamofninjas.battler.Node;
 	import com.dreamofninjas.battler.PathUtils;
 	import com.dreamofninjas.battler.TileEvent;
@@ -13,6 +13,7 @@ package com.dreamofninjas.battler.flows
 	import starling.core.Starling;
 	import starling.display.DisplayObject;
 	import starling.events.Event;
+	import com.dreamofninjas.core.app.BaseFlow;
 
 	public class UnitTurnFlow extends BaseFlow {
 		private var battleModel:BattleModel;

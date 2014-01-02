@@ -1,6 +1,6 @@
 package com.dreamofninjas.battler.models
 {
-	import com.dreamofninjas.battler.GPoint;
+	import com.dreamofninjas.core.ui.GPoint;
 	import com.dreamofninjas.core.app.BaseModel;
 	
 	public class TileModel extends BaseModel {

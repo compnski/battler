@@ -1,6 +1,6 @@
 package com.dreamofninjas.battler.models
 {
-	import com.dreamofninjas.battler.GPoint;
+	import com.dreamofninjas.core.ui.GPoint;
 	import com.dreamofninjas.battler.MapObjects;
 	import com.dreamofninjas.battler.MapProperties;
 	import com.dreamofninjas.battler.Route;
@@ -58,19 +58,7 @@ package com.dreamofninjas.battler.models
 				throw new Error("Failed to load any terrain for map");
 			}
 		}	
-		
-		public function getPathCost(fromR, fromC, toR, toC:int):int {	
-			return Math.abs(toR - fromR) + Math.abs(toC - fromC);
-		}
-		
-		/**
-		 * destination is an object {r:r, c:c}
-		 */
-		
-		public function getRouteForUnit(unit:UnitModel, destination:Object):Route {
-			return new Route(this, unit, destination);
-		}
-		
+				
 		public function getSpawnsForFaction(faction:String):Vector.<TiledObject> {
 			return (_typeMap[MapObjects.SPAWN] as Vector.<TiledObject>).filter(
 				function(item:TiledObject, i:int, v:Vector.<TiledObject>):Boolean { return item.properties.get(MapProperties.FACTION) == faction; });

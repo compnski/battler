@@ -5,6 +5,7 @@ package com.dreamofninjas.battler.flows
 	
 	import starling.display.DisplayObjectContainer;
 	import starling.events.Event;
+	import com.dreamofninjas.core.app.BaseFlow;
 
 	public class BattleFlow extends BaseFlow
 	{

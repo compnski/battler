@@ -1,12 +1,11 @@
-package com.dreamofninjas.battler.flows
+package com.dreamofninjas.core.app
 {
 	import avmplus.getQualifiedClassName;
 	
 	import starling.events.Event;
 	import starling.events.EventDispatcher;
-	import com.dreamofninjas.battler.GameStateController;
 
-	internal class BaseFlow extends EventDispatcher implements IFlow
+	public class BaseFlow extends EventDispatcher implements IFlow
 	{
 		private static const _flowController:GameStateController = new GameStateController();
 		private var _active:Boolean = false;

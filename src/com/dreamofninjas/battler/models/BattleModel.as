@@ -5,7 +5,6 @@ package com.dreamofninjas.battler.models
 	import io.arkeus.tiled.TiledObject;
 	
 	import starling.events.Event;
-	import com.dreamofninjas.battler.FactionModel;
 
 	public class BattleModel extends BaseModel
 	{

@@ -15,6 +15,8 @@ package com.dreamofninjas.battler
 	import com.dreamofninjas.battler.models.PlayerModel;
 	import com.dreamofninjas.battler.models.BattleModel;
 	import com.dreamofninjas.battler.views.MapView;
+	import com.dreamofninjas.battler.models.FactionModel;
+	import com.dreamofninjas.battler.util.MapLoader;
 
 	public class BattlerStage extends BaseView {
 		protected var initialAssetLoader:MultiLoader = new MultiLoader();
@@ -72,7 +74,7 @@ package com.dreamofninjas.battler
 			});
 			
 			var bf:BattleFlow = new BattleFlow(_item, this);
-			new InitialFlow(bf);			
+			new InitialFlow(bf);
 		}
 
 		private function mazpLoaded(evt:Event):void {

@@ -1,8 +1,8 @@
 package com.dreamofninjas.battler.views
 {
 	
-	import com.dreamofninjas.battler.DisplayFactory;
-	import com.dreamofninjas.battler.GPoint;
+	import com.dreamofninjas.core.ui.DisplayFactory;
+	import com.dreamofninjas.core.ui.GPoint;
 	import com.dreamofninjas.battler.TileEvent;
 	import com.dreamofninjas.battler.models.MapModel;
 	import com.dreamofninjas.battler.models.UnitModel;
@@ -113,59 +113,6 @@ package com.dreamofninjas.battler.views
 			
 			//Starling.juggler.add(fadeOverlay);
 			_overlayLayer.addChild(overlayBatch);
-			return overlayBatch;
-		}
-		
-		public function drawRangeOverlay(unit:UnitModel):void {
-			_overlayLayer.addChild(buildRangeOverlay(unit));
-			//flatten();
-		}
-		// TODO: Hoist model code out? Just take in tiles
-		public function buildRangeOverlay(unit:UnitModel):QuadBatch {
-			var overlayBatch:QuadBatch = DisplayFactory.getQuadBatch();
-	//		_overlayLayer.touchable = true;
-			//overlayBatch.touchable = true;
-			var overlayInfo:Array = new Array();
-			var minR:int = unit.r - unit.move;
-			var maxR:int = unit.r + unit.move;
-			var minC:int = unit.c - unit.move;
-			var maxC:int = unit.c + unit.move;
-			trace("Build range overlage  " + [minR, maxR, minC, maxC]);
-			var reachable:Array = new Array();
-			overlayBatch.x = unit.x;
-			overlayBatch.y = unit.y;
-			
-			for (var r:int = minR; r <= maxR; r++) {
-				for (var c:int = minC; c <= maxC; c++) {
-					if (_item.getPathCost(unit.r, unit.c, r, c) < unit.move) {
-						// draw blue square
-						reachable.push({r:r, c:c});
-						overlayInfo.push({r:r, c:c, type:OVERLAY_MOVE});
-						var q:Quad = new Quad(32, 32, MOVE_OVERLAY_COLOR);
-						//q.touchable = true;
-						q.x = (unit.r - r) * 32;
-						q.y = (unit.c - c) * 32;
-						overlayBatch.addQuad(q);
-					}
-				}
-			}
-			overlayBatch.alpha = 0.3;
-			const FADE_TIME:Number = 1.0;
-			var fadeOverlay:Tween = new Tween(overlayBatch, FADE_TIME, "easeOut");
-			fadeOverlay.repeatDelay = 0;
-			fadeOverlay.reverse = true;
-			fadeOverlay.repeatCount = 0;
-			fadeOverlay.fadeTo(0.0);
-			// listen to the progress t.onUpdate = onProgress; // listen to the end t.onComplete = onComplete;
-			
-			
-			//Starling.juggler.add(fadeOverlay);
-			// from reachable, calculate attacks
-			//if (unit.canAttach(r, c)) {
-			//	overlayInfo.push({r:r, c:c, type:OVERLAY_ATTACK);
-			// draw red square
-			//}else 
-
 			return overlayBatch;
 		}
 		

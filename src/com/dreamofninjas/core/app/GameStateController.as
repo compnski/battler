@@ -1,7 +1,6 @@
-package com.dreamofninjas.battler
+package com.dreamofninjas.core.app
 {
 	import starling.events.Event;
-	import com.dreamofninjas.battler.flows.IFlow;
 
 	public class GameStateController
 	{

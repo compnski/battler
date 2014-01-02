@@ -1,4 +1,4 @@
-package com.dreamofninjas.battler.flows
+package com.dreamofninjas.core.app
 {
 	import starling.events.Event;
 

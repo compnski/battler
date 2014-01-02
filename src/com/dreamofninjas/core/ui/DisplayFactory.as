@@ -1,4 +1,4 @@
-package com.dreamofninjas.battler
+package com.dreamofninjas.core.ui
 {
 	import starling.display.QuadBatch;
 	import starling.display.Sprite;

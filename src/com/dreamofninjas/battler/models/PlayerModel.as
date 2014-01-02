@@ -1,7 +1,6 @@
 package com.dreamofninjas.battler.models
 {
 	import io.arkeus.tiled.TiledObject;
-	import com.dreamofninjas.battler.FactionModel;
 
 	public class PlayerModel extends FactionModel
 	{

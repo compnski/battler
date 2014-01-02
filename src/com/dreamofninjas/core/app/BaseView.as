@@ -7,7 +7,7 @@ package com.dreamofninjas.core.app
 	import starling.display.Sprite;
 	import starling.utils.AssetManager;
 	
-	public class BaseView extends Sprite 
+	public class BaseView extends Sprite implements ViewHandle
 	{
 		static protected const _assetManager:AssetManager = new AssetManager();
 		protected var juggler:Juggler;
@@ -23,6 +23,14 @@ package com.dreamofninjas.core.app
 			this.clipRect = clipRect;
 			this.juggler = Starling.juggler;
 			this.touchable = false;
+		}
+		
+		public function show():void {
+			this.visible = true;
+		}
+		
+		public function hide():void {
+			this.visible = false;
+		}
 	}
-}
 }

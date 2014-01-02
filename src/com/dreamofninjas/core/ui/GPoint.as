@@ -1,4 +1,4 @@
-package com.dreamofninjas.battler
+package com.dreamofninjas.core.ui
 {
 	public class GPoint
 	{
