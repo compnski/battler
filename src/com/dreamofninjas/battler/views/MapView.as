@@ -3,7 +3,7 @@ package com.dreamofninjas.battler.views
 	
 	import com.dreamofninjas.core.ui.DisplayFactory;
 	import com.dreamofninjas.core.ui.GPoint;
-	import com.dreamofninjas.battler.TileEvent;
+	import com.dreamofninjas.battler.events.TileEvent;
 	import com.dreamofninjas.battler.models.MapModel;
 	import com.dreamofninjas.battler.models.UnitModel;
 	import com.dreamofninjas.core.app.BaseView;

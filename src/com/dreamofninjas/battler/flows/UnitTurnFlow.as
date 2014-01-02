@@ -3,7 +3,7 @@ package com.dreamofninjas.battler.flows
 	import com.dreamofninjas.core.ui.GPoint;
 	import com.dreamofninjas.battler.Node;
 	import com.dreamofninjas.battler.PathUtils;
-	import com.dreamofninjas.battler.TileEvent;
+	import com.dreamofninjas.battler.events.TileEvent;
 	import com.dreamofninjas.battler.models.BattleModel;
 	import com.dreamofninjas.battler.models.UnitModel;
 	import com.dreamofninjas.battler.views.BattleView;
