@@ -9,8 +9,11 @@ package io.arkeus.tiled {
 		public var tile:int;
 		/** The terrain properties. */
 		public var properties:TiledProperties;
+		/** The terrain id, used for reference inside this file. */
+		public var id:uint;
 		
-		public function TiledTerrain(terrain:XML) {
+		public function TiledTerrain(id:int, terrain:XML) {
+			this.id = id;
 			name = terrain.@name;
 			tile = terrain.@tile;
 			properties = new TiledProperties(terrain.properties);

@@ -1,15 +1,16 @@
 package com.dreamofninjas.battler.views
 {
+	import com.dreamofninjas.battler.DisplayFactory;
+	import com.dreamofninjas.battler.models.BattleModel;
+	import com.dreamofninjas.battler.models.UnitModel;
 	import com.dreamofninjas.core.app.BaseView;
 	
 	import flash.geom.Rectangle;
 	import flash.utils.Dictionary;
 	
+	import starling.display.DisplayObject;
 	import starling.display.Sprite;
 	import starling.events.Event;
-	import com.dreamofninjas.battler.models.UnitModel;
-	import com.dreamofninjas.battler.models.BattleModel;
-	import com.dreamofninjas.battler.DisplayFactory;
 	
 	public class BattleView extends BaseView {
 		private var battleModel:BattleModel;
@@ -53,8 +54,8 @@ package com.dreamofninjas.battler.views
 			return unitModelToView[unit];
 		}
 		
-		public function drawOverlay(tiles:Array):void {
-			mapView.drawOverlay(tiles);
+		public function drawOverlay(tiles:Array):DisplayObject {
+			return mapView.drawOverlay(tiles);
 		}
 		
 		private function addedToStage(evt:Event):void {

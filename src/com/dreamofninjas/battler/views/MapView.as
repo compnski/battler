@@ -1,6 +1,11 @@
 package com.dreamofninjas.battler.views
 {
 	
+	import com.dreamofninjas.battler.DisplayFactory;
+	import com.dreamofninjas.battler.GPoint;
+	import com.dreamofninjas.battler.TileEvent;
+	import com.dreamofninjas.battler.models.MapModel;
+	import com.dreamofninjas.battler.models.UnitModel;
 	import com.dreamofninjas.core.app.BaseView;
 	
 	import flash.geom.Point;
@@ -15,11 +20,6 @@ package com.dreamofninjas.battler.views
 	import starling.events.Event;
 	import starling.events.Touch;
 	import starling.events.TouchEvent;
-	import com.dreamofninjas.battler.models.MapModel;
-	import com.dreamofninjas.battler.models.UnitModel;
-	import com.dreamofninjas.battler.DisplayFactory;
-	import com.dreamofninjas.battler.GPoint;
-	import com.dreamofninjas.battler.TileEvent;
 
 	public class MapView extends BaseView
 	{
@@ -46,8 +46,8 @@ package com.dreamofninjas.battler.views
 			this.width = _item.cols * _tileWidth;
 			this.height = _item.rows * _tileHeight;
 			
-			this.scaleX = 1.5;
-			this.scaleY = 1.5;
+			this.scaleX = 1.1;
+			this.scaleY = 1.1;
 			
 			addEventListener(Event.ADDED_TO_STAGE, addedToStage);
 		}
@@ -90,7 +90,7 @@ package com.dreamofninjas.battler.views
 			_unitLayer.addChild(unit);
 		}
 		
-		public function drawOverlay(tiles:Array,centerR:int=0, centerC:int=0):void {
+		public function drawOverlay(tiles:Array,centerR:int=0, centerC:int=0):DisplayObject {
 			var overlayBatch:QuadBatch = DisplayFactory.getQuadBatch();
 			overlayBatch.x = centerC * 32;
 			overlayBatch.y = centerR * 32;
@@ -113,6 +113,7 @@ package com.dreamofninjas.battler.views
 			
 			//Starling.juggler.add(fadeOverlay);
 			_overlayLayer.addChild(overlayBatch);
+			return overlayBatch;
 		}
 		
 		public function drawRangeOverlay(unit:UnitModel):void {

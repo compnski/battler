@@ -31,6 +31,31 @@ package io.arkeus.tiled {
 				}
 			}
 		}
+
+		public function getTile(tileId:int):TiledTile {
+			var ts:TiledTileset = getTilesetForTile(tileId);
+			if (getTilesetForTile(tileId).tiles[tileId] == null) {
+				throw new Error("");
+			}
+			return getTilesetForTile(tileId).tiles[tileId];
+		}
+		
+		public function getTerrainById(tileId:int, terrainId:String):TiledTerrain {
+			return getTilesetForTile(tileId).terrainById[terrainId];
+		}
+		
+		public function getTilesetForTile(tileId:int):TiledTileset {
+			for each (var tileset:TiledTileset in tilesetsVector) {
+				if ( tileset.firstGid <= tileId && tileId <= tileset.lastGid) {
+					if(tileset == null) {
+						trace("no tileset for " + tileId);
+						throw new Error("");
+					}
+					return tileset;
+				}
+			}
+			return null;
+		}		
 		
 		private function createTilesetHandler(loadPath:String, tmx:XML):Function {
 			return function (evt:Event):void {
@@ -43,7 +68,7 @@ package io.arkeus.tiled {
 		public override function load(timeout:uint=0):void {
 			super.load(timeout);
 			_allTilesetLoader.addEventListener(Event.COMPLETE, function(evt:Event):void { loadComplete(this) });
-			_allTerrainLoader.addEventListener(Event.COMPLETE, function():void { _allTilesetLoader.load() });
+			_allTerrainLoader.addEventListener(Event.COMPLETE, function(evt:Event):void { _allTilesetLoader.load() });
 			_allTerrainLoader.load();
 		}
 		

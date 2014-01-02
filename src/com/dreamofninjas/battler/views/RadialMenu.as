@@ -66,7 +66,6 @@ package com.dreamofninjas.battler.views
 			btn.y = y;
 			return btn;
 		}
-		
 	}
 }
 

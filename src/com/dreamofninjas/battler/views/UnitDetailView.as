@@ -32,6 +32,7 @@ package com.dreamofninjas.battler.views
 			__item = unitModel;
 			if (__item) {
 				__item.addEventListener(Event.CHANGE, modelUpdated);
+				modelUpdated(null);
 			}
 		}
 		
@@ -65,7 +66,6 @@ package com.dreamofninjas.battler.views
 		protected function modelUpdated(evt:Event):void {
 			//_nameLabel.text = _item.name;
 			_factionLabel.text = _item.faction;
-			trace(_factionLabel.text);
 			_typeLabel.text = _item.type;
 			
 			relayout()

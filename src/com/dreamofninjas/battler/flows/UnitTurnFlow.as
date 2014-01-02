@@ -1,19 +1,30 @@
 package com.dreamofninjas.battler.flows
 {
-	import starling.core.Starling;
-	import starling.events.Event;
-	import com.dreamofninjas.battler.models.BattleModel;
-	import com.dreamofninjas.battler.views.BattleView;
 	import com.dreamofninjas.battler.GPoint;
 	import com.dreamofninjas.battler.Node;
 	import com.dreamofninjas.battler.PathUtils;
 	import com.dreamofninjas.battler.TileEvent;
+	import com.dreamofninjas.battler.models.BattleModel;
 	import com.dreamofninjas.battler.models.UnitModel;
+	import com.dreamofninjas.battler.views.BattleView;
+	import com.dreamofninjas.battler.views.RadialMenu;
+	import com.dreamofninjas.battler.views.RadialMenuBuilder;
+	
+	import starling.core.Starling;
+	import starling.display.DisplayObject;
+	import starling.events.Event;
 
 	public class UnitTurnFlow extends BaseFlow {
 		private var battleModel:BattleModel;
 		private var battleView:BattleView;
 		private var unit:UnitModel;
+		private var currentUnitOverlay:DisplayObject;
+		private const attackMenu:RadialMenu = new RadialMenuBuilder()
+					.withUp('Attack', doAttack)
+					.withDown('Wait', doWait)
+					.withLeft('Skill', doSkill)
+					.withRight('Item', doItem)
+					.build();
 		
 		private var reachableArea:Object = {};
 		
@@ -31,7 +42,7 @@ package com.dreamofninjas.battler.flows
 			battleModel.currentUnit = unit;
 			
 			var pathCostFunction:Function = function(loc:GPoint):int {
-				return 1;
+				return PathUtils.getTileCost(unit, battleModel.mapModel.getTileAt(loc));
 			}
 			reachableArea = PathUtils.floodFill(new GPoint(unit.r, unit.c), pathCostFunction, unit.move);
 			
@@ -40,8 +51,9 @@ package com.dreamofninjas.battler.flows
 				overlayTiles.push(node.gpoint);
 			}
 			
-			battleView.drawOverlay(overlayTiles);
+			currentUnitOverlay = battleView.drawOverlay(overlayTiles);
 			battleView.addEventListener(TileEvent.CLICKED, tileClicked);
+			battleView.addChild(attackMenu);
 			// show move overlay
 			// listen for move clicks		
 		}
@@ -69,15 +81,51 @@ package com.dreamofninjas.battler.flows
 			setNextFlow(new MoveUnitFlow(battleView.getUnit(unit), path, Starling.juggler));
 		}
 		
+		private function release():void {
+			attackMenu.removeFromParent();
+			if (currentUnitOverlay) {
+				currentUnitOverlay.removeEventListeners();
+				currentUnitOverlay.removeFromParent();
+				currentUnitOverlay = null;
+			}
+		}
+		
+		public function Complete():void {
+			release();
+			super.Complete();
+		}
+		
+		public override function Suspended():void {
+			currentUnitOverlay.visible = false;
+			attackMenu.visible = false;
+		}
+		
 		public override function Restored(evt:Event):void {
 			super.Restored(evt);
+			currentUnitOverlay.visible = true;
+			attackMenu.visible = true;
+			
 			if (evt.target is MoveUnitFlow) {
 				// :[
 				unit.r = (evt.target as MoveUnitFlow).dest.r;
 				unit.c = (evt.target as MoveUnitFlow).dest.c;
-				// Show after move menu / start next flow.
 			}
 			// add listener [or ignore when not the active flow]?
 		}
+		
+		private function doAttack():void {
+			
+		}
+		private function doWait():void {
+			Complete();
+		}
+		private function doSkill():void {
+			
+		}
+		private function doItem():void {
+			
+		}
+		
+		
 	}
 }

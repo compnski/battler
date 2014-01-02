@@ -1,7 +1,8 @@
 package com.dreamofninjas.battler
 {
-	import flash.geom.Point;
+	import com.dreamofninjas.battler.models.Terrain;
 	import com.dreamofninjas.battler.models.TileModel;
+	import com.dreamofninjas.battler.models.UnitModel;
 
 	public class PathUtils
 	{
@@ -13,6 +14,30 @@ package com.dreamofninjas.battler
 		
 		// unit has getPathCost(terrain, tileAuras):int;
 		// 999 is sentinel for unwalkable.
+		
+		private static const terrainCostMap:Object = {
+			"Lava": 999,
+			"Water": 999,
+			"Sand": 2
+		};
+				
+		/**
+		 * Returns the standard cost of moving across any tile.
+		 * 
+		 */
+		private static function getBaseTerrainCost(terrain:String):uint {
+			if (terrain in terrainCostMap) {
+				return terrainCostMap[terrain];
+			}
+			return 1;
+		}
+		
+		public static function getTileCost(unit:UnitModel, tile:TileModel):uint {
+			var cost:int = tile.terrain.map(function(item:Terrain, i:int, v:Array):int {
+				return getBaseTerrainCost(item.name);
+			}).sort(Array.DESCENDING | Array.NUMERIC)[0];
+			return cost;
+		}
 		
 		private static function getNodeHelper(pathMap:Object, loc:GPoint, parent:Node, pathCost:Function): Node {
 			var cost:int = pathCost(loc);
@@ -60,7 +85,7 @@ package com.dreamofninjas.battler
 		}
 		
 		public static function floodFill(start:GPoint, pathCost:Function, maxDistance:int):Object {
-			var head:Node = new Node(start, 1, null);
+			var head:Node = new Node(start, pathCost(start), null);
 			
 			var nodes:Vector.<Node> = new Vector.<Node>();
 			nodes.push(head);

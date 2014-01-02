@@ -1,5 +1,9 @@
 package com.dreamofninjas.battler.models
 {
+	import com.dreamofninjas.battler.GPoint;
+	import com.dreamofninjas.battler.MapObjects;
+	import com.dreamofninjas.battler.MapProperties;
+	import com.dreamofninjas.battler.Route;
 	import com.dreamofninjas.core.app.BaseModel;
 	
 	import flash.utils.Dictionary;
@@ -9,9 +13,6 @@ package com.dreamofninjas.battler.models
 	import io.arkeus.tiled.TiledObject;
 	import io.arkeus.tiled.TiledObjectLayer;
 	import io.arkeus.tiled.TiledTileLayer;
-	import com.dreamofninjas.battler.MapObjects;
-	import com.dreamofninjas.battler.MapProperties;
-	import com.dreamofninjas.battler.Route;
 	
 	public class MapModel extends BaseModel
 	{
@@ -19,18 +20,23 @@ package com.dreamofninjas.battler.models
 		public var terrainData:Array; 
 		public var rows:int; // in tiles
 		public var cols:int; // in tiles
-	
-		// Map of objects from their type to a vector of contents;
-		protected var _typeMap:Dictionary = new Dictionary();
 		
-		protected var _map:TiledMap;
+		// Map of objects from their type to a vector of contents;
+		private var _typeMap:Dictionary = new Dictionary();
+		
+		private var _map:TiledMap;
+		private var _tileFactory:TileFactory;
+		private var _tiles:Object = new Object();
 		
 		public function get factionNames():Array {
 			return ["Player", "Enemy"]
 		};
 		
-		public function getTileAt(r:int, c:int):TileModel {
-			return new TileModel();
+		public function getTileAt(loc:GPoint):TileModel {
+			if (!(loc in _tiles)) {
+				_tiles[loc] = _tileFactory.get(loc);
+			}
+			return _tiles[loc];
 		}
 		
 		public function MapModel(map:TiledMap) {
@@ -38,6 +44,7 @@ package com.dreamofninjas.battler.models
 			_map = map;
 			this.rows = map.height;
 			this.cols = map.width;
+			this._tileFactory = new TileFactory(map);
 			// find terrain layer
 			for each (var layer:TiledLayer in map.layers.getAllLayers()) {
 				if (layer is TiledTileLayer && layer.name == "Terrain") {
@@ -66,7 +73,7 @@ package com.dreamofninjas.battler.models
 		
 		public function getSpawnsForFaction(faction:String):Vector.<TiledObject> {
 			return (_typeMap[MapObjects.SPAWN] as Vector.<TiledObject>).filter(
-					function(item:TiledObject, i:int, v:Vector.<TiledObject>):Boolean { return item.properties.get(MapProperties.FACTION) == faction; });
+				function(item:TiledObject, i:int, v:Vector.<TiledObject>):Boolean { return item.properties.get(MapProperties.FACTION) == faction; });
 		}
 		
 		private function loadObjects(layer:TiledObjectLayer):void {

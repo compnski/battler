@@ -13,6 +13,7 @@ package io.arkeus.tiled {
 	public class TiledTileset extends BaseLoader {
 		/** The first global tile id in the tileset. */
 		public var firstGid:uint;
+		public var lastGid:uint;
 		/** The name of the tilset. */
 		public var name:String;
 		/** The maximum width of tiles in this tileset. */
@@ -31,12 +32,14 @@ package io.arkeus.tiled {
 		public var image:TiledImage;
 		/** A map from terrain name to terrains contained within this tileset. */
 		public var terrain:Object;
+		/** A map from terrain tile id to terrains contained within this tileset. */
+		public var terrainById:Object = {};
 		/** A map from gid to tile for all the non-standard tiles in the tileset. */
 		public var tiles:Object;
 
 		public var imageData:Bitmap;
 
-    public var lastGid:uint;
+ 
 		
     public function TiledTileset(loadPath:String, tmx:XML) {
       firstGid = tmx.@firstgid;
@@ -51,8 +54,11 @@ package io.arkeus.tiled {
 
 			image = new TiledImage(tmx.image);
 			image.source = loadPath + image.source;
-			terrain = loadTerrain(tmx.terraintypes);
+			terrain = loadTerrain(firstGid, tmx.terraintypes);
 			tiles = loadTiles(firstGid, tmx.tile);
+			for each(var t:TiledTerrain in terrain) {
+				terrainById[t.id] = t;
+			}
 		}
 
 		public override function load(timeout:uint=0):void {
@@ -74,11 +80,13 @@ package io.arkeus.tiled {
 		 * @param tmx The terraintypes object.
 		 * @return The map from terrain name to terrain.
 		 */
-		private static function loadTerrain(tmx:XMLList):Object {
+		private static function loadTerrain(firstGid:uint, tmx:XMLList):Object {
 			var terrain:Object = {};
 
 			for (var i:uint = 0; i < tmx.terrain.length(); i++) {
-				var node:TiledTerrain = new TiledTerrain(tmx.terrain[i]);
+				var node:TiledTerrain = new TiledTerrain(i, tmx.terrain[i]);
+				node.tile += firstGid;
+	
 				terrain[node.name] = node;
 			}
 
@@ -96,8 +104,10 @@ package io.arkeus.tiled {
 
 			for (var i:uint = 0; i < tmx.length(); i++) {
 				var node:TiledTile = new TiledTile(tmx[i]);
-				tiles[firstGid + node.id] = node;
-        lastGid = Math.max(lastGid, firstGid + node.id);
+				node.id += firstGid;
+				tiles[node.id] = node;
+        lastGid = Math.max(lastGid, node.id);
+				trace("created tile " + node.id);
 			}
 
 			return tiles;
