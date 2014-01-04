@@ -41,6 +41,8 @@ package com.dreamofninjas.battler.flows
 			// Find current unit?
 			unit = battleModel.getNextUnit();
 			battleModel.currentUnit = unit;
+
+			battleView.mapView.centerOn(unit.x + 16, unit.y + 16);
 			
 			var pathCostFunction:Function = function(loc:GPoint):int {
 				return PathUtils.getTileCost(unit, battleModel.mapModel.getTileAt(loc));

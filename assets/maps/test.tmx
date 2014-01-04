@@ -8,7 +8,7 @@
    eJzNmEtoXVUUhvdJm8ZXlUJEKyoKShxII4K0aqtVG0NCaxSxIpVijPhAcFAtNopVaUdaOhFBB1YEUcQH1tRog4givQ4LUjATaRAEHYhoUYqg9V/c9ZP/rOxz7r1Vczv4cp73Zn97rbUftzel1Bv4AHwEPgTvgHfBG6CnSOlMMABuB7cFRsHNztdyTg6BW+W9YXAtuBD8iO//FBx3LsG9K8Hj3hZjv7TxPfCm83Z4pnwGLsD3rATLvP123i8Oo5m21tEQR3qa1xhYBQprL/7cg+Nd4AlwTPgD/CZOe8ABvN+D4zXghwqX18DZoe/H/Do6HGrTJcap4VhsrgK9YBz/dyN4EOcPBLaBfUXT6Vd36REGKlxeByvwuY3yvzU3OvXIxecWMARGwFL8v9U4zuK4A7yM8zsyTFrOFWWXqaLexXLsUnHJ5b5i7drQpoP2DeNtLsyzEfAITnaB5/z4rPi8CH7BO7vB/TifaOHCHNvURhtZw1XvVsWuIZ+li9XKkOf/V3J8SHzM5SXPu0fBjuDyvo9VHLteBcvxzo0Sm9imRiZPNvl1J/Cz5jISakB52F1eAK9InKKLxaEP9y4G54EtuN4FLivKNRPzytqxHlyX4Xpwg7Ou4h1jrX/HFcFF86cnxIY8D7YHF9a69Y+NKTYGX1QsdGEc2J9sQ2HjpPfBRGqOR0+DJc73fp/P9L2z5DvUxeIwmfHZ6VgtPQNWhHGMtW4uxOawgeAyHOLANhBr/zRO5nCcBH+Kj/GJP6PnnHuN++dHwemh3duLcq5x3LJaOub1VBWXSHSxvN7vqIddaxsL9zkemA0u9s63YLP4nCFO7UKXz702ci46PtFFHZgvE15jMac0tzR+6my5dX54R2MUsdgwPn3gHDAYcuwgmHGnmWJhbHIuWhd1qJ86j7uL5cyRVP5uxkhRP/OJ80ouxw4W5diw3qtc7CLmkxFrxurJ6obXc2m+5s9NzbXY5lSO+31+3xgKMbocvJUWzvMajy+LJjHnbJxbWlTXSMw/xoBE51l3OQ30p+a4ZE53g3tTc43J+m5VKzrPs70zxbxLzmeVuExKm3IeHxfl9s+mcp2Ney6tddfD0t+7Wzi040KiC/OO6w3GnTlRNb8clXfJk+EZr82Fa/kI69xYXuFSNybnMBety5XSHquFo6m8/2COfOFttHzaEOJgtW/r+W/S/PxX1/97xWswLawX9vtMhZftX2xdazWzzLHaGZH2sO3s277Qh8Ya9ziRyrXA+1U+sc7r9ivce40V1Xvg4fDeILhT+ihifab7JsYkemisrMbMpz/Njwft+nCu5DzCfVdu36LPzGtN0dwb1fWVujCXDss9iyFjYmP2CX+H9RbjVOcT9166xq/bO56MC3OJLqzn9SHv6DxddOaT2xPrbw1xT6hrftvb/tSGC9cczCW66DqKbWZerQZ/dxifmGOtoMdNRfN3n20dxIW5VOWyRJ5bW6fA7+IUfeIahjnW7r6Qe5erbc4EP/9LF/utazrjov0/leZrSH2ii82VtifiXnCdn3M/qOe6d3kqtfZQF+aX1UCc381R12nqouOGzlm5teU+sBXsBH+B7/zcjknOtwYea8NDXarmFX1W59Jq/lwM9qT8vML51PpX+zyO2TrexXm3Gy5xT1vVxgPu1Uj5MUvXLnH9slguMTcYE/br3tDn9NF5f7FjkIPtjOvfWLs5H823U8GF7axar+W8Nd+Yl8yzbrucTBxPhXHrv4xjt8et/8OpW+NWt/gHHGKdDQ==
   </data>
  </layer>
- <layer name="Collision" width="51" height="36">
+ <layer name="Collision" width="51" height="36" visible="0">
   <data encoding="base64" compression="zlib">
    eJzt10EOgCAMBVG8/+08kVsXjVhr6QfmJe7QdALG2Nq/zuP5uq9T0pv7bVelaENVj3U2RjRkdHvmytyPUT2etZGmzJbRrDPw5RnVHdYskftXQIsuWgBAy0zfGfV/KQ9aNO3comyVDmA3vJMAMLcLA/OxNg==
   </data>
@@ -42,5 +42,8 @@
    <property name="faction" value="Enemy"/>
   </properties>
   <object name="1" type="Spawn" x="544" y="384" width="32" height="32"/>
+  <object name="2" type="Spawn" x="992" y="320" width="32" height="32"/>
+  <object name="3" type="Spawn" x="1440" y="384" width="32" height="32"/>
+  <object name="4" type="Spawn" x="832" y="576" width="32" height="32"/>
  </objectgroup>
 </map>

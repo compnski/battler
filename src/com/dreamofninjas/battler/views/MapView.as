@@ -1,12 +1,12 @@
 package com.dreamofninjas.battler.views
 {
 	
-	import com.dreamofninjas.core.ui.DisplayFactory;
-	import com.dreamofninjas.core.ui.GPoint;
 	import com.dreamofninjas.battler.events.TileEvent;
 	import com.dreamofninjas.battler.models.MapModel;
 	import com.dreamofninjas.battler.models.UnitModel;
 	import com.dreamofninjas.core.app.BaseView;
+	import com.dreamofninjas.core.ui.DisplayFactory;
+	import com.dreamofninjas.core.ui.GPoint;
 	
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
@@ -46,8 +46,8 @@ package com.dreamofninjas.battler.views
 			this.width = _item.cols * _tileWidth;
 			this.height = _item.rows * _tileHeight;
 			
-			this.scaleX = 1.1;
-			this.scaleY = 1.1;
+			this.scaleX = 1.4;
+			this.scaleY = 1.4;
 			
 			addEventListener(Event.ADDED_TO_STAGE, addedToStage);
 		}
@@ -79,8 +79,8 @@ package com.dreamofninjas.battler.views
 				//TOOD: Signal if it hit something interesting like a unit
 				trace(unitSprite, overlay);
 				//new Point(loc.x, loc.y))
-				var r:int = Math.floor(loc.y / _tileHeight);
-				var c:int = Math.floor(loc.x / _tileWidth);
+				var r:int = Math.floor((loc.y - _tileLayer.y) / _tileHeight);
+				var c:int = Math.floor((loc.x - _tileLayer.x) / _tileWidth);
 
 				dispatchEvent(new TileEvent(TileEvent.CLICKED, true, new GPoint(r, c)));
 			}
@@ -132,6 +132,36 @@ package com.dreamofninjas.battler.views
 		public function init():void {
 			
 		}
+		
+		public function centerOn(x:int, y:int):void {
+			
+			trace("bounds " + [width, height, clipRect]);
+			trace("scroll to " + [x , y] + " " + [x/scaleX, y/scaleY]);
+			x = (clipRect.width / scaleX / 2  - x / scaleX);
+			y = (clipRect.height / scaleY / 2  - y / scaleY);	
+			
+			var p:Point = this.localToGlobal(new Point(x, y));
+			x = p.x;
+			y = p.y;
+
+			trace("global " + [x, y]);
+			x = Math.min(0, Math.max(x, -(_tileLayer.width - (clipRect.width / scaleX))));
+			y = Math.min(0, Math.max(y, -(_tileLayer.height - (clipRect.height / scaleY))));
+			
+			trace("global " + [x, y]);
+			
+			_scroll(_tileLayer, x, y);
+			_scroll(_unitLayer, x, y);			
+			_scroll(_overlayLayer, x, y);
+			_scroll(_gridLayer, x, y);
+		}
+	
+		private function _scroll(obj:DisplayObject, x:int, y:int):void {
+			var move:Tween = new Tween(obj, 0.2);
+			move.moveTo(x, y);
+			juggler.add(move);
+		}
+		
 		
 		public function scroll(x:int, y:int):void {
 			// TODO: Tween

@@ -103,7 +103,7 @@ package com.dreamofninjas.battler
 				
 				var loc:GPoint = node.gpoint;
 				pathMap[loc] = node;				
-				trace(loc);
+				//trace(loc);
 				
 				child = getNodeHelper(pathMap, loc.up(), node, pathCost);
 				if (child && child.paths == 1) {

@@ -24,7 +24,7 @@ package com.dreamofninjas.battler.flows
 		
 		public override function Execute():void {
 			super.Execute();
-			const MOVE_TIME:Number = 0.4;
+			const MOVE_TIME:Number = 0.25;
 			
 			if (path.length == 0) {
 				Complete();

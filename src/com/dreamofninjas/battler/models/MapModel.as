@@ -1,10 +1,9 @@
 package com.dreamofninjas.battler.models
 {
-	import com.dreamofninjas.core.ui.GPoint;
 	import com.dreamofninjas.battler.MapObjects;
 	import com.dreamofninjas.battler.MapProperties;
-	import com.dreamofninjas.battler.Route;
 	import com.dreamofninjas.core.app.BaseModel;
+	import com.dreamofninjas.core.ui.GPoint;
 	
 	import flash.utils.Dictionary;
 	

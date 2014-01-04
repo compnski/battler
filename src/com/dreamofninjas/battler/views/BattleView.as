@@ -14,7 +14,7 @@ package com.dreamofninjas.battler.views
 	
 	public class BattleView extends BaseView {
 		private var battleModel:BattleModel;
-		private var mapView:MapView;
+		public var mapView:MapView;
 		
 		
 		protected var _uiLayer:Sprite = DisplayFactory.getSprite();
