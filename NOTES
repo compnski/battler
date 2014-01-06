@@ -1,11 +1,13 @@
 TODO:
-- Scroll map view
-- Don't allow movement into other units
 - Attacking
+--Show / update attack view on unit select 
+--do attack, update damage
+--buttons to change chars
+
 - Unit detail view
 - Battle forecast?
 - Loading units [ sqLite? files?]
-
+- simple sprites
 
 ideas?
 -move units from battle to map
