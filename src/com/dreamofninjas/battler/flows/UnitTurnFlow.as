@@ -87,8 +87,7 @@ package com.dreamofninjas.battler.flows
 		private function release():void {
 			attackMenu.removeFromParent();
 			if (currentUnitOverlay) {
-				currentUnitOverlay.removeEventListeners();
-				currentUnitOverlay.removeFromParent();
+				currentUnitOverlay.dispose()
 				currentUnitOverlay = null;
 			}
 		}
@@ -118,7 +117,7 @@ package com.dreamofninjas.battler.flows
 		}
 		
 		private function doAttack():void {
-			
+			setNextFlow(new UnitAttackFlow(battleModel, battleModel.currentUnit, battleView)); 
 		}
 		private function doWait():void {
 			Complete();
