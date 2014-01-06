@@ -99,6 +99,7 @@ package com.dreamofninjas.battler.flows
 		}
 		
 		public override function Suspended():void {
+			super.Suspended();
 			currentUnitOverlay.visible = false;
 			attackMenu.visible = false;
 		}

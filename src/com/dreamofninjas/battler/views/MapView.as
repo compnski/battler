@@ -133,47 +133,37 @@ package com.dreamofninjas.battler.views
 			
 		}
 		
-		public function centerOn(x:int, y:int):void {
-			
-			trace("bounds " + [width, height, clipRect]);
-			trace("scroll to " + [x , y] + " " + [x/scaleX, y/scaleY]);
-			x = (clipRect.width / scaleX / 2  - x / scaleX);
-			y = (clipRect.height / scaleY / 2  - y / scaleY);	
-			
-			var p:Point = this.localToGlobal(new Point(x, y));
-			x = p.x;
-			y = p.y;
+		public function centerOn(cx:int, cy:int):void {
+			// Center based on scaled clipRect			
+			cx = (clipRect.width / scaleX / 2) - cx;
+			cy = (clipRect.height / scaleY / 2) - cy;			
 
-			trace("global " + [x, y]);
-			x = Math.min(0, Math.max(x, -(_tileLayer.width - (clipRect.width / scaleX))));
-			y = Math.min(0, Math.max(y, -(_tileLayer.height - (clipRect.height / scaleY))));
+			// Bound to make sure we always cover the viewbox 100%
+			cx = Math.min(0, Math.max(cx, -(_tileLayer.width - (clipRect.width / scaleX))));
+			cy = Math.min(0, Math.max(cy, -(_tileLayer.height - (clipRect.height / scaleY))));
 			
-			trace("global " + [x, y]);
-			
-			_scroll(_tileLayer, x, y);
-			_scroll(_unitLayer, x, y);			
-			_scroll(_overlayLayer, x, y);
-			_scroll(_gridLayer, x, y);
+			// Clamp to full tiles.
+			cx = int(cx / _tileWidth) * _tileWidth;
+			cy = int(cy / _tileHeight) * _tileHeight;
+
+			var dest:Point = new Point(cx, cy);
+			var SPEED:Number = 100; // pixels per seconed
+			_scroll(_tileLayer, dest, SPEED);
+			_scroll(_unitLayer, dest, SPEED);			
+			_scroll(_overlayLayer, dest, SPEED);
+			//_scroll(_gridLayer, x, y);
 		}
 	
-		private function _scroll(obj:DisplayObject, x:int, y:int):void {
-			var move:Tween = new Tween(obj, 0.2);
-			move.moveTo(x, y);
+		private function _scroll(obj:DisplayObject, dest:Point, scrollSpeed:Number):void {
+			
+			var distance:Number = Math.abs(Point.distance(new Point(obj.x, obj.y), dest));
+			var time:Number = Math.max(0.3, Math.min(0.6, distance / scrollSpeed));
+			
+			var move:Tween = new Tween(obj, time, "easeInOut");
+			move.moveTo(dest.x, dest.y);
 			juggler.add(move);
 		}
 		
-		
-		public function scroll(x:int, y:int):void {
-			// TODO: Tween
-			_tileLayer.x += x;
-			_tileLayer.y += y;
-			
-			_unitLayer.x += x;
-			_unitLayer.y += y;
-						
-			_gridLayer.y = (_gridLayer + y) % _tileHeight;
-			_gridLayer.x = (_gridLayer + x) % _tileWidth;
-		}
 		
 		private function drawGrid():void {
 			var q:Quad;
