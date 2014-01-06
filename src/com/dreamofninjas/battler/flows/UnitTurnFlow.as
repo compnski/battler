@@ -87,6 +87,7 @@ package com.dreamofninjas.battler.flows
 		private function release():void {
 			attackMenu.removeFromParent();
 			if (currentUnitOverlay) {
+				currentUnitOverlay.removeFromParent();
 				currentUnitOverlay.dispose()
 				currentUnitOverlay = null;
 			}

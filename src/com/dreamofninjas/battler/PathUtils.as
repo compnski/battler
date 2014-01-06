@@ -40,25 +40,7 @@ package com.dreamofninjas.battler
 			return cost;
 		}
 		
-		private static function getNodeHelper(pathMap:Object, loc:GPoint, parent:Node, pathCost:Function): Node {
-			var cost:int = pathCost(loc);
-			var node:Node = pathMap[loc];
-			if (node == null) {
-				node = new Node(loc, cost, parent);
-			} else {
-				node.paths++;
-				if (node.cost != cost) {
-					trace("Bad cost for " + loc + ",\n " + node); 					
-					throw new Error("Bad cost");
-				}
-				if (parent.totalCost + cost < node.totalCost) {
-					node.totalCost = parent.totalCost + cost;
-					node.cheapestParent = parent;
-				}
-			}
-			return node;
-		}
-		
+	
 		/**
 		 * Returns an array of GPoints representing a path from start to dest.
 		 * Throws an exception if start and dest are not in nodeMap
@@ -85,9 +67,27 @@ package com.dreamofninjas.battler
 			return path;
 		}
 		
+		private static function getNodeHelper(pathMap:Object, loc:GPoint, parent:Node, pathCost:Function): Node {
+			var cost:int = pathCost(loc);
+			var node:Node = pathMap[loc];
+			if (node == null) {
+				node = new Node(loc, cost, parent);
+			} else {
+				node.paths++;
+				if (node.cost != cost && node.cost != 0) { //origin  is special and costs 0
+					trace("Bad cost for " + loc + ",\n " + node); 					
+					throw new Error("Bad cost");
+				}
+				if ((parent.totalCost + cost) < node.totalCost) {
+					node.totalCost = parent.totalCost + cost;
+					node.cheapestParent = parent;
+				}
+			}
+			return node;
+		}
+		
 		public static function floodFill(start:GPoint, pathCost:Function, maxDistance:int):Object {
-			var head:Node = new Node(start, pathCost(start), null);
-			
+			var head:Node = new Node(start, 0, null);
 			var nodes:Vector.<Node> = new Vector.<Node>();
 			nodes.push(head);
 			var tile:TileModel;
@@ -96,7 +96,7 @@ package com.dreamofninjas.battler
 			var child:Node;
 			
 			while (nodes.length > 0) {
-				var node:Node = nodes.pop();
+				var node:Node = nodes.shift();
 				if ( node.totalCost > maxDistance) {
 					continue;
 				}
