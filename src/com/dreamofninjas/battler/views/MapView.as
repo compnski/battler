@@ -90,12 +90,12 @@ package com.dreamofninjas.battler.views
 			_unitLayer.addChild(unit);
 		}
 		
-		public function drawOverlay(tiles:Array,centerR:int=0, centerC:int=0):DisplayObject {
+		public function drawOverlay(tiles:Object, color:uint=0x000000ee, centerR:int=0, centerC:int=0):DisplayObject {
 			var overlayBatch:QuadBatch = DisplayFactory.getQuadBatch();
 			overlayBatch.x = centerC * 32;
 			overlayBatch.y = centerR * 32;
 			for each(var tile:Object in tiles) {
-				var q:Quad = new Quad(32, 32, MOVE_OVERLAY_COLOR);
+				var q:Quad = new Quad(32, 32, color);
 			//q.touchable = true;
 				q.x = (tile.c - centerR) * 32;
 				q.y = (tile.r - centerC) * 32;

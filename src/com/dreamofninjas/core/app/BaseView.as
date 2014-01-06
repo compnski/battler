@@ -18,6 +18,11 @@ package com.dreamofninjas.core.app
 			return 0;
 		}
 		
+		public function release():void {
+			this.removeFromParent();
+			this.dispose();
+		}
+		
 		public function BaseView(clipRect:Rectangle=null) {
 			super();
 			this.clipRect = clipRect;

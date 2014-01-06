@@ -29,12 +29,6 @@ package com.dreamofninjas.battler.views
 			this.touchable = true;
 			addEventListener(Event.ADDED_TO_STAGE, addedToStage);
 		}
-
-		public function release():void {
-			this.removeChildren();
-			this.removeEventListeners();
-			this.removeFromParent();
-		}
 		
 		private function addedToStage(evt:Event):void {
 			//this.pivotX = 100;

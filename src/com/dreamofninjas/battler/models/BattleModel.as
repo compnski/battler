@@ -27,7 +27,7 @@ package com.dreamofninjas.battler.models
 			dispatchEvent( new Event(Event.CHANGE));
 		}
 		public function set targetUnit(unit:UnitModel):void {
-			_targetUnit = targetUnit;
+			_targetUnit = unit;
 			dispatchEvent( new Event(Event.CHANGE));
 		}
 		

@@ -57,7 +57,7 @@ package com.dreamofninjas.battler.flows
 				overlayTiles.push(node.gpoint);
 			}
 			
-			currentUnitOverlay = battleView.drawOverlay(overlayTiles);
+			currentUnitOverlay = battleView.drawOverlay(overlayTiles, 0x5566ee);
 			battleView.addEventListener(TileEvent.CLICKED, tileClicked);
 			battleView.addChild(attackMenu);
 			// show move overlay
@@ -71,14 +71,15 @@ package com.dreamofninjas.battler.flows
 			var dest:GPoint = evt.data as GPoint;
 			trace(dest + " clicked");
 			var start:GPoint = new GPoint(unit.r, unit.c);
-			
-			if (!(dest in reachableArea) || (start == dest)) {
+
+			if (start.equals(dest)) {
+				return;
+			}
+
+			if (!(dest in reachableArea)) {
 				return;
 			}
 			
-			if (start == dest) {
-				return;
-			}
 			var path:Array = PathUtils.getPath(reachableArea, start, dest);
 			trace(path);
 			

@@ -11,8 +11,12 @@ package com.dreamofninjas.battler.models
 
 		private var _x:int;
 		private var _y:int;
-
+		private var _attacks:Array;
 		public var move:int = 6;
+
+		public function get attacks():Array {
+			return _attacks;
+		}
 		
 		private var _properties:Dictionary;
 		public function UnitModel(faction:String, type:String, x:int, y:int, properties:Dictionary) {
@@ -22,6 +26,9 @@ package com.dreamofninjas.battler.models
 			_properties["TYPE"] = type;
 			_x = x;
 			_y = y;
+			this._attacks = new Array();
+			_attacks.push(AttackModel.NewPhysicalAttack("Melee", 1, 150));
+			_attacks.push(AttackModel.NewMagicAttack("Fire 1", 4, 50, 150));
 		}
 		
 		public function get y():int

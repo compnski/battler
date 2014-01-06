@@ -23,7 +23,8 @@ package com.dreamofninjas.battler.views
 		private var _typeLabel:TextField = new TextField(100, 30, "");
 		
 		protected function set _item(unitModel:UnitModel):void {
-			if (__item == unitModel) {
+			if (__item === unitModel) {
+				trace('aredy set' );
 				return;
 			}
 			if (__item) {

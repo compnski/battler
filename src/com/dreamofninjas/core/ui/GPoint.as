@@ -23,6 +23,9 @@ package com.dreamofninjas.core.ui
 			return new GPoint(r , c - 1);
 		}
 		
+		public function equals(other:GPoint):Boolean {
+			return (other.r == this.r && other.c == this.c);
+		}
 		
 		public function toString():String {
 			return "[" + r + "][" + c + "]";
