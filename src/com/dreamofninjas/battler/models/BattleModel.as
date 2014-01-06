@@ -16,7 +16,7 @@ package com.dreamofninjas.battler.models
 			return _targetUnit;
 		}
 		public function get units():Vector.<UnitModel> {
-			return _units;
+			return mapModel.units;
 		}
 		public function get mapModel():MapModel {
 			return _mapModel;
@@ -51,7 +51,7 @@ package com.dreamofninjas.battler.models
 			_factions = factions;
 			for  each(var faction:FactionModel in factions) {
 				for each(var spawn:TiledObject in _mapModel.getSpawnsForFaction(faction.name)) {
-					_units.push(faction.spawnUnit(spawn));
+					mapModel.units.push(faction.spawnUnit(spawn));
 				}
 			}
 			if( _units.length > 0) {

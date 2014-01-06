@@ -27,9 +27,24 @@ package com.dreamofninjas.battler.models
 		private var _tileFactory:TileFactory;
 		private var _tiles:Object = new Object();
 		
+		private var _units:Vector.<UnitModel>;
+		
 		public function get factionNames():Array {
 			return ["Player", "Enemy"]
 		};
+		
+		public function get units():Vector.<UnitModel> {
+			return _units;
+		}
+		
+		public function getUnitAt(loc:GPoint):UnitModel {
+			for each(var unit:UnitModel in units) {
+				if (unit.r == loc.r && unit.c == loc.c) {
+					return unit;
+				}
+			}
+			return null;
+		}
 		
 		public function getTileAt(loc:GPoint):TileModel {
 			if (!(loc in _tiles)) {
@@ -43,6 +58,7 @@ package com.dreamofninjas.battler.models
 			_map = map;
 			this.rows = map.height;
 			this.cols = map.width;
+			this._units = new Vector.<UnitModel>();
 			this._tileFactory = new TileFactory(map);
 			// find terrain layer
 			for each (var layer:TiledLayer in map.layers.getAllLayers()) {

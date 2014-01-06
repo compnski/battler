@@ -45,6 +45,9 @@ package com.dreamofninjas.battler.flows
 			battleView.mapView.centerOn(unit.x + 16, unit.y + 16);
 			
 			var pathCostFunction:Function = function(loc:GPoint):int {
+				if (battleModel.mapModel.getUnitAt(loc) != null) {
+					return 999;
+				}
 				return PathUtils.getTileCost(unit, battleModel.mapModel.getTileAt(loc));
 			}
 			reachableArea = PathUtils.floodFill(new GPoint(unit.r, unit.c), pathCostFunction, unit.move);
