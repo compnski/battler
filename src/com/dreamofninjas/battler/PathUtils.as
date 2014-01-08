@@ -4,6 +4,8 @@ package com.dreamofninjas.battler
 	import com.dreamofninjas.battler.models.TileModel;
 	import com.dreamofninjas.battler.models.UnitModel;
 	import com.dreamofninjas.core.ui.GPoint;
+	
+	import flash.utils.Dictionary;
 
 	public class PathUtils
 	{
@@ -67,11 +69,13 @@ package com.dreamofninjas.battler
 			return path;
 		}
 		
-		private static function getNodeHelper(pathMap:Object, loc:GPoint, parent:Node, pathCost:Function): Node {
+		private static function getNodeHelper(pathMap:Dictionary, loc:GPoint, parent:Node, pathCost:Function): Node {
 			var cost:int = pathCost(loc);
 			var node:Node = pathMap[loc];
 			if (node == null) {
 				node = new Node(loc, cost, parent);
+				pathMap[loc] = node;
+				return node;
 			} else {
 				node.paths++;
 				if (node.cost != cost && node.cost != 0) { //origin  is special and costs 0
@@ -81,29 +85,33 @@ package com.dreamofninjas.battler
 				if ((parent.totalCost + cost) < node.totalCost) {
 					node.totalCost = parent.totalCost + cost;
 					node.cheapestParent = parent;
+					return node;
 				}
 			}
-			return node;
+			return null; // Wasn't fastest p
 		}
 		
-		public static function floodFill(start:GPoint, pathCost:Function, maxDistance:int):Object {
+		public static function floodFill(start:GPoint, pathCost:Function, maxDistance:int):Dictionary {
 			var head:Node = new Node(start, 0, null);
 			var nodes:Vector.<Node> = new Vector.<Node>();
 			nodes.push(head);
 			var tile:TileModel;
-			var pathMap:Object = {};
+			var pathMap:Dictionary = new Dictionary();
 			
 			var child:Node;
-			
+			var breakCnt:int = 0;
 			while (nodes.length > 0) {
+				
 				var node:Node = nodes.shift();
 				if ( node.totalCost > maxDistance) {
 					continue;
 				}
-				
+				if (breakCnt++ > 50000) {
+					throw new Error("WARNING: More than 1000 iterations in path finding, quitting");
+					return null;
+				}
+
 				var loc:GPoint = node.gpoint;
-				pathMap[loc] = node;				
-				//trace(loc);
 				
 				child = getNodeHelper(pathMap, loc.up(), node, pathCost);
 				if (child && child.paths == 1) {

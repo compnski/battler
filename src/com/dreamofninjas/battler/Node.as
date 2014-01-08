@@ -18,6 +18,7 @@ package com.dreamofninjas.battler
 		
 		public function Node(loc:GPoint, cost:int, parent:Node) {
 			this.gpoint = loc
+			this.paths = 1;
 			this.cost = cost;
 			this.totalCost = cost + (parent != null ? parent.totalCost : 0);
 			this.cheapestParent = parent;
