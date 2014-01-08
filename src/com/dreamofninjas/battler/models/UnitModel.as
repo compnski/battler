@@ -1,6 +1,8 @@
 package com.dreamofninjas.battler.models
 {
+	import com.dreamofninjas.battler.DamageType;
 	import com.dreamofninjas.core.app.BaseModel;
+	import com.dreamofninjas.core.ui.GPoint;
 	
 	import flash.utils.Dictionary;
 	
@@ -18,17 +20,35 @@ package com.dreamofninjas.battler.models
 			return _attacks;
 		}
 		
+		public var Str:int;
+		public var Int:int;
+		public var Dex:int;
+		public var Fai:int;
+		public var Spd:int;
+		public var HP:int;
+		public var MP:int;
+		public var MDef:int;
+		public var PDef:int;
+		
+		public var faction:String;
+		public var type:String;
+
+		public var name:String;
+		public var id:int;
+		
 		private var _properties:Dictionary;
-		public function UnitModel(faction:String, type:String, x:int, y:int, properties:Dictionary) {
-			super();
-			_properties = properties;
-			_properties["FACTION"] = faction;
-			_properties["TYPE"] = type;
+		public function UnitModel(faction:String, type:String, x:int, y:int) {
 			_x = x;
 			_y = y;
+			this.faction = faction;
+			this.type = type;
 			this._attacks = new Array();
-			_attacks.push(AttackModel.NewPhysicalAttack("Melee", 1, 150));
-			_attacks.push(AttackModel.NewMagicAttack("Fire 1", 4, 50, 150));
+			_attacks.push(new AttackModel(this, "Melee", 15, 1,DamageType.PHYSICAL, 150, {}));
+			_attacks.push(new AttackModel(this, "Fire 1", 25, 14, DamageType.MAGIC, 150, {}));
+		}
+		
+		public function get gpoint():GPoint {
+			return GPoint.g(r, c);
 		}
 		
 		public function get y():int
@@ -70,20 +90,13 @@ package com.dreamofninjas.battler.models
 		}
 
 		public function get speed():int {
-			return _properties["SPD"];
+			return Spd;
 		}
 		
 		public function set speed(amt:int):void {
-			_properties["SPD"] = amt;
+			Spd = amt;
 		}
 	
-		public function get faction():String {
-			return _properties["FACTION"];
-		}
-
-		public function get type():String {
-			return _properties["TYPE"];
-		}
 
 		public function toString():String {
 			return "Unit<" + faction + " " + type + " (" +x + ", " + y + ")>";

@@ -1,8 +1,14 @@
 TODO:
-- Attacking
---Show / update attack view on unit select 
---do attack, update damage
---buttons to change chars
+-  Attacking
+-- highlight current unit
+-- highlight units for attack
+-- figure out effects system [SWE/engine task]
+-- unit generation
+-- Pretty up attack view
+-- do attack, update damage
+-- buttons to change chars
+
+
 
 - Unit detail view
 - Battle forecast?

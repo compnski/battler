@@ -14,6 +14,7 @@ package com.dreamofninjas.core.app
 			trace("Starting flow " + flow.name());
 			if (currentFlow != null) {
 				flowStack.push(currentFlow);
+				trace("Suspensing " + currentFlow);
 				currentFlow.Suspended();
 			}
 			currentFlow = flow;
@@ -27,6 +28,7 @@ package com.dreamofninjas.core.app
 				throw new Error("Only currentFlow can complete. flow=" + flow + " currentFlow=" + currentFlow);
 			}
 			currentFlow = flowStack.pop();
+			trace("Restoring " + currentFlow);
 			currentFlow.Restored(evt);
 		}
 		

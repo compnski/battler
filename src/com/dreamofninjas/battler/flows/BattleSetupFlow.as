@@ -29,9 +29,13 @@ package com.dreamofninjas.battler.flows
 			super.Restored(evt);
 		}
 		
+		protected override function release():void {
+			super.release();
+			_battleSetupView.removeFromParent();
+			_battleSetupView.release();
+		}
+		
 		private function battleSetupComplete(evt:Event):void {
-			_battleSetupView.removeEventListeners();
-			_battleSetupView.removeFromParent(true);
 			battleModel.active = true;
 			trace("Battle setup complete");
 			Complete();

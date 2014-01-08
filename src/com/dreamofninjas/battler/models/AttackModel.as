@@ -1,5 +1,6 @@
 package com.dreamofninjas.battler.models
 {
+	import com.dreamofninjas.battler.DamageType;
 	import com.dreamofninjas.core.app.BaseModel;
 	
 	public class AttackModel extends BaseModel {
@@ -9,17 +10,25 @@ package com.dreamofninjas.battler.models
 		public var auras:Object;
 		public var name:String;
 		public var totalRecoveryTime:int;
+		public var damage:int;
+		private var attacker:UnitModel;
 		
-		public static function NewPhysicalAttack(name:String, range:int, recoveryTime:int, auras:Object=null):AttackModel {
-			return new AttackModel(name, range, DamageType.PHYSICAL, recoveryTime, auras);
+		public function get faction():String {
+			return attacker.faction;
 		}
 		
-		public static function NewMagicAttack(name:String, range:int, castTime:int, recoveryTime:int, auras:Object=null):AttackModel {
-			return new AttackModel(name, range, DamageType.MAGIC, castTime + recoveryTime, auras);
-		}
+		//public static function NewPhysicalAttack(name:String, damage:int, range:int, recoveryTime:int, auras:Object=null):AttackModel {
+//			return new AttackModel(name, damage, range, DamageType.PHYSICAL, recoveryTime, auras);
+		//}
 		
-		public function AttackModel(name:String, range:int, type:DamageType, recoveryTime:int, auras:Object) {
+		//public static function NewMagicAttack(name:String, damage:int, range:int, castTime:int, recoveryTime:int, auras:Object=null):AttackModel {
+//			return new AttackModel(name, damage, range, DamageType.MAGIC, castTime + recoveryTime, auras);
+//		}
+		
+		public function AttackModel(attacker:UnitModel, name:String, damage:int, range:int, type:DamageType, recoveryTime:int, auras:Object) {
 			super();
+			this.attacker = attacker;
+			this.damage = damage;
 			this.name = name;
 			this.range = range;
 			this.type = type;
@@ -30,24 +39,20 @@ package com.dreamofninjas.battler.models
 			this.auras = auras;
 		}
 		
-		public function calculateDamage(target:UnitModel):int {
-			return 0;	
+		public function getAttackRating():int {
+			return damage;	
 		}
 		
-	}
-}
-
-internal class DamageType {
-	public static const PHYSICAL:DamageType = new DamageType(0);
-	public static const MAGIC:DamageType = new DamageType(1);
-	
-	private var id:int;
-	
-	function DamageType(id:int) {
-		this.id = id;
-	}
-	
-	public function toString():String {
-		return this.id.toString();
+		public function get iconText():String {
+			switch(this.type) {
+				case DamageType.PHYSICAL:
+					return  "⚔";
+					break;
+				case DamageType.MAGIC:
+					return "☥";
+					break;
+			}
+			return "⚾";
+		}
 	}
 }

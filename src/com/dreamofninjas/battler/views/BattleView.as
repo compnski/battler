@@ -47,7 +47,6 @@ package com.dreamofninjas.battler.views
 			_selectedUnitView.x = 96;
 			_selectedUnitView.y = 64;
 			addChild(_selectedUnitView);
-			//mapView.addEventListener(TileEvent.CLICKED, tileClicked);
 		}
 
 		public function getUnit(unit:UnitModel):UnitView {

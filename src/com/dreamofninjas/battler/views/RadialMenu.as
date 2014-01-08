@@ -31,8 +31,6 @@ package com.dreamofninjas.battler.views
 		}
 		
 		private function addedToStage(evt:Event):void {
-			//this.pivotX = 100;
-			//this.pivotY = 100;
 			this.x = stage.width / 2;
 			this.y = stage.height /2;
 			for (var direction:String in _properties) {
@@ -41,7 +39,7 @@ package com.dreamofninjas.battler.views
 				}
 				addChild(buildButton(_properties[direction].text, _properties[direction].callable,
 					_positions[direction][0], _positions[direction][1]));
-			}	
+			}
 			addEventListener(Event.TRIGGERED, menuButtonClicked);
 		}
 		

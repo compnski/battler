@@ -12,10 +12,14 @@ package com.dreamofninjas.battler.models
 		
 		public override function spawnUnit(spawn:TiledObject):UnitModel {
 			return ((new UnitModel.Builder)("Player", "Swordman", spawn.x, spawn.y)
-				.withAtk(10)
-				.withDef(10)
+				.withStr(10)
+				.withDex(10)
+				.withInt(10)
+				.withFai(10)				
 				.withHp(50)
 				.withMp(20)
+				.withPDef(10)
+				.withMDef(10)
 				.withSpd(30)
 				.withCharId(id++)
 				.build());

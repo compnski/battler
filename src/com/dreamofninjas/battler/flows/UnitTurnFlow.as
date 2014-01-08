@@ -1,6 +1,5 @@
 package com.dreamofninjas.battler.flows
 {
-	import com.dreamofninjas.core.ui.GPoint;
 	import com.dreamofninjas.battler.Node;
 	import com.dreamofninjas.battler.PathUtils;
 	import com.dreamofninjas.battler.events.TileEvent;
@@ -9,11 +8,12 @@ package com.dreamofninjas.battler.flows
 	import com.dreamofninjas.battler.views.BattleView;
 	import com.dreamofninjas.battler.views.RadialMenu;
 	import com.dreamofninjas.battler.views.RadialMenuBuilder;
+	import com.dreamofninjas.core.app.BaseFlow;
+	import com.dreamofninjas.core.ui.GPoint;
 	
 	import starling.core.Starling;
 	import starling.display.DisplayObject;
 	import starling.events.Event;
-	import com.dreamofninjas.core.app.BaseFlow;
 
 	public class UnitTurnFlow extends BaseFlow {
 		private var battleModel:BattleModel;
@@ -45,12 +45,13 @@ package com.dreamofninjas.battler.flows
 			battleView.mapView.centerOn(unit.x + 16, unit.y + 16);
 			
 			var pathCostFunction:Function = function(loc:GPoint):int {
-				if (battleModel.mapModel.getUnitAt(loc) != null) {
+				var unitOnTile:UnitModel = battleModel.mapModel.getUnitAt(loc) 
+				if (unitOnTile != null && unitOnTile.faction != unit.faction) {
 					return 999;
 				}
 				return PathUtils.getTileCost(unit, battleModel.mapModel.getTileAt(loc));
 			}
-			reachableArea = PathUtils.floodFill(new GPoint(unit.r, unit.c), pathCostFunction, unit.move);
+			reachableArea = PathUtils.floodFill(GPoint.g(unit.r, unit.c), pathCostFunction, unit.move);
 			
 			var overlayTiles:Array = new Array();
 			for each(var node:Node in reachableArea) {
@@ -69,8 +70,7 @@ package com.dreamofninjas.battler.flows
 				return;
 			}
 			var dest:GPoint = evt.data as GPoint;
-			trace(dest + " clicked");
-			var start:GPoint = new GPoint(unit.r, unit.c);
+			var start:GPoint = GPoint.g(unit.r, unit.c);
 
 			if (start.equals(dest)) {
 				return;
@@ -81,25 +81,17 @@ package com.dreamofninjas.battler.flows
 			}
 			
 			var path:Array = PathUtils.getPath(reachableArea, start, dest);
-			trace(path);
-			
-			//battleModel.currentUnit.r = loc.r;
-			//battleModel.currentUnit.c = loc.c;
 			setNextFlow(new MoveUnitFlow(battleView.getUnit(unit), path, Starling.juggler));
 		}
 		
-		private function release():void {
+		protected override function release():void {
+			super.release();
+			battleView.removeEventListener(TileEvent.CLICKED, tileClicked);
 			attackMenu.removeFromParent();
 			if (currentUnitOverlay) {
-				currentUnitOverlay.removeFromParent();
-				currentUnitOverlay.dispose()
+				currentUnitOverlay.removeFromParent(true);
 				currentUnitOverlay = null;
 			}
-		}
-		
-		public function Complete():void {
-			release();
-			super.Complete();
 		}
 		
 		public override function Suspended():void {
@@ -117,6 +109,10 @@ package com.dreamofninjas.battler.flows
 				// :[
 				unit.r = (evt.target as MoveUnitFlow).dest.r;
 				unit.c = (evt.target as MoveUnitFlow).dest.c;
+			}
+			
+			if (evt.target is UnitAttackFlow) {
+				Complete();
 			}
 			// add listener [or ignore when not the active flow]?
 		}

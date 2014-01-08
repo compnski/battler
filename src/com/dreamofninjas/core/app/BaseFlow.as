@@ -38,9 +38,14 @@ package com.dreamofninjas.core.app
 			//Complete();
 		}
 		
+		protected function release():void {
+			//flow specific cleanup
+		}
+		
 		protected function Complete():void {
 			_active = false;
 			dispatchEvent(new Event(Event.COMPLETE));
+			release();
 			removeEventListeners();
 		}
 		

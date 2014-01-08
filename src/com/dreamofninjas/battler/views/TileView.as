@@ -1,26 +1,21 @@
 package com.dreamofninjas.battler.views
 {
-	import com.dreamofninjas.core.app.BaseView;
-	
-	import starling.display.Image;
+	import starling.display.Button;
 	import starling.textures.Texture;
 	
-	public class TileView extends BaseView
+	public class TileView extends Button
 	{ 
-		protected var _backgroundImage:Image;
+		//private var _backgroundTexture:RenderTexture;
 		
-		public function TileView(tileId:int, backgroundTexture:Texture)
+		public var r:int;
+		public var c:int;
+		
+		public function TileView(tileId:int, r:int, c:int, backgroundTexture:Texture)
 		{
-			super();
 			this.touchable = true;
-			this.width = 32;
-			this.height = 32;
-			if (backgroundTexture != null) {
-				_backgroundImage = new Image(backgroundTexture);
-				addChild(_backgroundImage);
-			} else {
-				trace("No texture for tile_" + tileId);
-			}
+			this.r = r;
+			this.c = c;		
+			super(backgroundTexture, "");//, _backgroundTexture);
 		}
 	}
 }

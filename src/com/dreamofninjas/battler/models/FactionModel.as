@@ -26,11 +26,15 @@ package com.dreamofninjas.battler.models
 		}
 
 		public function getBaseUnit(spawn:TiledObject):UnitModelBuilder {
-			return (new UnitModel.Builder)(name, "Spearman", spawn.x, spawn.y)
-				.withAtk(8)
-				.withDef(9)
+			return new UnitModelBuilder(name, "Spearman", spawn.x, spawn.y)
+				.withStr(8)
+				.withDex(9)
+				.withInt(2)
+				.withFai(2)
 				.withHp(40)
 				.withMp(10)
+				.withMDef(5)
+				.withPDef(5)
 				.withSpd(30)
 				.withCharId(id++);
 	}

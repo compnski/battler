@@ -1,59 +1,69 @@
 package com.dreamofninjas.battler.models
 {
-	import flash.utils.Dictionary;
+	
 
 	public class UnitModelBuilder {
-		private var _x:int;
-		private var _y:int;
-		private var _faction:String;
-		private var _type:String;
-		private var _properties:Dictionary = new Dictionary();
-
+		private var unit:UnitModel;
+		
 		public function UnitModelBuilder(faction:String, type:String, x:int, y:int) {
-			_properties["TYPE"] = type;
-			_properties["NAME"] = type;
-			_properties["FACTION"] = faction;
-			_faction = faction;
-			_type = type;
-			_x = x;
-			_y = y;
+			unit = new UnitModel(faction, type, x, y);
 		}
 
-		public function withAtk(amt:int):UnitModelBuilder {
-			_properties["ATK"] = amt;
+		public function withStr(amt:int):UnitModelBuilder {
+			unit.Str = amt;
 			return this;
 		}
 
-		public function withSpd(amt:int):UnitModelBuilder {
-			_properties["SPD"] = amt;
+		public function withDex(amt:int):UnitModelBuilder {
+			unit.Dex = amt;
 			return this;
 		}
 
-		public function withDef(amt:int):UnitModelBuilder {
-			_properties["DEF"] = amt;
+		public function withInt(amt:int):UnitModelBuilder {
+			unit.Int = amt;
+			return this;
+		}
+
+		public function withFai(amt:int):UnitModelBuilder {
+			unit.Fai = amt;
+			return this;
+		}
+		
+		public function withPDef(amt:int):UnitModelBuilder {
+			unit.PDef = amt;
+			return this;
+		}
+
+		public function withMDef(amt:int):UnitModelBuilder {
+			unit.MDef = amt;
 			return this;
 		}
 
 		public function withHp(amt:int):UnitModelBuilder {
-			_properties["HP"] = amt;
+			unit.HP = amt;
 			return this;
 		}
 
 		public function withMp(amt:int):UnitModelBuilder {
-			_properties["MP"] = amt;
+			unit.MP = amt;
+			return this;
+		}
+
+		public function withSpd(amt:int):UnitModelBuilder {
+			unit.Spd = amt;
 			return this;
 		}
 
 		public function withName(name:String):UnitModelBuilder {
-			_properties["NAME"] = name;
+			unit.name = name;
 			return this;
 		}
 		public function withCharId(id:int):UnitModelBuilder {
-			_properties["CHAR_ID"] = id;
+			unit.id = id;
 			return this;
 		}
 		public function build():UnitModel {
-			return new UnitModel(_faction, _type, _x, _y, _properties);
+			return unit;
 		}
 	}
 }

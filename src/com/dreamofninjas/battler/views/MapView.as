@@ -3,7 +3,6 @@ package com.dreamofninjas.battler.views
 	
 	import com.dreamofninjas.battler.events.TileEvent;
 	import com.dreamofninjas.battler.models.MapModel;
-	import com.dreamofninjas.battler.models.UnitModel;
 	import com.dreamofninjas.core.app.BaseView;
 	import com.dreamofninjas.core.ui.DisplayFactory;
 	import com.dreamofninjas.core.ui.GPoint;
@@ -18,8 +17,6 @@ package com.dreamofninjas.battler.views
 	import starling.display.QuadBatch;
 	import starling.display.Sprite;
 	import starling.events.Event;
-	import starling.events.Touch;
-	import starling.events.TouchEvent;
 
 	public class MapView extends BaseView
 	{
@@ -30,7 +27,6 @@ package com.dreamofninjas.battler.views
 		protected var _gridLayer:QuadBatch = DisplayFactory.getQuadBatch();
 		protected var _overlayLayer:Sprite = DisplayFactory.getSprite();
 		protected var _unitLayer:Sprite = DisplayFactory.getSprite();
-		//protected var _uiLayer:Sprite = new Sprite();
 		
 		private static const OVERLAY_ATTACK:String = "ATTACK";
 		private static const OVERLAY_MOVE:String = "MOVE";
@@ -63,29 +59,15 @@ package com.dreamofninjas.battler.views
 			addChild(_overlayLayer);
 			addChild(_unitLayer);
 			
-			addEventListener(TouchEvent.TOUCH, onTouch);
+			addEventListener(Event.TRIGGERED, onTileClicked);
+		}	
+		
+		private function onTileClicked(evt:Event):void {
+			var t:TileView = evt.target as TileView;
+			dispatchEvent(new TileEvent(TileEvent.CLICKED, true, GPoint.g(t.r, t.c)));
+			evt.stopPropagation();
 		}
 		
-		private function onTouch(evt:TouchEvent): void {
-			var t:Touch = evt.getTouch(this);
-			if (t && t.tapCount > 0) {
-				var loc:Point = t.getLocation(this);
-				trace(["touch", evt.target, loc]);
-				var unitSprite:DisplayObject = _unitLayer.hitTest(loc);
-				var overlay:DisplayObject = _overlayLayer.hitTest(loc);
-				if (overlay is QuadBatch) {
-					overlay = overlay.hitTest(loc);
-				}
-				//TOOD: Signal if it hit something interesting like a unit
-				trace(unitSprite, overlay);
-				//new Point(loc.x, loc.y))
-				var r:int = Math.floor((loc.y - _tileLayer.y) / _tileHeight);
-				var c:int = Math.floor((loc.x - _tileLayer.x) / _tileWidth);
-
-				dispatchEvent(new TileEvent(TileEvent.CLICKED, true, new GPoint(r, c)));
-			}
-		}			
-			
 		public function addUnit(unit:Sprite):void {
 			_unitLayer.addChild(unit);
 		}
@@ -120,7 +102,10 @@ package com.dreamofninjas.battler.views
 			for (var r:uint = 0; r < _item.rows; r++) {
 				for (var c:uint = 0; c < _item.cols; c++) {
 					var tileId:int = _item.terrainData[r][c];
-					var tile:TileView = new TileView(tileId, _assetManager.getTexture("tile_" + tileId));
+					if (tileId == 0) {
+						continue;
+					}
+					var tile:TileView = new TileView(tileId, r, c, _assetManager.getTexture("tile_" + tileId));
 					tile.x = c * tile.width;
 					tile.y = r * tile.height;
 					_tileLayer.addChild(tile);
@@ -151,11 +136,9 @@ package com.dreamofninjas.battler.views
 			_scroll(_tileLayer, dest, SPEED);
 			_scroll(_unitLayer, dest, SPEED);			
 			_scroll(_overlayLayer, dest, SPEED);
-			//_scroll(_gridLayer, x, y);
 		}
 	
 		private function _scroll(obj:DisplayObject, dest:Point, scrollSpeed:Number):void {
-			
 			var distance:Number = Math.abs(Point.distance(new Point(obj.x, obj.y), dest));
 			var time:Number = Math.max(0.3, Math.min(0.6, distance / scrollSpeed));
 			
@@ -163,7 +146,6 @@ package com.dreamofninjas.battler.views
 			move.moveTo(dest.x, dest.y);
 			juggler.add(move);
 		}
-		
 		
 		private function drawGrid():void {
 			var q:Quad;
@@ -183,7 +165,6 @@ package com.dreamofninjas.battler.views
 				gridLines.addQuad(q);
 			}
 			addChild(gridLines); 
-			trace('done with grid');
 		}
 	}
 }
