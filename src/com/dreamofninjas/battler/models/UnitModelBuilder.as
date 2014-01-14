@@ -1,63 +1,75 @@
 package com.dreamofninjas.battler.models
 {
+	import com.dreamofninjas.battler.StatType;
 	
+	import flash.utils.Dictionary;
+
 
 	public class UnitModelBuilder {
-		private var unit:UnitModel;
-		
+		private var name:String;
+		private var faction:String;
+		private var type:String;
+		private var x:int;
+		private var y:int;
+		private var id:int;
+		private var props:Dictionary = new Dictionary();
+
 		public function UnitModelBuilder(name:String, faction:String, type:String, x:int, y:int) {
-			unit = new UnitModel(name, faction, type, x, y);
+			this.name = name;
+			this.type = type;
+			this.faction = faction;
+			this.x = x;
+			this.y = y;
 		}
 
 		public function withStr(amt:int):UnitModelBuilder {
-			unit.Str = amt;
+			this.props[StatType.STR] = amt;
 			return this;
 		}
 
 		public function withDex(amt:int):UnitModelBuilder {
-			unit.Dex = amt;
+			this.props[StatType.DEX] = amt;
 			return this;
 		}
 
 		public function withInt(amt:int):UnitModelBuilder {
-			unit.Int = amt;
+			this.props[StatType.INT] = amt;
 			return this;
 		}
 
 		public function withFai(amt:int):UnitModelBuilder {
-			unit.Fai = amt;
+			this.props[StatType.FAI] = amt;
 			return this;
 		}
-		
+
 		public function withPDef(amt:int):UnitModelBuilder {
-			unit.PDef = amt;
+			this.props[StatType.PDEF] = amt;
 			return this;
 		}
 
 		public function withMDef(amt:int):UnitModelBuilder {
-			unit.MDef = amt;
+			this.props[StatType.MDEF] = amt;
 			return this;
 		}
 
 		public function withHp(amt:int):UnitModelBuilder {
-			unit.HP = amt;
+			this.props[StatType.HP] = amt;
 			return this;
 		}
 
 		public function withMp(amt:int):UnitModelBuilder {
-			unit.MP = amt;
+			this.props[StatType.MP] = amt;
 			return this;
 		}
 
-		public function withName(name:String):UnitModelBuilder {
-			unit.name = name;
-			return this;
-		}
 		public function withCharId(id:int):UnitModelBuilder {
-			unit.id = id;
+			this.id = id;
 			return this;
 		}
+		
 		public function build():UnitModel {
+			var unit:UnitModel = new UnitModel(name, faction, type, x, y, this.props);
+			unit.id = this.id; //todo - clean this up
 			return unit;
 		}
 	}

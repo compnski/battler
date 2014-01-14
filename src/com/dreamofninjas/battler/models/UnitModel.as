@@ -7,11 +7,13 @@ package com.dreamofninjas.battler.models
 	import com.dreamofninjas.battler.StatType;
 	import com.dreamofninjas.core.app.BaseModel;
 	import com.dreamofninjas.core.ui.GPoint;
-
+	
 	import flash.utils.Dictionary;
-
+	
 	import starling.events.Event;
 
+	//TODO: Merge this and the builder, remove most of the setters for stats
+	
 	public class UnitModel extends BaseModel implements IHasEffects {
 		public static const Builder:Class = UnitModelBuilder;
 
@@ -23,75 +25,65 @@ package com.dreamofninjas.battler.models
 			return _attacks;
 		}
 
-		// Move
 		private var _move:StatProperty;
 		public function get Move():int {  return this._move.currentValue() }
-		public function set Move(amt:int):void { this._move.base = amt; }
 
-		// Str
 		private var _str:StatProperty;
 		public function get Str():int {  return this._str.currentValue() }
-		public function set Str(amt:int):void { this._str.base = amt; }
 
-		// Dex
 		private var _dex:StatProperty;
 		public function get Dex():int {  return this._dex.currentValue() }
-		public function set Dex(amt:int):void { this._dex.base = amt; }
 
-		// Int
 		private var _int:StatProperty;
 		public function get Int():int {  return this._int.currentValue() }
-		public function set Int(amt:int):void { this._int.base = amt; }
 
-		// Fai
 		private var _fai:StatProperty;
 		public function get Fai():int {  return this._fai.currentValue() }
-		public function set Fai(amt:int):void { this._fai.base = amt; }
 
-		// Att
 		private var _att:StatProperty;
 		public function get Att():int {  return this._att.currentValue() }
-		public function set Att(amt:int):void { this._att.base = amt; }
 
-		// Hp
 		private var _hp:StatProperty;
-		public function get HP():int {  return this._hp.currentValue() }
-		public function set HP(amt:int):void { this._hp.base = amt; }
-
-		// Mp
+		public function get MaxHP():int {  return this._hp.currentValue() }
+		public function get HP():int { return this._currentHp }
+		
 		private var _mp:StatProperty;
 		public function get MP():int {  return this._mp.currentValue() }
-		public function set MP(amt:int):void { this._mp.base = amt; }
 
-		// Mdef
 		private var _mdef:StatProperty;
 		public function get MDef():int {  return this._mdef.currentValue() }
-		public function set MDef(amt:int):void { this._mdef.base = amt; }
 
-		// Pdef
 		private var _pdef:StatProperty;
 		public function get PDef():int {  return this._pdef.currentValue() }
-		public function set PDef(amt:int):void { this._pdef.base = amt; }
 
+		private var _currentHp:int;
+		
 		public var faction:String;
 		public var type:String; //class?
 
 		public var name:String;
 		public var id:int;
 
+		// Returns true if the unit takes lethal damage
+		public function takeDamage(amt:int):Boolean {
+			this._currentHp -= amt;
+			return this._currentHp <= 0;
+		}
+		
 		private var _properties:Dictionary;
-		public function UnitModel(name:String, faction:String, type:String, x:int, y:int) {
-			this._str = new StatProperty(this, StatType.STR, 0);
-			this._int = new StatProperty(this, StatType.INT, 0);
-			this._dex = new StatProperty(this, StatType.DEX, 0);
-			this._fai = new StatProperty(this, StatType.FAI, 0);
-			this._att = new StatProperty(this, StatType.ATT, 0);
-			this._hp =  new StatProperty(this, StatType.HP, 0);
-			this._mp =  new StatProperty(this, StatType.MP, 0);
-			this._pdef = new StatProperty(this, StatType.PDEF, 0);
-			this._mdef = new StatProperty(this, StatType.MDEF, 0);
-			this._move = new StatProperty(this, StatType.MOVE, 0);
-
+		public function UnitModel(name:String, faction:String, type:String, x:int, y:int, properties:Dictionary) {
+			this._str = new StatProperty(this, StatType.STR, properties[StatType.STR]);
+			this._int = new StatProperty(this, StatType.INT, properties[StatType.INT]);
+			this._dex = new StatProperty(this, StatType.DEX, properties[StatType.DEX]);
+			this._fai = new StatProperty(this, StatType.FAI, properties[StatType.FAI]);
+			this._att = new StatProperty(this, StatType.ATT, properties[StatType.ATT]);
+			this._hp =  new StatProperty(this, StatType.HP, properties[StatType.HP]);
+			this._mp =  new StatProperty(this, StatType.MP, properties[StatType.MP]);
+			this._pdef = new StatProperty(this, StatType.PDEF, properties[StatType.PDEF]);
+			this._mdef = new StatProperty(this, StatType.MDEF, properties[StatType.MDEF]);
+			this._move = new StatProperty(this, StatType.MOVE, properties[StatType.MOVE]);
+			this._currentHp = this.MaxHP;
+			
 			_x = x;
 			_y = y;
 			this.faction = faction;

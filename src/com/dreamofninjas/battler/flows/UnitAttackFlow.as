@@ -80,7 +80,7 @@ package com.dreamofninjas.battler.flows
 			}
 
 			var attack:AttackModel = evt.data as AttackModel;
-			trace(AttackUtils.doAttack(attack, battleModel.targetUnit));
+			AttackUtils.doAttack(attack, battleModel.targetUnit);
 			Complete();
 		}
 		

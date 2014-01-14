@@ -37,7 +37,7 @@ package com.dreamofninjas.battler.models
 		private var _targetUnit:UnitModel;
 
 		private var unitSpeedComparator:Function = function(u1:UnitModel, u2:UnitModel):int {
-			return u1.Dex = u2.Dex;
+			return u1.Dex - u2.Dex;
 		}
 		
 		// Child Models -- Ownership??
