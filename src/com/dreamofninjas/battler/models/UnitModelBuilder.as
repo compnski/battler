@@ -5,8 +5,8 @@ package com.dreamofninjas.battler.models
 	public class UnitModelBuilder {
 		private var unit:UnitModel;
 		
-		public function UnitModelBuilder(faction:String, type:String, x:int, y:int) {
-			unit = new UnitModel(faction, type, x, y);
+		public function UnitModelBuilder(name:String, faction:String, type:String, x:int, y:int) {
+			unit = new UnitModel(name, faction, type, x, y);
 		}
 
 		public function withStr(amt:int):UnitModelBuilder {
@@ -46,11 +46,6 @@ package com.dreamofninjas.battler.models
 
 		public function withMp(amt:int):UnitModelBuilder {
 			unit.MP = amt;
-			return this;
-		}
-
-		public function withSpd(amt:int):UnitModelBuilder {
-			unit.Spd = amt;
 			return this;
 		}
 

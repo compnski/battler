@@ -51,6 +51,8 @@ package com.dreamofninjas.battler.flows
 				return 1;//PathUtils.getTileCost(unit, battleModel.mapModel.getTileAt(loc));
 			}
 
+			//highlight attackable units!
+				
 			var i:int = 0;
 			for each(var attack:AttackModel in unit.attacks) {
 				var name:String = attack.name;

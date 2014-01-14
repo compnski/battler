@@ -1,5 +1,8 @@
 package com.dreamofninjas.battler.models
 {
+	import com.dreamofninjas.battler.StatAffectingStatusEffect;
+	import com.dreamofninjas.battler.StatType;
+	
 	import io.arkeus.tiled.TiledObject;
 
 	public class PlayerModel extends FactionModel
@@ -11,7 +14,7 @@ package com.dreamofninjas.battler.models
 		}
 		
 		public override function spawnUnit(spawn:TiledObject):UnitModel {
-			return ((new UnitModel.Builder)("Player", "Swordman", spawn.x, spawn.y)
+			var u:UnitModel = ((new UnitModel.Builder)("Jason", "Player", "Swordman", spawn.x, spawn.y)
 				.withStr(10)
 				.withDex(10)
 				.withInt(10)
@@ -20,9 +23,11 @@ package com.dreamofninjas.battler.models
 				.withMp(20)
 				.withPDef(10)
 				.withMDef(10)
-				.withSpd(30)
 				.withCharId(id++)
 				.build());
+
+			u.getEffects().push(new StatAffectingStatusEffect(StatType.HP, 10));
+			return u;
 		}
 		
 	}
