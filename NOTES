@@ -1,12 +1,12 @@
 TODO:
 -  Attacking
 -- highlight current unit
--- highlight units for attack
--- figure out effects system [SWE/engine task]
--- unit generation
--- Pretty up attack view
--- do attack, update damag
--- buttons to change chars
+-- highlight possible attack targets
+-- implement auras
+-- unit generation from a team in FactionModel
+-- Pretty up AttackView
+-- do attack, update damage, deal damage
+-- buttons to change targets
 
 - Unit detail view
 - Battle forecast?
