@@ -5,61 +5,16 @@ TODO:
 -- figure out effects system [SWE/engine task]
 -- unit generation
 -- Pretty up attack view
-/-- do attack, update damag
-
+-- do attack, update damag
 -- buttons to change chars
-
-
-Auras/Effects:
-
-many types:
-
-OnAttack
-OnTurnStart
-OnTurnEnd
-OnMove
-OnWait
-etc.... - Can add new effect points as needed.
-
-Each has some function signature, args passed by ref so they can be modified.
-
-each implements some base interface, and as many as wanted.
-
-
-public interface IOnAttack {
-	//returns if changed?
-	function OnAttack(attack:AttackModel, target:UnitModel):boolean {
-		 // to change stats, add short term stat auras?
-		 // auras have cleanup when they fade? OR they can filter base stats. -- maybe a GetUnitStats or something
-// IStatModifierAura?
-	}
-}
-
-EffectController {
-
-getEffect(obj IHasEffects, eType:Interface ){
- for (var e:Effect in obj.getEffects()) {
-   if (e is eType) {
-     //push onto array
-   }
- }
-
-}
-
-
-
-
-
 
 - Unit detail view
 - Battle forecast?
 - Loading units [ sqLite? files?]
 - simple sprites
 
-ideas?
--move units from battle to map
-
-
+thinks to mull:
+-move units from BattleModel to MapModel
 
 Important Screens:
 
@@ -69,7 +24,6 @@ Important Screens:
 - Shops
 - Overworld map
 - Battle animations
-
 
 Flows:
 
@@ -118,5 +72,3 @@ Battle animations?
 
 Open questions?
 * how to resolve speed ties
-* Maybe some actions do / don't allow counter-attack
-* defend to guard a nearby friendly?

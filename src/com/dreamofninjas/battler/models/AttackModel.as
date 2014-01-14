@@ -17,14 +17,6 @@ package com.dreamofninjas.battler.models
 			return attacker.faction;
 		}
 		
-		//public static function NewPhysicalAttack(name:String, damage:int, range:int, recoveryTime:int, auras:Object=null):AttackModel {
-//			return new AttackModel(name, damage, range, DamageType.PHYSICAL, recoveryTime, auras);
-		//}
-		
-		//public static function NewMagicAttack(name:String, damage:int, range:int, castTime:int, recoveryTime:int, auras:Object=null):AttackModel {
-//			return new AttackModel(name, damage, range, DamageType.MAGIC, castTime + recoveryTime, auras);
-//		}
-		
 		public function AttackModel(attacker:UnitModel, name:String, damage:int, range:int, type:DamageType, recoveryTime:int, auras:Object) {
 			super();
 			this.attacker = attacker;
