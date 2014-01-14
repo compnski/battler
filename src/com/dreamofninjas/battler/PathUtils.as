@@ -49,7 +49,7 @@ package com.dreamofninjas.battler
 		 */
 		public static function getPath(nodeMap:Object, start:GPoint, dest:GPoint):Array {
 			trace("Find path from " + start + " to " + dest);
-			if(!(start in nodeMap && dest in nodeMap)) {
+			if(!(dest in nodeMap)) {
 				throw new Error("Tried to find a path to or from a node not in the map");
 			}
 			var path:Array = new Array();
@@ -92,11 +92,12 @@ package com.dreamofninjas.battler
 		}
 		
 		public static function floodFill(start:GPoint, pathCost:Function, maxDistance:int):Dictionary {
-			var head:Node = new Node(start, 0, null);
 			var nodes:Vector.<Node> = new Vector.<Node>();
+			var pathMap:Dictionary = new Dictionary();
+
+			var head:Node = getNodeHelper(pathMap, start, null, pathCost);
 			nodes.push(head);
 			var tile:TileModel;
-			var pathMap:Dictionary = new Dictionary();
 			
 			var child:Node;
 			var breakCnt:int = 0;
@@ -114,19 +115,19 @@ package com.dreamofninjas.battler
 				var loc:GPoint = node.gpoint;
 				
 				child = getNodeHelper(pathMap, loc.up(), node, pathCost);
-				if (child && child.paths == 1) {
+				if (child && child.paths == 1 && child.totalCost < maxDistance) {
 					nodes.push(child);
 				}
 				child = getNodeHelper(pathMap, loc.down(), node, pathCost);
-				if (child && child.paths == 1) {
+				if (child && child.paths == 1 && child.totalCost < maxDistance) {
 					nodes.push(child);
 				}
 				child = getNodeHelper(pathMap, loc.right(), node, pathCost);
-				if (child && child.paths == 1) {
+				if (child && child.paths == 1 && child.totalCost < maxDistance) {
 					nodes.push(child);
 				}
 				child = getNodeHelper(pathMap, loc.left(), node, pathCost);
-				if (child && child.paths == 1) {
+				if (child && child.paths == 1 && child.totalCost < maxDistance) {
 					nodes.push(child);
 				}
 			}
