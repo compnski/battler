@@ -13,11 +13,20 @@ package com.dreamofninjas.battler
 		}
 		
 		public static function calculateDamage(attack:AttackModel, target:UnitModel): int {
-			return Math.max(0, attack.getAttackRating() - target.PDef);
+			switch(attack.type) {
+			case DamageType.PHYSICAL:
+				return Math.max(0, attack.getAttackRating() - target.PDef);
+				break;
+			case DamageType.MAGIC:
+				return Math.max(0, attack.getAttackRating() - target.MDef);
+			}
+			throw new Error("Unhandled damage type " + attack.type);
+			return 0;
 		}
 		
-		public static function doAttack(attack:AttackModel, target:UnitModel): int {
-			return 0;
+		public static function doAttack(attack:AttackModel, target:UnitModel): Boolean {
+			var dmg:int = calculateDamage(attack, target);
+			return target.takeDamage(dmg);
 		}
 		
 	}

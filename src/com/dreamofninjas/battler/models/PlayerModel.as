@@ -21,7 +21,7 @@ package com.dreamofninjas.battler.models
 				.withFai(10)				
 				.withHp(50)
 				.withMp(20)
-				.withPDef(10)
+				.withPDef(11)
 				.withMDef(10)
 				.withCharId(id++)
 				.build());
