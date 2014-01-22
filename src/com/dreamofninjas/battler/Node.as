@@ -8,6 +8,7 @@ package com.dreamofninjas.battler
 		public var cheapestParent:Node;
 		public var paths:int = 1;
 		public var gpoint:GPoint;
+		public var reachable:Boolean = true;
 		
 		public function get r():int {
 			return gpoint.r;

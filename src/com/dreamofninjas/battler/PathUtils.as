@@ -69,11 +69,12 @@ package com.dreamofninjas.battler
 			return path;
 		}
 		
-		private static function getNodeHelper(pathMap:Dictionary, loc:GPoint, parent:Node, pathCost:Function): Node {
+		private static function getNodeHelper(pathMap:Dictionary, loc:GPoint, parent:Node, pathCost:Function, maxDistance:uint): Node {
 			var cost:int = pathCost(loc);
 			var node:Node = pathMap[loc];
 			if (node == null) {
 				node = new Node(loc, cost, parent);
+				node.reachable = (node.totalCost <= maxDistance);
 				pathMap[loc] = node;
 				return node;
 			} else {
@@ -84,6 +85,7 @@ package com.dreamofninjas.battler
 				}
 				if ((parent.totalCost + cost) < node.totalCost) {
 					node.totalCost = parent.totalCost + cost;
+					node.reachable = node.totalCost <= maxDistance;
 					node.cheapestParent = parent;
 					return node;
 				}
@@ -91,11 +93,12 @@ package com.dreamofninjas.battler
 			return null; // Wasn't fastest p
 		}
 		
-		public static function floodFill(start:GPoint, pathCost:Function, maxDistance:int):Dictionary {
+		public static function floodFill(start:GPoint, pathCost:Function, maxDistance:uint):Dictionary {
 			var nodes:Vector.<Node> = new Vector.<Node>();
 			var pathMap:Dictionary = new Dictionary();
 
-			var head:Node = getNodeHelper(pathMap, start, null, pathCost);
+			var head:Node = new Node(start, 0, null);
+			pathMap[start] = head;
 			nodes.push(head);
 			var tile:TileModel;
 			
@@ -114,24 +117,31 @@ package com.dreamofninjas.battler
 
 				var loc:GPoint = node.gpoint;
 				
-				child = getNodeHelper(pathMap, loc.up(), node, pathCost);
-				if (child && child.paths == 1 && child.totalCost < maxDistance) {
+				child = getNodeHelper(pathMap, loc.up(), node, pathCost, maxDistance) ;
+				if (child && child.paths == 1 && child.totalCost <= maxDistance) {
 					nodes.push(child);
 				}
-				child = getNodeHelper(pathMap, loc.down(), node, pathCost);
-				if (child && child.paths == 1 && child.totalCost < maxDistance) {
+				child = getNodeHelper(pathMap, loc.down(), node, pathCost, maxDistance);
+				if (child && child.paths == 1 && child.totalCost <= maxDistance) {
 					nodes.push(child);
 				}
-				child = getNodeHelper(pathMap, loc.right(), node, pathCost);
-				if (child && child.paths == 1 && child.totalCost < maxDistance) {
+				child = getNodeHelper(pathMap, loc.right(), node, pathCost, maxDistance);
+				if (child && child.paths == 1 && child.totalCost <= maxDistance) {
 					nodes.push(child);
 				}
-				child = getNodeHelper(pathMap, loc.left(), node, pathCost);
-				if (child && child.paths == 1 && child.totalCost < maxDistance) {
+				child = getNodeHelper(pathMap, loc.left(), node, pathCost, maxDistance);
+				if (child && child.paths == 1 && child.totalCost <= maxDistance) {
 					nodes.push(child);
 				}
 			}
-			return pathMap;
+			//prune:
+			var prunedMap:Dictionary = new Dictionary();
+			for (var l:GPoint in pathMap) {
+				if (pathMap[l].reachable) {
+					prunedMap[l] = pathMap[l];
+				}
+			}
+			return prunedMap;
 		}
 	}
 }

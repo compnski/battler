@@ -77,6 +77,9 @@ package com.dreamofninjas.battler.views
 			overlayBatch.x = centerC * 32;
 			overlayBatch.y = centerR * 32;
 			for each(var tile:Object in tiles) {
+				if (!tile.reachable) {
+					continue;
+				}
 				var q:Quad = new Quad(32, 32, color);
 			//q.touchable = true;
 				q.x = (tile.c - centerR) * 32;

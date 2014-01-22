@@ -110,7 +110,7 @@ package com.dreamofninjas.battler.flows
 			var attackFound:int = 0;
 			for (var attack:AttackModel in attackAreas) {
 				var area:Object = attackAreas[attack];
-				if (targetUnit.gpoint in area && AttackUtils.canAttack(attack, targetUnit)) {
+				if (targetUnit.gpoint in area && area[targetUnit.gpoint].reachable && AttackUtils.canAttack(attack, targetUnit)) {
 					attacksInRange[attack] = attack;
 					attackFound++;
 				}

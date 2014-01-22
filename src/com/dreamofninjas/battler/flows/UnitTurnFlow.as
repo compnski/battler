@@ -29,7 +29,7 @@ package com.dreamofninjas.battler.flows
 					.withRight('Item', doItem)
 					.build();
 
-		private var reachableArea:Object = {};
+		private var floodMap:Object = {};
 
 		public function UnitTurnFlow(battleModel:BattleModel, battleView:BattleView) {
 			super();
@@ -57,14 +57,10 @@ package com.dreamofninjas.battler.flows
 				}
 				return PathUtils.getTileCost(unit, battleModel.mapModel.getTileAt(loc));
 			}
-			reachableArea = PathUtils.floodFill(GPoint.g(unit.r, unit.c), pathCostFunction, unit.Move);
+			floodMap = PathUtils.floodFill(GPoint.g(unit.r, unit.c), pathCostFunction, unit.Move);
 
-			var overlayTiles:Array = new Array();
-			for each(var node:Node in reachableArea) {
-				overlayTiles.push(node.gpoint);
-			}
 
-			currentUnitOverlay = battleView.drawOverlay(overlayTiles, 0x5566ee);
+			currentUnitOverlay = battleView.drawOverlay(floodMap, 0x5566ee);
 			battleView.addEventListener(TileEvent.CLICKED, tileClicked);
 			battleView.addChild(attackMenu);
 			// show move overlay
@@ -82,11 +78,11 @@ package com.dreamofninjas.battler.flows
 				return;
 			}
 
-			if (!(dest in reachableArea)) {
+			if (!(dest in floodMap) ||!floodMap[dest].reachable) { 
 				return;
 			}
-
-			var path:Array = PathUtils.getPath(reachableArea, start, dest);
+			
+			var path:Array = PathUtils.getPath(floodMap, start, dest);
 			setNextFlow(new MoveUnitFlow(battleView.getUnit(unit), path, Starling.juggler));
 		}
 
