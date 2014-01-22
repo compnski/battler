@@ -91,7 +91,7 @@ package com.dreamofninjas.battler.models
 			this.name = name;
 			this._attacks = new Array();
 			_attacks.push(new AttackModel(this, "Melee", 15, 1,DamageType.PHYSICAL, 150, {}));
-			_attacks.push(new AttackModel(this, "Fire 1", 25, 14, DamageType.MAGIC, 150, {}));
+			_attacks.push(new AttackModel(this, "Fire 1", 25, 4, DamageType.MAGIC, 150, {}));
 		}
 
 		private var effects:Vector.<IStatusEffect> = new Vector.<IStatusEffect>();
