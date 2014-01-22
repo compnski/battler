@@ -9,6 +9,7 @@ package com.dreamofninjas.battler.views
 	import flash.utils.Dictionary;
 	
 	import starling.display.DisplayObject;
+	import starling.display.Quad;
 	import starling.display.Sprite;
 	import starling.events.Event;
 	
@@ -52,7 +53,15 @@ package com.dreamofninjas.battler.views
 		public function getUnit(unit:UnitModel):UnitView {
 			return unitModelToView[unit];
 		}
-		
+		 
+		public function highlightUnit(unit:UnitModel, color:uint):DisplayObject {
+			var q:Quad = new Quad(32, 32);
+			q.color = color;
+			q.alpha = 0.6;
+			getUnit(unit).addChild(q);
+			return q;
+		}
+			
 		public function drawOverlay(tiles:Object, color:uint):DisplayObject {
 			return mapView.drawOverlay(tiles, color);
 		}

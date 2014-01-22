@@ -1,6 +1,5 @@
 package com.dreamofninjas.battler.flows
 {
-	import com.dreamofninjas.battler.Node;
 	import com.dreamofninjas.battler.PathUtils;
 	import com.dreamofninjas.battler.StatAffectingStatusEffect;
 	import com.dreamofninjas.battler.StatType;
@@ -22,6 +21,8 @@ package com.dreamofninjas.battler.flows
 		private var battleView:BattleView;
 		private var unit:UnitModel;
 		private var currentUnitOverlay:DisplayObject;
+		private var currentUnitHighlight:DisplayObject;
+		
 		private const attackMenu:RadialMenu = new RadialMenuBuilder()
 					.withUp('Attack', doAttack)
 					.withDown('Wait', doWait)
@@ -48,6 +49,7 @@ package com.dreamofninjas.battler.flows
 			unit.getEffects().push(new StatAffectingStatusEffect(StatType.MOVE, 1));
 			// highlight current unit!
 
+			currentUnitHighlight = battleView.highlightUnit(unit, 0x5566ee);
 			battleView.mapView.centerOn(unit.x + 16, unit.y + 16);
 
 			var pathCostFunction:Function = function(loc:GPoint):int {
@@ -58,7 +60,6 @@ package com.dreamofninjas.battler.flows
 				return PathUtils.getTileCost(unit, battleModel.mapModel.getTileAt(loc));
 			}
 			floodMap = PathUtils.floodFill(GPoint.g(unit.r, unit.c), pathCostFunction, unit.Move);
-
 
 			currentUnitOverlay = battleView.drawOverlay(floodMap, 0x5566ee);
 			battleView.addEventListener(TileEvent.CLICKED, tileClicked);
@@ -93,6 +94,10 @@ package com.dreamofninjas.battler.flows
 			if (currentUnitOverlay) {
 				currentUnitOverlay.removeFromParent(true);
 				currentUnitOverlay = null;
+			}
+			if (currentUnitHighlight) {
+				currentUnitHighlight.removeFromParent(true);
+				currentUnitHighlight = null;
 			}
 		}
 
