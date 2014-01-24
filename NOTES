@@ -1,6 +1,9 @@
+
 TODO:
+
+- Unit detail view
 -  Attacking
--- highlight current unit
+-- Need to allow canceling of attack
 -- highlight possible attack targets
 -- implement auras
 -- unit generation from a team in FactionModel
@@ -8,7 +11,8 @@ TODO:
 -- do attack, update damage, deal damage
 -- buttons to change targets
 
-- Unit detail view
+
+-AOE?
 - Battle forecast?
 - Loading units [ sqLite? files?]
 - simple sprites

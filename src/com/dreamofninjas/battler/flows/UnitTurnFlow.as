@@ -21,7 +21,6 @@ package com.dreamofninjas.battler.flows
 		private var battleView:BattleView;
 		private var unit:UnitModel;
 		private var currentUnitOverlay:DisplayObject;
-		private var currentUnitHighlight:DisplayObject;
 		
 		private const attackMenu:RadialMenu = new RadialMenuBuilder()
 					.withUp('Attack', doAttack)
@@ -47,9 +46,7 @@ package com.dreamofninjas.battler.flows
 			trace("Unit turn for " + unit.type);
 			trace("hp = " + unit.HP);
 			unit.getEffects().push(new StatAffectingStatusEffect(StatType.MOVE, 1));
-			// highlight current unit!
 
-			currentUnitHighlight = battleView.highlightUnit(unit, 0x5566ee);
 			battleView.mapView.centerOn(unit.x + 16, unit.y + 16);
 
 			var pathCostFunction:Function = function(loc:GPoint):int {
@@ -79,6 +76,11 @@ package com.dreamofninjas.battler.flows
 				return;
 			}
 
+			var targetUnit:UnitModel = battleModel.mapModel.getUnitAt(dest);
+			if (targetUnit) {
+				battleModel.targetUnit = targetUnit;
+			}
+			
 			if (!(dest in floodMap) ||!floodMap[dest].reachable) { 
 				return;
 			}
@@ -95,10 +97,7 @@ package com.dreamofninjas.battler.flows
 				currentUnitOverlay.removeFromParent(true);
 				currentUnitOverlay = null;
 			}
-			if (currentUnitHighlight) {
-				currentUnitHighlight.removeFromParent(true);
-				currentUnitHighlight = null;
-			}
+			battleModel.targetUnit = null;
 		}
 
 		public override function Suspended():void {

@@ -23,8 +23,8 @@ package com.dreamofninjas.battler.flows
 		private var unit:UnitModel;
 		private var attackOverlays:Dictionary = new Dictionary();
 		private var attackAreas:Dictionary = new Dictionary();
+		
 		private var attackViews:Dictionary = new Dictionary();
-		private var currentTargetHighlight:DisplayObject;
 		
 		public function UnitAttackFlow(battleModel:BattleModel, unit:UnitModel, battleView:BattleView) {
 			super();
@@ -40,10 +40,6 @@ package com.dreamofninjas.battler.flows
 			}
 			for each(var overlay:DisplayObject in attackOverlays) {
 				overlay.removeFromParent(true);
-			}
-			if (currentTargetHighlight) {
-				currentTargetHighlight.removeFromParent(true);
-				currentTargetHighlight = null;
 			}
 
 			battleView.removeEventListener(TileEvent.CLICKED, tileClicked);
@@ -78,7 +74,6 @@ package com.dreamofninjas.battler.flows
 		
 		
 		private function setFlowVisibility(vis:Boolean):void {	
-			currentTargetHighlight.visible = vis;
 			
 			for each(var view:AttackView in attackViews) {
 				view.visible = vis;
@@ -113,6 +108,8 @@ package com.dreamofninjas.battler.flows
 		}
 		
 		private function tileClicked(evt:TileEvent):void {
+			//refactor this to work on battle model updated?
+			
 			if (!active) {
 				return;
 			}
@@ -127,10 +124,6 @@ package com.dreamofninjas.battler.flows
 				return;
 			}
 			battleModel.targetUnit = targetUnit;
-			if (currentTargetHighlight) {
-				currentTargetHighlight.removeFromParent(true);
-			}
-			currentTargetHighlight = battleView.highlightUnit(targetUnit, 0xee66ee);
 			refreshWeaponUi(getAttacksTargettingUnit(targetUnit));
 		}
 			

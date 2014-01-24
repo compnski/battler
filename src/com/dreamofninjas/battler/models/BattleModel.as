@@ -8,7 +8,9 @@ package com.dreamofninjas.battler.models
 
 	public class BattleModel extends BaseModel
 	{
-
+		public static const CURRENT_UNIT:String = "currentUnit";
+		public static const TARGET_UNIT:String = "targetUnit";
+				
 		public function get currentUnit():UnitModel {
 			return _currentUnit;
 		}
@@ -23,12 +25,17 @@ package com.dreamofninjas.battler.models
 		}
 
 		public function set currentUnit(unit:UnitModel):void {
-			_currentUnit = unit;
-			dispatchEvent( new Event(Event.CHANGE));
+			if (_currentUnit != unit) {
+				_currentUnit = unit;
+				dispatchEvent( new Event(Event.CHANGE, false, CURRENT_UNIT));
+			}
 		}
+		
 		public function set targetUnit(unit:UnitModel):void {
-			_targetUnit = unit;
-			dispatchEvent( new Event(Event.CHANGE));
+			if (_targetUnit != unit) { 
+				_targetUnit = unit;
+				dispatchEvent( new Event(Event.CHANGE, false, TARGET_UNIT));
+			}
 		}
 		
 		public var active:Boolean;

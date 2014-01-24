@@ -23,6 +23,8 @@ package com.dreamofninjas.battler.views
 		
 		private var _targetUnitView:UnitDetailView;
 		private var _selectedUnitView:UnitDetailView;
+		private var targetUnitHighlight:DisplayObject;
+		private var currentUnitHighlight:DisplayObject;
 		
 		private var unitModelToView:Dictionary = new Dictionary(true);
 
@@ -36,6 +38,35 @@ package com.dreamofninjas.battler.views
 			_mapLayer.touchable = true;
 
 			addEventListener(Event.ADDED_TO_STAGE, addedToStage);
+			battleModel.addEventListener(Event.CHANGE, modelUpdated);
+		}
+		
+		private function release():void {
+			if (targetUnitHighlight) {
+				targetUnitHighlight.removeFromParent(true);
+				targetUnitHighlight = null;
+			}
+			if (currentUnitHighlight) {
+				currentUnitHighlight.removeFromParent(true);
+				currentUnitHighlight = null;
+			}
+		}
+		
+		private function modelUpdated(evt:Event):void {
+			if (evt.data == BattleModel.CURRENT_UNIT) {
+				if (currentUnitHighlight) {
+					currentUnitHighlight.removeFromParent(true);
+				}
+				currentUnitHighlight = highlightUnit(battleModel.currentUnit, 0x0000ee);
+			}						
+
+			if (evt.data == BattleModel.TARGET_UNIT) {
+				if (targetUnitHighlight) {
+					targetUnitHighlight.removeFromParent(true);
+				}
+				targetUnitHighlight = highlightUnit(battleModel.targetUnit, 0xee0000);
+			}
+			//highlightUnit(unit, 0x5566ee);
 		}
 		
 		private function initUi():void {
@@ -55,6 +86,9 @@ package com.dreamofninjas.battler.views
 		}
 		 
 		public function highlightUnit(unit:UnitModel, color:uint):DisplayObject {
+			if (unit == null) {
+				return null;
+			}
 			var q:Quad = new Quad(32, 32);
 			q.color = color;
 			q.alpha = 0.6;
