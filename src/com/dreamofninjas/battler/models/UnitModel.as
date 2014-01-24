@@ -48,7 +48,8 @@ package com.dreamofninjas.battler.models
 		public function get HP():int { return this._currentHp }
 		
 		private var _mp:StatProperty;
-		public function get MP():int {  return this._mp.currentValue() }
+		public function get MaxMP():int {  return this._mp.currentValue() }
+		public function get MP():int {  return this._currentMp }
 
 		private var _mdef:StatProperty;
 		public function get MDef():int {  return this._mdef.currentValue() }
@@ -57,7 +58,8 @@ package com.dreamofninjas.battler.models
 		public function get PDef():int {  return this._pdef.currentValue() }
 
 		private var _currentHp:int;
-		
+		private var _currentMp:int;
+	
 		public var faction:String;
 		public var type:String; //class?
 
@@ -83,6 +85,7 @@ package com.dreamofninjas.battler.models
 			this._mdef = new StatProperty(this, StatType.MDEF, properties[StatType.MDEF]);
 			this._move = new StatProperty(this, StatType.MOVE, properties[StatType.MOVE]);
 			this._currentHp = this.MaxHP;
+			this._currentMp = this.MaxMP;
 			
 			_x = x;
 			_y = y;
