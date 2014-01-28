@@ -15,6 +15,7 @@ package com.dreamofninjas.battler.flows
 	
 	import starling.display.DisplayObject;
 	import starling.events.Event;
+	import starling.events.KeyboardEvent;
 		
 	public class UnitAttackFlow extends BaseFlow
 	{
@@ -44,6 +45,7 @@ package com.dreamofninjas.battler.flows
 
 			battleView.removeEventListener(TileEvent.CLICKED, tileClicked);
 			battleView.removeEventListener(Event.TRIGGERED, attackClicked);
+			battleView.removeEventListener(KeyboardEvent.KEY_UP, keyUp);
 		}
 		
 		public override function Execute():void {
@@ -69,9 +71,19 @@ package com.dreamofninjas.battler.flows
 			
 			battleView.addEventListener(TileEvent.CLICKED, tileClicked);
 			battleView.addEventListener(Event.TRIGGERED, attackClicked);
+			battleView.addEventListener(KeyboardEvent.KEY_UP, keyUp);
 			refreshWeaponUi(getAttacksTargettingUnit(battleModel.targetUnit));
 		}	
 		
+		private function keyUp(evt:KeyboardEvent):void {
+			if (!active) {
+				return;
+			}
+			
+			if (evt.keyCode == 27) { //esc 
+				Complete(false);
+			}
+		}
 		
 		private function setFlowVisibility(vis:Boolean):void {	
 			
@@ -104,7 +116,7 @@ package com.dreamofninjas.battler.flows
 
 			var attack:AttackModel = evt.data as AttackModel;
 			AttackUtils.doAttack(attack, battleModel.targetUnit);
-			Complete();
+			Complete(true);
 		}
 		
 		private function tileClicked(evt:TileEvent):void {

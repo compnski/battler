@@ -120,7 +120,9 @@ package com.dreamofninjas.battler.flows
 			}
 
 			if (evt.target is UnitAttackFlow) {
-				Complete();
+				if (evt.data) {
+					Complete();
+				}
 			}
 			// add listener [or ignore when not the active flow]?
 		}
