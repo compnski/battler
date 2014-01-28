@@ -5,6 +5,7 @@ package com.dreamofninjas.battler.models
 	import com.dreamofninjas.battler.IStatusEffect;
 	import com.dreamofninjas.battler.StatProperty;
 	import com.dreamofninjas.battler.StatType;
+	import com.dreamofninjas.battler.events.UnitEvent;
 	import com.dreamofninjas.core.app.BaseModel;
 	import com.dreamofninjas.core.ui.GPoint;
 	
@@ -69,7 +70,11 @@ package com.dreamofninjas.battler.models
 		// Returns true if the unit takes lethal damage
 		public function takeDamage(amt:int):Boolean {
 			this._currentHp -= amt;
-			return this._currentHp <= 0;
+			if (this._currentHp <= 0) {
+				dispatchEvent(new Event(UnitEvent.DIED));
+				return true
+			}
+			return false
 		}
 		
 		private var _properties:Dictionary;
