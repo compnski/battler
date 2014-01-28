@@ -88,7 +88,7 @@ package com.dreamofninjas.battler.flows
 			}
 			
 			var path:Array = PathUtils.getPath(floodMap, start, dest);
-			setNextFlow(new MoveUnitFlow(battleView.getUnit(unit), path, Starling.juggler));
+			setNextFlow(new MoveUnitFlow(battleView.mapView.getUnit(unit), path, Starling.juggler));
 		}
 
 		protected override function release():void {

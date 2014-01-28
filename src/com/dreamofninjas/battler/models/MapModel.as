@@ -2,6 +2,7 @@ package com.dreamofninjas.battler.models
 {
 	import com.dreamofninjas.battler.MapObjects;
 	import com.dreamofninjas.battler.MapProperties;
+	import com.dreamofninjas.battler.events.UnitEvent;
 	import com.dreamofninjas.core.app.BaseModel;
 	import com.dreamofninjas.core.ui.GPoint;
 	
@@ -12,6 +13,8 @@ package com.dreamofninjas.battler.models
 	import io.arkeus.tiled.TiledObject;
 	import io.arkeus.tiled.TiledObjectLayer;
 	import io.arkeus.tiled.TiledTileLayer;
+	
+	import starling.events.Event;
 	
 	public class MapModel extends BaseModel
 	{
@@ -28,6 +31,11 @@ package com.dreamofninjas.battler.models
 		private var _tiles:Object = new Object();
 		
 		private var _units:Vector.<UnitModel>;
+		
+		public function addUnit(unit:UnitModel):void {
+			_units.push(unit);
+			unit.addEventListener(UnitEvent.DIED, unitDied);
+		}
 		
 		public function get factionNames():Array {
 			return ["Player", "Enemy"]
@@ -74,6 +82,18 @@ package com.dreamofninjas.battler.models
 			}
 		}	
 				
+		private function unitDied(evt:Event):void {
+			trace('unit died in map model')
+			var unit:UnitModel = evt.target as UnitModel;
+			unit.removeEventListener(UnitEvent.DIED, unitDied);
+			var unitIdx:int = units.indexOf(unit);
+			if (unitIdx < 0) {
+				return;
+			}
+				
+			units.splice(unitIdx, 1);
+		}
+	
 		public function getSpawnsForFaction(faction:String):Vector.<TiledObject> {
 			return (_typeMap[MapObjects.SPAWN] as Vector.<TiledObject>).filter(
 				function(item:TiledObject, i:int, v:Vector.<TiledObject>):Boolean { return item.properties.get(MapProperties.FACTION) == faction; });

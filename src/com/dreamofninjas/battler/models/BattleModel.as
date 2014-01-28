@@ -1,5 +1,6 @@
 package com.dreamofninjas.battler.models
 {
+	import com.dreamofninjas.battler.events.UnitEvent;
 	import com.dreamofninjas.core.app.BaseModel;
 	
 	import io.arkeus.tiled.TiledObject;
@@ -47,8 +48,6 @@ package com.dreamofninjas.battler.models
 			return u1.Dex - u2.Dex;
 		}
 		
-		// Child Models -- Ownership??
-		private var _units:Vector.<UnitModel> = new Vector.<UnitModel>();
 		private var _mapModel:MapModel;
 		private var _factions:Vector.<FactionModel>;
 
@@ -58,13 +57,9 @@ package com.dreamofninjas.battler.models
 			_factions = factions;
 			for  each(var faction:FactionModel in factions) {
 				for each(var spawn:TiledObject in _mapModel.getSpawnsForFaction(faction.name)) {
-					mapModel.units.push(faction.spawnUnit(spawn));
+					var unit:UnitModel = faction.spawnUnit(spawn);
+					mapModel.addUnit(unit);
 				}
-			}
-			if( _units.length > 0) {
-				_targetUnit = _units[0];
-				_units.sort(unitSpeedComparator);
-				_currentUnit = _units[0];
 			}
 		}
 		

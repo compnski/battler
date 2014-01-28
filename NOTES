@@ -3,7 +3,6 @@ TODO:
 
 - Unit detail view
 -  Attacking
--- Need to allow canceling of attack
 -- highlight possible attack targets
 -- implement auras
 -- unit generation from a team in FactionModel

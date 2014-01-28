@@ -2,13 +2,16 @@ package com.dreamofninjas.battler.views
 {
 	
 	import com.dreamofninjas.battler.events.TileEvent;
+	import com.dreamofninjas.battler.events.UnitEvent;
 	import com.dreamofninjas.battler.models.MapModel;
+	import com.dreamofninjas.battler.models.UnitModel;
 	import com.dreamofninjas.core.app.BaseView;
 	import com.dreamofninjas.core.ui.DisplayFactory;
 	import com.dreamofninjas.core.ui.GPoint;
 	
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
+	import flash.utils.Dictionary;
 	
 	import starling.animation.Tween;
 	import starling.display.BlendMode;
@@ -33,6 +36,7 @@ package com.dreamofninjas.battler.views
 		private static const MOVE_OVERLAY_COLOR:uint = 0x5566ee;
 		
 		protected var _item:MapModel;
+		private var unitModelToView:Dictionary = new Dictionary(true);
 		
 		public function MapView(clipRect:Rectangle, mapModel:MapModel) {
 			super(clipRect);
@@ -46,6 +50,34 @@ package com.dreamofninjas.battler.views
 			this.scaleY = 1.4;
 			
 			addEventListener(Event.ADDED_TO_STAGE, addedToStage);
+		}
+		
+		// CHILD VIEWS
+		
+		// UNITS
+		public function getUnit(unit:UnitModel):UnitView {
+			return unitModelToView[unit];
+		}
+		
+		public function removeUnit(unit:UnitModel):void {
+			var u:UnitView = getUnit(unit);
+			if (u) {
+				trace('removing from view')
+				u.removeFromParent(true);
+				delete unitModelToView[unit];
+			}
+		}
+		 
+		public function addUnit(unit:UnitModel, unitView:Sprite):void {
+			_unitLayer.addChild(unitView);
+			unitModelToView[unit] = unitView;
+			unit.addEventListener(UnitEvent.DIED, unitDiedHandler);
+		}
+		
+		private function unitDiedHandler(evt:Event):void {
+			trace('unit died in view')
+			var unit:UnitModel = evt.target as UnitModel;
+			removeUnit(unit);
 		}
 		
 		private function addedToStage(evt:Event):void {
@@ -67,11 +99,7 @@ package com.dreamofninjas.battler.views
 			dispatchEvent(new TileEvent(TileEvent.CLICKED, true, GPoint.g(t.r, t.c)));
 			evt.stopPropagation();
 		}
-		
-		public function addUnit(unit:Sprite):void {
-			_unitLayer.addChild(unit);
-		}
-		
+				
 		public function drawOverlay(tiles:Object, color:uint=0x000000ee, centerR:int=0, centerC:int=0):DisplayObject {
 			var overlayBatch:QuadBatch = DisplayFactory.getQuadBatch();
 			overlayBatch.x = centerC * 32;

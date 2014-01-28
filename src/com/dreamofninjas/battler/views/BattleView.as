@@ -26,9 +26,6 @@ package com.dreamofninjas.battler.views
 		private var targetUnitHighlight:DisplayObject;
 		private var currentUnitHighlight:DisplayObject;
 		
-		private var unitModelToView:Dictionary = new Dictionary(true);
-
-		
 		public function BattleView(battleModel:BattleModel)
 		{
 			super(new Rectangle(0, 0, 1280, 720));
@@ -56,7 +53,7 @@ package com.dreamofninjas.battler.views
 			if (evt.data == BattleModel.CURRENT_UNIT) {
 				if (currentUnitHighlight) {
 					currentUnitHighlight.removeFromParent(true);
-				}
+				}				
 				currentUnitHighlight = highlightUnit(battleModel.currentUnit, 0x0000ee);
 			}						
 
@@ -80,11 +77,7 @@ package com.dreamofninjas.battler.views
 			_selectedUnitView.y = 64;
 			addChild(_selectedUnitView);
 		}
-
-		public function getUnit(unit:UnitModel):UnitView {
-			return unitModelToView[unit];
-		}
-		 
+		
 		public function highlightUnit(unit:UnitModel, color:uint):DisplayObject {
 			if (unit == null) {
 				return null;
@@ -92,7 +85,7 @@ package com.dreamofninjas.battler.views
 			var q:Quad = new Quad(32, 32);
 			q.color = color;
 			q.alpha = 0.6;
-			getUnit(unit).addChild(q);
+			mapView.getUnit(unit).addChild(q);
 			return q;
 		}
 			
@@ -105,8 +98,7 @@ package com.dreamofninjas.battler.views
 			initUi();
 			for each(var unit:UnitModel in battleModel.units) {
 				var unitView:UnitView = new UnitView(unit);
-				unitModelToView[unit] = unitView;
-				mapView.addUnit(unitView);
+				mapView.addUnit(unit, unitView);
 			}
 		}		
 	}
