@@ -79,6 +79,8 @@ package com.dreamofninjas.battler.flows
 			var targetUnit:UnitModel = battleModel.mapModel.getUnitAt(dest);
 			if (targetUnit) {
 				battleModel.targetUnit = targetUnit;
+				//TODO: Can walk up to but not touching the unit?
+				return;
 			}
 			
 			if (!(dest in floodMap) ||!floodMap[dest].reachable) { 
