@@ -1,5 +1,6 @@
 package com.dreamofninjas.battler
 {
+	import com.dreamofninjas.battler.models.MapModel;
 	import com.dreamofninjas.battler.models.Terrain;
 	import com.dreamofninjas.battler.models.TileModel;
 	import com.dreamofninjas.battler.models.UnitModel;
@@ -42,13 +43,21 @@ package com.dreamofninjas.battler
 			return cost;
 		}
 		
+		public static function getStdPathCostFunction(unit:UnitModel, mapModel:MapModel):Function {
+			return function(loc:GPoint):int {
+				var unitOnTile:UnitModel = mapModel.getUnitAt(loc)
+				if (unitOnTile != null && unitOnTile.faction != unit.faction) {
+					return 999;
+				}
+				return PathUtils.getTileCost(unit, mapModel.getTileAt(loc));
+			}
+		}
 	
 		/**
 		 * Returns an array of GPoints representing a path from start to dest.
 		 * Throws an exception if start and dest are not in nodeMap
 		 */
 		public static function getPath(nodeMap:Object, start:GPoint, dest:GPoint):Array {
-			trace("Find path from " + start + " to " + dest);
 			if(!(dest in nodeMap)) {
 				throw new Error("Tried to find a path to or from a node not in the map");
 			}
