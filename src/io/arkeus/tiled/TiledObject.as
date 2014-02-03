@@ -1,5 +1,5 @@
 package io.arkeus.tiled {
-	import com.dreamofninjas.battler.IRectangle;
+	import com.dreamofninjas.core.interfaces.IRectangle;
 	
 	import flash.geom.Point;
 

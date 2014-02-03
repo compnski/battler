@@ -1,4 +1,4 @@
-package com.dreamofninjas.battler
+package com.dreamofninjas.battler.util
 {
 	import com.dreamofninjas.battler.models.MapModel;
 	import com.dreamofninjas.battler.models.Terrain;

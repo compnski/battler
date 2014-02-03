@@ -1,4 +1,4 @@
-package com.dreamofninjas.core.util
+package com.dreamofninjas.core.interfaces
 {
 
 public interface ILoadable {

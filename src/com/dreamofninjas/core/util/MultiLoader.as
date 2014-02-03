@@ -2,6 +2,7 @@ package com.dreamofninjas.core.util
 {
   import starling.events.Event;
   import flash.utils.Dictionary;
+  import com.dreamofninjas.core.interfaces.ILoadable;
 
   /**
   * A loader that can take many ILoadables, call init() on them, and wait for all to load or error

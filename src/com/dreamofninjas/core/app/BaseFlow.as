@@ -6,6 +6,8 @@ package com.dreamofninjas.core.app
 	import starling.animation.Juggler;
 	import starling.events.Event;
 	import starling.events.EventDispatcher;
+	import com.dreamofninjas.core.engine.GameStateController;
+	import com.dreamofninjas.core.interfaces.IFlow;
 
 	public class BaseFlow extends EventDispatcher implements IFlow
 	{

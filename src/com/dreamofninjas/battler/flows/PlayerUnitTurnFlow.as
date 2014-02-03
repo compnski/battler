@@ -1,6 +1,6 @@
 package com.dreamofninjas.battler.flows
 {
-	import com.dreamofninjas.battler.PathUtils;
+	import com.dreamofninjas.battler.util.PathUtils;
 	import com.dreamofninjas.battler.events.TileEvent;
 	import com.dreamofninjas.battler.models.BattleModel;
 	import com.dreamofninjas.battler.models.UnitModel;

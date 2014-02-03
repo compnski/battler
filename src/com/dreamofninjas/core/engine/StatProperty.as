@@ -1,4 +1,6 @@
-package com.dreamofninjas.battler {
+package com.dreamofninjas.core.engine {
+	import com.dreamofninjas.core.interfaces.IHasEffects;
+	import com.dreamofninjas.core.interfaces.IStatusEffect;
 	
 	public class StatProperty {
 		public var base:int;

@@ -1,4 +1,4 @@
-package com.dreamofninjas.battler {
+package com.dreamofninjas.core.engine {
 	
 	public class StatAffectingStatusEffect implements IStatAffectingStatusEffect {
 		public var amount:int;

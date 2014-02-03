@@ -1,10 +1,11 @@
-package com.dreamofninjas.battler
+package com.dreamofninjas.battler.util
 {
 	import com.dreamofninjas.battler.models.AttackModel;
 	import com.dreamofninjas.battler.models.UnitModel;
 	import com.dreamofninjas.core.ui.GPoint;
 	
 	import flash.utils.Dictionary;
+	import com.dreamofninjas.battler.models.DamageType;
 
 	public class AttackUtils
 	{

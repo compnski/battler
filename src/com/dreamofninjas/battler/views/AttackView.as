@@ -1,6 +1,6 @@
 package com.dreamofninjas.battler.views
 {
-	import com.dreamofninjas.battler.DamageType;
+	import com.dreamofninjas.battler.models.DamageType;
 	import com.dreamofninjas.battler.models.AttackModel;
 	import com.dreamofninjas.battler.models.UnitModel;
 	import com.dreamofninjas.core.app.BaseView;

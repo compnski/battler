@@ -3,7 +3,7 @@ package com.dreamofninjas.battler
 	import com.dreamofninjas.battler.flows.BattleFlow;
 	import com.dreamofninjas.battler.flows.InitialFlow;
 	import com.dreamofninjas.battler.levels.Level1;
-	import com.dreamofninjas.battler.levels.LevelModel;
+	import com.dreamofninjas.battler.models.LevelModel;
 	import com.dreamofninjas.battler.models.BattleModel;
 	import com.dreamofninjas.battler.models.FactionModel;
 	import com.dreamofninjas.battler.models.MapModel;

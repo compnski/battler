@@ -1,6 +1,7 @@
 package com.dreamofninjas.battler.levels
 {
 	import com.dreamofninjas.battler.models.UnitModelBuilder;
+	import com.dreamofninjas.battler.models.LevelModel;
 
 	public class Level1 extends LevelModel {
 

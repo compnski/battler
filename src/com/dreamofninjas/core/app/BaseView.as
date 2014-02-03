@@ -6,6 +6,7 @@ package com.dreamofninjas.core.app
 	import starling.core.Starling;
 	import starling.display.Sprite;
 	import starling.utils.AssetManager;
+	import com.dreamofninjas.core.engine.ViewHandle;
 	
 	public class BaseView extends Sprite implements ViewHandle
 	{

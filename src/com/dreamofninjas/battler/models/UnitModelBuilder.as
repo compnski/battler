@@ -1,6 +1,5 @@
 package com.dreamofninjas.battler.models
 {
-	import com.dreamofninjas.battler.StatType;
 	
 	import flash.utils.Dictionary;
 
@@ -47,47 +46,47 @@ package com.dreamofninjas.battler.models
 		}
 
 		public function withStr(amt:int):UnitModelBuilder {
-			this.props[StatType.STR] = amt;
+			this.props[UnitModel.STR] = amt;
 			return this;
 		}
 
 		public function withDex(amt:int):UnitModelBuilder {
-			this.props[StatType.DEX] = amt;
+			this.props[UnitModel.DEX] = amt;
 			return this;
 		}
 
 		public function withInt(amt:int):UnitModelBuilder {
-			this.props[StatType.INT] = amt;
+			this.props[UnitModel.INT] = amt;
 			return this;
 		}
 
 		public function withFai(amt:int):UnitModelBuilder {
-			this.props[StatType.FAI] = amt;
+			this.props[UnitModel.FAI] = amt;
 			return this;
 		}
 
 		public function withPDef(amt:int):UnitModelBuilder {
-			this.props[StatType.PDEF] = amt;
+			this.props[UnitModel.PDEF] = amt;
 			return this;
 		}
 
 		public function withMDef(amt:int):UnitModelBuilder {
-			this.props[StatType.MDEF] = amt;
+			this.props[UnitModel.MDEF] = amt;
 			return this;
 		}
 
 		public function withHp(amt:int):UnitModelBuilder {
-			this.props[StatType.HP] = amt;
+			this.props[UnitModel.HP] = amt;
 			return this;
 		}
 
 		public function withMp(amt:int):UnitModelBuilder {
-			this.props[StatType.MP] = amt;
+			this.props[UnitModel.MP] = amt;
 			return this;
 		}
 
 		public function withMove(amt:int):UnitModelBuilder {
-			this.props[StatType.MOVE] = amt;
+			this.props[UnitModel.MOVE] = amt;
 			return this;
 		}
 

@@ -1,4 +1,4 @@
-package com.dreamofninjas.battler
+package com.dreamofninjas.core.interfaces
 {
 	public interface IRectangle
 	{

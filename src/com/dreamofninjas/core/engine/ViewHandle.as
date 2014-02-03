@@ -1,4 +1,4 @@
-package com.dreamofninjas.core.app
+package com.dreamofninjas.core.engine
 {
 	public interface ViewHandle
 	{

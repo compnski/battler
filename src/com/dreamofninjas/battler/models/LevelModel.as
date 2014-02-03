@@ -1,10 +1,6 @@
-package com.dreamofninjas.battler.levels
+package com.dreamofninjas.battler.models
 {
-	import com.dreamofninjas.battler.MapObjects;
-	import com.dreamofninjas.battler.models.AiUnitModel;
-	import com.dreamofninjas.battler.models.MapModel;
-	import com.dreamofninjas.battler.models.UnitModel;
-	import com.dreamofninjas.battler.models.UnitModelBuilder;
+	import com.dreamofninjas.battler.levels.LevelObjects;
 	import com.dreamofninjas.battler.util.MapLoader;
 	import com.dreamofninjas.core.util.BaseLoader;
 	
@@ -17,6 +13,7 @@ package com.dreamofninjas.battler.levels
 	import io.arkeus.tiled.TiledProperties;
 	
 	import starling.events.Event;
+	import com.dreamofninjas.battler.levels.LevelProperties;
 
 	public class LevelModel extends BaseLoader
 	{
@@ -48,7 +45,7 @@ package com.dreamofninjas.battler.levels
 				}
 			}
 
-			for each(var spawn:TiledObject in _typeMap[MapObjects.SPAWN]) {
+			for each(var spawn:TiledObject in _typeMap[LevelObjects.SPAWN]) {
 				if (spawn.properties.get(LevelProperties.FACTION) == "Player") {
 					mapModel.addUnit(getPlayerUnit(spawn))
 				} else {

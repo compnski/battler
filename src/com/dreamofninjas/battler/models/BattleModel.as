@@ -1,6 +1,5 @@
 package com.dreamofninjas.battler.models
 {
-	import com.dreamofninjas.battler.levels.LevelModel;
 	import com.dreamofninjas.core.app.BaseModel;
 	
 	import starling.events.Event;

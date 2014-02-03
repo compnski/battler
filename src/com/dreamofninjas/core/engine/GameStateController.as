@@ -1,4 +1,4 @@
-package com.dreamofninjas.core.app
+package com.dreamofninjas.core.engine
 {
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
@@ -6,6 +6,7 @@ package com.dreamofninjas.core.app
 	import starling.animation.Juggler;
 	import starling.core.Starling;
 	import starling.events.Event;
+	import com.dreamofninjas.core.interfaces.IFlow;
 
 	public class GameStateController
 	{

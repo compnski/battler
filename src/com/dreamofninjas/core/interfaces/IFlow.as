@@ -1,4 +1,4 @@
-package com.dreamofninjas.core.app
+package com.dreamofninjas.core.interfaces
 {
 	import starling.events.Event;
 

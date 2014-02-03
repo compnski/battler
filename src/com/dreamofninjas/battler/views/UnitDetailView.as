@@ -87,8 +87,8 @@ package com.dreamofninjas.battler.views
 			_factionLabel.text = _item.faction;
 			_typeLabel.text = _item.type;
 
-			_hpBar.reset(_item.HP, _item.MaxHP);
-			_mpBar.reset(_item.MP, _item.MaxMP);	
+			_hpBar.reset(_item.curHP, _item.MaxHP);
+			_mpBar.reset(_item.curMP, _item.MaxMP);	
 			/*
 			_hpBar.maxValue = _item.MaxHP;
 			_hpBar.value = _item.HP;

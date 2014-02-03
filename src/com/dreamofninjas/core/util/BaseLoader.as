@@ -5,6 +5,7 @@ package com.dreamofninjas.core.util
 	import starling.events.EventDispatcher;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
+	import com.dreamofninjas.core.interfaces.ILoadable;
 
 	public class BaseLoader extends EventDispatcher implements ILoadable
 	{
