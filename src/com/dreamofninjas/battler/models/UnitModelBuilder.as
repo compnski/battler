@@ -14,12 +14,36 @@ package com.dreamofninjas.battler.models
 		private var id:int;
 		private var props:Dictionary = new Dictionary();
 
-		public function UnitModelBuilder(name:String, faction:String, type:String, x:int, y:int) {
+		public function UnitModelBuilder() { }
+
+		public function withName(name:String):UnitModelBuilder {
 			this.name = name;
+			return this;
+		}
+
+		public function withType(type:String):UnitModelBuilder {
 			this.type = type;
+			return this;
+		}
+
+		public function withFaction(faction:String):UnitModelBuilder {
 			this.faction = faction;
+			return this;
+		}
+
+		public function withX(x:int):UnitModelBuilder {
 			this.x = x;
+			return this;
+		}
+
+		public function withY(y:int):UnitModelBuilder {
 			this.y = y;
+			return this;
+		}
+
+		public function withCharId(id:int):UnitModelBuilder {
+			this.id = id;
+			return this;
 		}
 
 		public function withStr(amt:int):UnitModelBuilder {
@@ -62,13 +86,16 @@ package com.dreamofninjas.battler.models
 			return this;
 		}
 
-		public function withCharId(id:int):UnitModelBuilder {
-			this.id = id;
+		public function withMove(amt:int):UnitModelBuilder {
+			this.props[StatType.MOVE] = amt;
 			return this;
 		}
-		
-		public function build():UnitModel {
-			var unit:UnitModel = new UnitModel(name, faction, type, x, y, this.props);
+
+		public function build(klass:Class = null):UnitModel {
+			if (klass == null) {
+				klass = UnitModel;
+			}
+			var unit:UnitModel = new klass(name, faction, type, x, y, this.props);
 			unit.id = this.id; //todo - clean this up
 			return unit;
 		}

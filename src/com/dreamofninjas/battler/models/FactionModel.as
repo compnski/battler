@@ -26,7 +26,12 @@ package com.dreamofninjas.battler.models
 		}
 
 		public function getBaseUnit(spawn:TiledObject):UnitModelBuilder {
-			return new UnitModelBuilder("Hargal", name, "Spearman", spawn.x, spawn.y)
+			return new UnitModelBuilder()
+			.withName("Hargal")
+				.withFaction(name)
+				.withType("Spearman")
+				.withX(spawn.x)
+				.withY(spawn.y)
 				.withStr(8)
 				.withDex(9)
 				.withInt(2)

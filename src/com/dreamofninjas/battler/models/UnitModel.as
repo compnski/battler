@@ -2,6 +2,7 @@ package com.dreamofninjas.battler.models
 {
 	import com.dreamofninjas.battler.DamageType;
 	import com.dreamofninjas.battler.IHasEffects;
+	import com.dreamofninjas.battler.IRectangle;
 	import com.dreamofninjas.battler.IStatusEffect;
 	import com.dreamofninjas.battler.StatProperty;
 	import com.dreamofninjas.battler.StatType;
@@ -15,7 +16,7 @@ package com.dreamofninjas.battler.models
 
 	//TODO: Merge this and the builder, remove most of the setters for stats
 	
-	public class UnitModel extends BaseModel implements IHasEffects {
+	public class UnitModel extends BaseModel implements IHasEffects, IRectangle {
 		public static const Builder:Class = UnitModelBuilder;
 
 		private var _x:int;
@@ -26,6 +27,12 @@ package com.dreamofninjas.battler.models
 			return _attacks;
 		}
 
+		public function getX():int { return x; }
+		public function getY():int { return y; }
+		public function getH():int { return 32; }
+		public function getW():int { return 32; }
+
+		
 		private var _move:StatProperty;
 		public function get Move():int {  return this._move.currentValue() }
 
@@ -74,6 +81,7 @@ package com.dreamofninjas.battler.models
 				dispatchEvent(new Event(UnitEvent.DIED));
 				return true
 			}
+			dispatchEvent(new Event(Event.CHANGE, StatType.HP));
 			return false
 		}
 		
@@ -152,5 +160,24 @@ package com.dreamofninjas.battler.models
 		public function toString():String {
 			return "Unit<" + faction + " " + type + " (" +x + ", " + y + ")>";
 		}
+		
+		public function distance(u:UnitModel):int {
+			return Math.abs(this.r - u.r) + Math.abs(this.c - u.c);
+		}
+		
+		////static
+		
+		public static function Filter(filter:Function):Function {
+			return function(u:UnitModel, idx:int, v:Vector.<UnitModel>):Boolean {
+				return filter(u);
+			}
+		}	
+		
+		public static function DistanceSort(from:UnitModel):Function {
+			return function(a:UnitModel, b:UnitModel):Number {
+				return  a.distance(from) - b.distance(from);
+			}
+		}	
+		
 	}
 }
