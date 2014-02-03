@@ -6,6 +6,7 @@ package com.dreamofninjas.battler.util
 	
 	import flash.utils.Dictionary;
 	import com.dreamofninjas.battler.models.DamageType;
+	import com.dreamofninjas.core.engine.PathUtils;
 
 	public class AttackUtils
 	{

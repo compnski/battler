@@ -1,7 +1,7 @@
 package com.dreamofninjas.battler.flows
 {
 	import com.dreamofninjas.battler.util.AttackUtils;
-	import com.dreamofninjas.battler.util.PathUtils;
+	import com.dreamofninjas.core.engine.PathUtils;
 	import com.dreamofninjas.battler.models.AiUnitModel;
 	import com.dreamofninjas.battler.models.AttackModel;
 	import com.dreamofninjas.battler.models.BattleModel;

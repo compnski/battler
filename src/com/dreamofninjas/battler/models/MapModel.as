@@ -9,6 +9,8 @@ package com.dreamofninjas.battler.models
 	import io.arkeus.tiled.TiledTileLayer;
 	
 	import starling.events.Event;
+	import com.dreamofninjas.core.engine.TileFactory;
+	import com.dreamofninjas.core.app.TileModel;
 	
 	public class MapModel extends BaseModel
 	{

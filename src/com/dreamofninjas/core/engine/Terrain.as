@@ -1,4 +1,4 @@
-package com.dreamofninjas.battler.models
+package com.dreamofninjas.core.engine
 {
 	import io.arkeus.tiled.TiledProperties;
 

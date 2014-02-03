@@ -1,17 +1,16 @@
 package com.dreamofninjas.core.engine
 {
-	import com.dreamofninjas.battler.util.Node;
 	import com.dreamofninjas.core.app.TileModel;
 	import com.dreamofninjas.core.ui.GPoint;
 	
 	import flash.utils.Dictionary;
+	import com.dreamofninjas.battler.util.Node;
 
 	public class PathUtils
 	{
 		public function PathUtils()
 		{
 		}
-		
 		/**
 		 * Returns an array of GPoints representing a path from start to dest.
 		 * Throws an exception if start and dest are not in nodeMap

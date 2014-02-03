@@ -1,7 +1,7 @@
 package com.dreamofninjas.battler.models
 {
 	import com.dreamofninjas.battler.levels.LevelObjects;
-	import com.dreamofninjas.battler.util.MapLoader;
+	import com.dreamofninjas.core.engine.MapLoader;
 	import com.dreamofninjas.core.util.BaseLoader;
 	
 	import flash.utils.Dictionary;

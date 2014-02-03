@@ -4,6 +4,7 @@ package com.dreamofninjas.battler.views
 	
 	import starling.events.Event;
 	import com.dreamofninjas.battler.models.BattleModel;
+	import com.dreamofninjas.core.ui.RadialMenu;
 	
 
 	public class BattleSetupView extends BaseView

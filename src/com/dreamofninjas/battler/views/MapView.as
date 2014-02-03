@@ -20,6 +20,7 @@ package com.dreamofninjas.battler.views
 	import starling.display.QuadBatch;
 	import starling.display.Sprite;
 	import starling.events.Event;
+	import com.dreamofninjas.core.ui.TileView;
 
 	public class MapView extends BaseView
 	{

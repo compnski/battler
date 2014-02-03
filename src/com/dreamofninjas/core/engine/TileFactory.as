@@ -1,4 +1,4 @@
-package com.dreamofninjas.battler.models
+package com.dreamofninjas.core.engine
 {
 	import com.dreamofninjas.core.ui.GPoint;
 	
@@ -9,6 +9,7 @@ package com.dreamofninjas.battler.models
 	import io.arkeus.tiled.TiledTerrain;
 	import io.arkeus.tiled.TiledTile;
 	import io.arkeus.tiled.TiledTileLayer;
+	import com.dreamofninjas.core.app.TileModel;
 
 	public class TileFactory {
 		

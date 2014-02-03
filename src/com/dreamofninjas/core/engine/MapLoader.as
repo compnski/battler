@@ -1,4 +1,4 @@
-package com.dreamofninjas.battler.util
+package com.dreamofninjas.core.engine
 {
 	import com.dreamofninjas.core.util.BaseLoader;
 	import com.dreamofninjas.core.util.TmxMapLoader;
