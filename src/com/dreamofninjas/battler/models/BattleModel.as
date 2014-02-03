@@ -1,9 +1,7 @@
 package com.dreamofninjas.battler.models
 {
-	import com.dreamofninjas.battler.events.UnitEvent;
+	import com.dreamofninjas.battler.levels.LevelModel;
 	import com.dreamofninjas.core.app.BaseModel;
-	
-	import io.arkeus.tiled.TiledObject;
 	
 	import starling.events.Event;
 
@@ -34,6 +32,9 @@ package com.dreamofninjas.battler.models
 		
 		public function set targetUnit(unit:UnitModel):void {
 			if (_targetUnit != unit) { 
+				if (unit) {
+					trace("target set to + " + unit.toString());
+				}
 				_targetUnit = unit;
 				dispatchEvent( new Event(Event.CHANGE, false, TARGET_UNIT));
 			}
@@ -50,20 +51,16 @@ package com.dreamofninjas.battler.models
 		
 		private var _mapModel:MapModel;
 		private var _factions:Vector.<FactionModel>;
-
-		public function BattleModel(mapModel:MapModel, factions:Vector.<FactionModel>)	{
+		public var level:LevelModel;
+		
+		public function BattleModel(level:LevelModel, factions:Vector.<FactionModel>)	{
 			super();
-			_mapModel = mapModel;
+			this.level = level;
+			_mapModel = level.mapModel;
 			_factions = factions;
-			for  each(var faction:FactionModel in factions) {
-				for each(var spawn:TiledObject in _mapModel.getSpawnsForFaction(faction.name)) {
-					var unit:UnitModel = faction.spawnUnit(spawn);
-					mapModel.addUnit(unit);
-				}
-			}
 		}
 		
-		private var _index:int = 0; //temprorary hack until I get speed
+		private var _index:int = -1; //temprorary hack until I get speed
 		public function getNextUnit():UnitModel {
 			_index = (_index + 1) % units.length;
 			return units[_index];

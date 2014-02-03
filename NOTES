@@ -1,13 +1,21 @@
 
 TODO:
 
+Consider moving unit spawn logic and death logic into a Flow? [May violate the only acts when active].
+{Event queueing?}
+
+
+ -- BaseLevel
+-- unit generation from a team in FactionModel
+-- Load a map
+-- simple AI triggers
+
 - Unit detail view
 -  Attacking
 -- highlight possible attack targets
 -- implement auras
--- unit generation from a team in FactionModel
+
 -- Pretty up AttackView
--- do attack, update damage, deal damage
 -- buttons to change targets
 
 
