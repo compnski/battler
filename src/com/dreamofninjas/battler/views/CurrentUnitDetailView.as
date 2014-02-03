@@ -10,8 +10,8 @@ package com.dreamofninjas.battler.views
 	{
 		public function CurrentUnitDetailView(battleModel:BattleModel, clipRect:Rectangle) {
 			super(battleModel.currentUnit, clipRect);
-		
 			battleModel.addEventListener(Event.CHANGE, battleModelUpdated);
+			this.bgColor = 0x6f73e5;
 		}
 	
 		private function battleModelUpdated(evt:Event):void {

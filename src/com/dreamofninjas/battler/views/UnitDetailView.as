@@ -10,6 +10,7 @@ package com.dreamofninjas.battler.views
 	import starling.events.Event;
 	import starling.filters.BlurFilter;
 	import starling.text.TextField;
+	import starling.utils.Color;
 	
 	public class UnitDetailView extends BaseView {
 		
@@ -24,11 +25,10 @@ package com.dreamofninjas.battler.views
 		private var _typeLabel:TextField = new TextField(100, 30, "", "Arial", 13);
 		private var _mpBar:ProgressBar;
 		private var _hpBar:ProgressBar;
-		
+		protected var bgColor:uint = 0xc6d0af;
 		
 		protected function set _item(unitModel:UnitModel):void {
 			if (__item === unitModel) {
-				trace('aredy set' );
 				return;
 			}
 			if (__item) {
@@ -53,7 +53,7 @@ package com.dreamofninjas.battler.views
 		}		
 		
 		public function addedToStage(evt:Event):void {
-			var q:Quad = new Quad(250, 150, 0xc6d0af);
+			var q:Quad = new Quad(250, 150, this.bgColor);
 			addChild(q);
 			addChild(_nameLabel);
 			

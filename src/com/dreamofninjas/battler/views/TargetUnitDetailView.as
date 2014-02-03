@@ -12,6 +12,7 @@ package com.dreamofninjas.battler.views
 		{
 			super(battleModel.targetUnit, clipRect);
 			battleModel.addEventListener(Event.CHANGE, battleModelUpdated);
+			this.bgColor = 0xeE7376;
 		}
 		
 		private function battleModelUpdated(evt:Event):void {
