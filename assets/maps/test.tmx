@@ -18,25 +18,47 @@
    eJzt00EKACAIBED7//PqQdGhe0SByAx4XVjFCADIabT3WS8zK+gX+8h8l5s+Ga0ee065y3/V/gUAAAAgiwnLfQ/J
   </data>
  </layer>
- <objectgroup name="EnemyAggro" width="51" height="36">
-  <object name="FrontSection" type="Trigger" x="576" y="256" width="416" height="320"/>
+ <objectgroup name="AI_Triggers" width="51" height="36">
+  <object name="Commander Trigger" type="Trigger" x="384" y="384" width="192" height="192">
+   <properties>
+    <property name="group" value="commander"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup color="#00ff00" name="PlayerSpawn" width="51" height="36">
   <properties>
    <property name="faction" value="Player"/>
   </properties>
-  <object name="1" type="Spawn" x="352" y="480" width="32" height="32">
-   <properties>
-    <property name="faction" value="Player"/>
-   </properties>
-  </object>
-  <object name="2" type="Spawn" x="352" y="512" width="32" height="32"/>
+  <object name="1" type="Spawn" x="256" y="384" width="32" height="32"/>
+  <object name="2" type="Spawn" x="256" y="448" width="32" height="32"/>
  </objectgroup>
  <objectgroup color="#ff0000" name="EnemySpawn" width="51" height="36">
   <properties>
    <property name="faction" value="Enemy"/>
   </properties>
-  <object name="1" type="Spawn" x="416" y="544" width="32" height="32"/>
-  <object name="2" type="Spawn" x="384" y="480" width="32" height="32"/>
+  <object name="Spearwoman" type="Spawn" x="384" y="512" width="32" height="32">
+   <properties>
+    <property name="active" value="true"/>
+    <property name="type" value="Spearwoman"/>
+   </properties>
+  </object>
+  <object name="Spearman" type="Spawn" x="384" y="448" width="32" height="32">
+   <properties>
+    <property name="active" value="true"/>
+    <property name="type" value="Spearman"/>
+   </properties>
+  </object>
+  <object name="War Baron" type="Spawn" x="544" y="480" width="32" height="32">
+   <properties>
+    <property name="name" value="War Baron"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="AI_Groups" width="51" height="36">
+  <object name="Commander Group" type="UnitGroup" x="512" y="384" width="96" height="192">
+   <properties>
+    <property name="group" value="commander"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>
