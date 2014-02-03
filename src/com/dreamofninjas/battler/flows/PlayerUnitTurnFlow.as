@@ -1,8 +1,6 @@
 package com.dreamofninjas.battler.flows
 {
 	import com.dreamofninjas.battler.PathUtils;
-	import com.dreamofninjas.battler.StatAffectingStatusEffect;
-	import com.dreamofninjas.battler.StatType;
 	import com.dreamofninjas.battler.events.TileEvent;
 	import com.dreamofninjas.battler.models.BattleModel;
 	import com.dreamofninjas.battler.models.UnitModel;
@@ -16,7 +14,7 @@ package com.dreamofninjas.battler.flows
 	import starling.display.DisplayObject;
 	import starling.events.Event;
 
-	public class UnitTurnFlow extends BaseFlow {
+	public class PlayerUnitTurnFlow extends BaseFlow {
 		private var battleModel:BattleModel;
 		private var battleView:BattleView;
 		private var unit:UnitModel;
@@ -31,32 +29,21 @@ package com.dreamofninjas.battler.flows
 
 		private var floodMap:Object = {};
 
-		public function UnitTurnFlow(battleModel:BattleModel, battleView:BattleView) {
+		public function PlayerUnitTurnFlow(battleModel:BattleModel, battleView:BattleView, unit:UnitModel) {
 			super();
 			this.battleModel = battleModel;
 			this.battleView = battleView;
+			this.unit = unit;
 		}
 
 		public override function Execute():void {
 			super.Execute();
-
 			// Find current unit?
-			unit = battleModel.getNextUnit();
-			battleModel.currentUnit = unit;
-			trace("Unit turn for " + unit.type);
-			trace("hp = " + unit.HP);
-			unit.getEffects().push(new StatAffectingStatusEffect(StatType.MOVE, 1));
+//			unit.getEffects().push(new StatAffectingStatusEffect(StatType.MOVE, 1));
 
-			battleView.mapView.centerOn(unit.x + 16, unit.y + 16);
-
-			var pathCostFunction:Function = function(loc:GPoint):int {
-				var unitOnTile:UnitModel = battleModel.mapModel.getUnitAt(loc)
-				if (unitOnTile != null && unitOnTile.faction != unit.faction) {
-					return 999;
-				}
-				return PathUtils.getTileCost(unit, battleModel.mapModel.getTileAt(loc));
-			}
-			floodMap = PathUtils.floodFill(GPoint.g(unit.r, unit.c), pathCostFunction, unit.Move);
+			
+			
+			floodMap = PathUtils.floodFill(GPoint.g(unit.r, unit.c), PathUtils.getStdPathCostFunction(unit, battleModel.mapModel), unit.Move);
 
 			currentUnitOverlay = battleView.drawOverlay(floodMap, 0x5566ee);
 			battleView.addEventListener(TileEvent.CLICKED, tileClicked);

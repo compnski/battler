@@ -1,5 +1,6 @@
 package com.dreamofninjas.battler.flows
 {
+	import com.dreamofninjas.battler.models.AiUnitModel;
 	import com.dreamofninjas.battler.models.BattleModel;
 	import com.dreamofninjas.battler.models.UnitModel;
 	import com.dreamofninjas.battler.views.BattleView;
@@ -35,20 +36,30 @@ package com.dreamofninjas.battler.flows
 		public override function Restored(evt:Event):void {
 			super.Restored(evt);
 			//cleanup?
-			
-			if (evt.target is BattleSetupFlow) {
-				setNextFlow(new UnitTurnFlow(battleModel, battleView));
+			if (battleModel.currentUnit != null) {
+				battleModel.level.afterUnitTurn(battleModel.currentUnit);
 			}
-			if (evt.target is UnitTurnFlow) {
-				postTurnCleanup();
-				
-				if (battleIsComplete(battleModel)) {
+			setNextUnit();
+			postTurnCleanup();
+			if (battleIsComplete(battleModel)) {
 					trace("BATTLE HAS ENDED");
 					//Complete();
-				} else {
-					setNextFlow(new UnitTurnFlow(battleModel, battleView));
-				}
+			} else {
+					startNextTurn();
 			}
+		}
+
+		private function startNextTurn():void {
+			if (battleModel.currentUnit is AiUnitModel) {
+				setNextFlow(new AiUnitTurnFlow(battleModel, battleView, battleModel.currentUnit as AiUnitModel));
+			} else {
+				setNextFlow(new PlayerUnitTurnFlow(battleModel, battleView, battleModel.currentUnit));
+			}
+		}
+		
+		private function setNextUnit():void {
+			battleModel.currentUnit = battleModel.getNextUnit();
+			battleView.mapView.centerOn(battleModel.currentUnit);
 		}
 		
 		protected override function release():void {
@@ -71,6 +82,7 @@ package com.dreamofninjas.battler.flows
 				}
 			}
 			battleModel.active = anyPlayerUnits && anyEnemyUnits;
+			battleModel.targetUnit = null;
 		}
 	}
 }
