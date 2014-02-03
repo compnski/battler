@@ -1,3 +1,5 @@
 *#*.as#
 bin-debug/*
 *.#*
+#*#
+org.eclipse.core.resources.prefs
