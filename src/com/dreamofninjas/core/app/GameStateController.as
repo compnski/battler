@@ -1,5 +1,10 @@
 package com.dreamofninjas.core.app
 {
+	import flash.events.TimerEvent;
+	import flash.utils.Timer;
+	
+	import starling.animation.Juggler;
+	import starling.core.Starling;
 	import starling.events.Event;
 
 	public class GameStateController
@@ -8,6 +13,9 @@ package com.dreamofninjas.core.app
 		private var flowStack:Vector.<IFlow> = new Vector.<IFlow>;
 
 		public function GameStateController() {
+		}
+		public function get juggler():Juggler {
+			return Starling.juggler
 		}
 		
 		public function setNextFlow(flow:IFlow):void {
@@ -29,7 +37,12 @@ package com.dreamofninjas.core.app
 			}
 			currentFlow = flowStack.pop();
 			trace("Restoring " + currentFlow);
-			currentFlow.Restored(evt);
+			var t:Timer = new Timer(0,1);
+			t.addEventListener(TimerEvent.TIMER_COMPLETE, function(tevt:TimerEvent):void {
+				currentFlow.Restored(evt);
+				t.removeEventListener(TimerEvent.TIMER_COMPLETE, arguments.callee);
+			});
+			t.start();
 		}
 		
 	}
