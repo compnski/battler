@@ -1,10 +1,12 @@
 package io.arkeus.tiled {
+	import com.dreamofninjas.battler.IRectangle;
+	
 	import flash.geom.Point;
 
 	/**
 	 * Represents a single <object> within an <objectgroup> in the map.
 	 */
-	public class TiledObject {
+	public class TiledObject implements IRectangle {
 		public static const RECTANGLE:uint = 0;
 		public static const ELLIPSE:uint = 1;
 		public static const POLYGON:uint = 2;
@@ -32,6 +34,19 @@ package io.arkeus.tiled {
 		public var shape:uint;
 		/** A vector of points, if the object is a polygon or polyline. */
 		public var points:Vector.<Point>;
+		public function getX():int { return x; }
+		public function getY():int { return y; }
+		public function getH():int { return height; }
+		public function getW():int { return width; }
+		
+		// returns true if this fully encloses obj.
+		public function contains(obj:IRectangle):Boolean {
+			if (shape != RECTANGLE) {
+				throw new Error("Shape not supported");
+			}
+			return (obj.getX() >= this.x && obj.getX() < (this.x + this.width) &&
+					obj.getY() >= this.y && obj.getY() < (this.y + this.height));
+		}
 		
 		public function TiledObject(tmx:XML) {
 			name = "@name" in tmx ? tmx.@name : null;
