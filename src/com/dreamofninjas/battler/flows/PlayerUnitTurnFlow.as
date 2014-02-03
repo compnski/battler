@@ -1,14 +1,15 @@
 package com.dreamofninjas.battler.flows
 {
-	import com.dreamofninjas.core.engine.PathUtils;
 	import com.dreamofninjas.battler.events.TileEvent;
 	import com.dreamofninjas.battler.models.BattleModel;
 	import com.dreamofninjas.battler.models.UnitModel;
+	import com.dreamofninjas.battler.util.BattlerPathUtils;
 	import com.dreamofninjas.battler.views.BattleView;
+	import com.dreamofninjas.core.app.BaseFlow;
+	import com.dreamofninjas.core.engine.PathUtils;
+	import com.dreamofninjas.core.ui.GPoint;
 	import com.dreamofninjas.core.ui.RadialMenu;
 	import com.dreamofninjas.core.ui.RadialMenuBuilder;
-	import com.dreamofninjas.core.app.BaseFlow;
-	import com.dreamofninjas.core.ui.GPoint;
 	
 	import starling.core.Starling;
 	import starling.display.DisplayObject;
@@ -41,9 +42,7 @@ package com.dreamofninjas.battler.flows
 			// Find current unit?
 //			unit.getEffects().push(new StatAffectingStatusEffect(StatType.MOVE, 1));
 
-			
-			
-			floodMap = PathUtils.floodFill(GPoint.g(unit.r, unit.c), PathUtils.getStdPathCostFunction(unit, battleModel.mapModel), unit.Move);
+			floodMap = PathUtils.floodFill(GPoint.g(unit.r, unit.c), BattlerPathUtils.getStdPathCostFunction(unit, battleModel.mapModel), unit.Move);
 
 			currentUnitOverlay = battleView.drawOverlay(floodMap, 0x5566ee);
 			battleView.addEventListener(TileEvent.CLICKED, tileClicked);

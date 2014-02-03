@@ -4,7 +4,6 @@ package com.dreamofninjas.core.engine
 	import com.dreamofninjas.core.ui.GPoint;
 	
 	import flash.utils.Dictionary;
-	import com.dreamofninjas.battler.util.Node;
 
 	public class PathUtils
 	{

@@ -1,13 +1,14 @@
 package com.dreamofninjas.battler.flows
 {
-	import com.dreamofninjas.battler.util.AttackUtils;
-	import com.dreamofninjas.core.engine.PathUtils;
 	import com.dreamofninjas.battler.models.AiUnitModel;
 	import com.dreamofninjas.battler.models.AttackModel;
 	import com.dreamofninjas.battler.models.BattleModel;
 	import com.dreamofninjas.battler.models.UnitModel;
+	import com.dreamofninjas.battler.util.AttackUtils;
+	import com.dreamofninjas.battler.util.BattlerPathUtils;
 	import com.dreamofninjas.battler.views.BattleView;
 	import com.dreamofninjas.core.app.BaseFlow;
+	import com.dreamofninjas.core.engine.PathUtils;
 	import com.dreamofninjas.core.ui.GPoint;
 	
 	import starling.core.Starling;
@@ -57,7 +58,7 @@ package com.dreamofninjas.battler.flows
 				if (unitOnTile != null) {
 					return 999;
 				}
-				return PathUtils.getTileCost(unit, battleModel.mapModel.getTileAt(loc));
+				return BattlerPathUtils.getTileCost(unit, battleModel.mapModel.getTileAt(loc));
 			}
 
 			var nodeMap:Object = PathUtils.floodFill(unit.gpoint, pathCostFunc, unit.Move * 3);
