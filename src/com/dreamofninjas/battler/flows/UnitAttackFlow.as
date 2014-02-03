@@ -59,7 +59,7 @@ package com.dreamofninjas.battler.flows
 			var i:int = 0;
 			for each(var attack:AttackModel in unit.attacks) {
 				var name:String = attack.name;
-				attackAreas[attack] = PathUtils.floodFill(GPoint.g(unit.r, unit.c), pathCostFunction, attack.range);
+				attackAreas[attack] = AttackUtils.buildAttackArea(attack);
 				attackOverlays[attack] = battleView.drawOverlay(attackAreas[attack], 0xee66ee);
 				var view:AttackView = new AttackView(attack);
 				battleView.addChild(view);
@@ -72,7 +72,7 @@ package com.dreamofninjas.battler.flows
 			battleView.addEventListener(TileEvent.CLICKED, tileClicked);
 			battleView.addEventListener(Event.TRIGGERED, attackClicked);
 			battleView.addEventListener(KeyboardEvent.KEY_UP, keyUp);
-			refreshWeaponUi(getAttacksTargettingUnit(battleModel.targetUnit));
+			refreshWeaponUi(AttackUtils.getAttacksTargettingUnit(attackAreas, battleModel.targetUnit));
 		}	
 		
 		private function keyUp(evt:KeyboardEvent):void {
@@ -116,7 +116,8 @@ package com.dreamofninjas.battler.flows
 
 			var attack:AttackModel = evt.data as AttackModel;
 			AttackUtils.doAttack(attack, battleModel.targetUnit);
-			Complete(true);
+			setFlowVisibility(false);
+			DelayedComplete(1, true);
 		}
 		
 		private function tileClicked(evt:TileEvent):void {
@@ -136,25 +137,9 @@ package com.dreamofninjas.battler.flows
 				return;
 			}
 			battleModel.targetUnit = targetUnit;
-			refreshWeaponUi(getAttacksTargettingUnit(targetUnit));
+			refreshWeaponUi(AttackUtils.getAttacksTargettingUnit(attackAreas, targetUnit));
 		}
-			
-		private function getAttacksTargettingUnit(targetUnit:UnitModel):Dictionary {
-			var attacksInRange:Dictionary = new Dictionary();
-			if (targetUnit == null) {
-				return attacksInRange;
-			}
-			var attackFound:int = 0;
-			for (var attack:AttackModel in attackAreas) {
-				var area:Object = attackAreas[attack];
-				if (targetUnit.gpoint in area && area[targetUnit.gpoint].reachable && AttackUtils.canAttack(attack, targetUnit)) {
-					attacksInRange[attack] = attack;
-					attackFound++;
-				}
-			}
-			return attacksInRange;
-		}
-		
+					
 		private function refreshWeaponUi(attacksInRange:Dictionary):void {
 			for (var model:AttackModel in attackViews) {
 				var view:AttackView = this.attackViews[model];				

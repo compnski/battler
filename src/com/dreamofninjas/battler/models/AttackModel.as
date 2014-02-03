@@ -11,7 +11,9 @@ package com.dreamofninjas.battler.models
 		public var name:String;
 		public var totalRecoveryTime:int;
 		public var damage:int;
-		private var attacker:UnitModel;
+		public var attacker:UnitModel;
+		
+		
 		
 		public function get faction():String {
 			return attacker.faction;
@@ -30,7 +32,7 @@ package com.dreamofninjas.battler.models
 			}
 			this.auras = auras;
 		}
-		
+				
 		public function getAttackRating():int {
 			return damage;	
 		}
