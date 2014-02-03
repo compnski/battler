@@ -62,7 +62,6 @@ package com.dreamofninjas.battler.views
 		public function removeUnit(unit:UnitModel):void {
 			var u:UnitView = getUnit(unit);
 			if (u) {
-				trace('removing from view')
 				u.removeFromParent(true);
 				delete unitModelToView[unit];
 			}
@@ -75,7 +74,6 @@ package com.dreamofninjas.battler.views
 		}
 		
 		private function unitDiedHandler(evt:Event):void {
-			trace('unit died in view')
 			var unit:UnitModel = evt.target as UnitModel;
 			removeUnit(unit);
 		}
@@ -149,7 +147,15 @@ package com.dreamofninjas.battler.views
 			
 		}
 		
-		public function centerOn(cx:int, cy:int):void {
+		// Obj needs to have x,y,width,height set
+		public function centerOn(obj:Object):void {
+			var cx:int, cy:int;
+			if (obj is UnitModel) {
+				obj = getUnit(obj as UnitModel);
+			}
+			cx = obj.x + obj.width / 2;
+			cy = obj.y + obj.height / 2;
+
 			// Center based on scaled clipRect			
 			cx = (clipRect.width / scaleX / 2) - cx;
 			cy = (clipRect.height / scaleY / 2) - cy;			
