@@ -74,7 +74,6 @@ package com.dreamofninjas.core.ui
 		//watch model for update, call function to get value
 		
 		private function updateView():void {
-			trace("updateview", this._value, this._maxValue)
 			this.statusText.text = this._value + " / " + this._maxValue;
 			this.q.width = this.clipRect.width * (this._value / this._maxValue);
 			

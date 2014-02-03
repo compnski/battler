@@ -41,7 +41,6 @@ package io.arkeus.tiled {
 		public function extend(props:TiledProperties):void {
 			for (var key:String in props.properties) {
 				if(!has(key)) {
-					trace("Extend - set " + key + " to " + props.get(key));
 					set(key, props.get(key));
 				}
 			}

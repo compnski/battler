@@ -63,7 +63,6 @@ package io.arkeus.tiled {
 
 		public override function load(timeout:uint=0):void {
 			super.load(timeout);
-			trace("Loading " + image.source);
 			var imageLoader:AssetLoader = new AssetLoader(image.source);
 			imageLoader.addEventListener(Event.COMPLETE, imageLoaded);
 			imageLoader.load();
@@ -107,7 +106,6 @@ package io.arkeus.tiled {
 				node.id += firstGid;
 				tiles[node.id] = node;
         lastGid = Math.max(lastGid, node.id);
-				trace("created tile " + node.id);
 			}
 
 			return tiles;

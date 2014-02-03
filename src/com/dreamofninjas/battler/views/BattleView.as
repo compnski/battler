@@ -6,7 +6,6 @@ package com.dreamofninjas.battler.views
 	import com.dreamofninjas.core.ui.DisplayFactory;
 	
 	import flash.geom.Rectangle;
-	import flash.utils.Dictionary;
 	
 	import starling.display.DisplayObject;
 	import starling.display.Quad;
