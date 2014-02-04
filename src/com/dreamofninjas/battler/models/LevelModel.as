@@ -25,11 +25,13 @@ package com.dreamofninjas.battler.models
 		public var mapModel:MapModel;
 		// Map of objects from their type to a vector of contents;
 		private var _typeMap:Dictionary = new Dictionary();
-
+		public var battleModel:BattleModel;
+		
 		private var groupList:Vector.<TiledObject>;
-
+//TODO: Split into LevelLoader and LevelModel
 		public function LevelModel()
 		{
+			this.battleModel = battleModel;
 			mapLoader = new MapLoader("assets/maps/", "test.tmx");
 			mapLoader.addEventListener(Event.COMPLETE, mapLoaded);
 		}

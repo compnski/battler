@@ -62,6 +62,7 @@ package com.dreamofninjas.battler
 			factions.push(playerModel);
 
 			_item = new BattleModel(level, factions);			
+			level.battleModel = _item;
 			
 			sortChildren(function(a:BaseView, b:BaseView):int {
 				return a.z - b.z;
@@ -70,10 +71,5 @@ package com.dreamofninjas.battler
 			var bf:BattleFlow = new BattleFlow(_item, this);
 			new InitialFlow(bf);
 		}
-
-		private function mazpLoaded(evt:Event):void {
-			trace("done");
-		}
-
 	}
 }
