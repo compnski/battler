@@ -4,11 +4,23 @@ TODO:
 Consider moving unit spawn logic and death logic into a Flow? [May violate the only acts when active].
 {Event queueing?}
 
+-timing system
+- some interface, getNextActionAt?
+— each unit has nextActionAt
 
- -- BaseLevel
--- unit generation from a team in FactionModel
--- Load a map
--- simple AI triggers
+//TODO: Split into LevelLoader and LevelModel
+
+nextTurn():Action { }
+changeSpd(amt:int):void { }?
+
+
+Action {at:1234 type:"Turn", unit:UnitModel }
+Action {at:1450 type:"Effect", effect: EffectModel }
+
+
+-New AI - using fields
+-- each square calculates it's value based on certain rules [can attack / be attacked in x turns]
+
 
 - Unit detail view
 -  Attacking
