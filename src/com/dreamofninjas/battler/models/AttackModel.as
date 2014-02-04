@@ -8,7 +8,7 @@ package com.dreamofninjas.battler.models
 		public var type:DamageType;
 		public var auras:Object;
 		public var name:String;
-		public var totalRecoveryTime:int;
+		public var recoveryTime:int;
 		public var damage:int;
 		public var attacker:UnitModel;
 		
@@ -25,7 +25,7 @@ package com.dreamofninjas.battler.models
 			this.name = name;
 			this.range = range;
 			this.type = type;
-			this.totalRecoveryTime = recoveryTime;
+			this.recoveryTime = recoveryTime;
 			if (auras == null) {
 				auras = {};
 			}

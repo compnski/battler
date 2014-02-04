@@ -1,11 +1,11 @@
 package com.dreamofninjas.battler.flows
 {
 	import com.dreamofninjas.battler.events.TileEvent;
+	import com.dreamofninjas.battler.models.AttackModel;
 	import com.dreamofninjas.battler.models.BattleModel;
 	import com.dreamofninjas.battler.models.UnitModel;
 	import com.dreamofninjas.battler.util.BattlerPathUtils;
 	import com.dreamofninjas.battler.views.BattleView;
-	import com.dreamofninjas.core.app.BaseFlow;
 	import com.dreamofninjas.core.engine.PathUtils;
 	import com.dreamofninjas.core.ui.GPoint;
 	import com.dreamofninjas.core.ui.RadialMenu;
@@ -15,7 +15,7 @@ package com.dreamofninjas.battler.flows
 	import starling.display.DisplayObject;
 	import starling.events.Event;
 
-	public class PlayerUnitTurnFlow extends BaseFlow {
+	public class PlayerUnitTurnFlow extends TurnFlow {
 		private var battleModel:BattleModel;
 		private var battleView:BattleView;
 		private var unit:UnitModel;
@@ -31,7 +31,7 @@ package com.dreamofninjas.battler.flows
 		private var floodMap:Object = {};
 
 		public function PlayerUnitTurnFlow(battleModel:BattleModel, battleView:BattleView, unit:UnitModel) {
-			super();
+			super(unit);
 			this.battleModel = battleModel;
 			this.battleView = battleView;
 			this.unit = unit;
@@ -106,8 +106,9 @@ package com.dreamofninjas.battler.flows
 			}
 
 			if (evt.target is UnitAttackFlow) {
-				if (evt.data) {
-					Complete();
+				if (evt.data != null) {
+					var attack:AttackModel = evt.data as AttackModel;
+					EndTurn(attack.recoveryTime);
 				}
 			}
 			// add listener [or ignore when not the active flow]?
@@ -117,7 +118,7 @@ package com.dreamofninjas.battler.flows
 			setNextFlow(new UnitAttackFlow(battleModel, battleModel.currentUnit, battleView));
 		}
 		private function doWait():void {
-			Complete();
+			EndTurn();
 		}
 		private function doSkill():void {
 

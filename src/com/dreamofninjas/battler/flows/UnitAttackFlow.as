@@ -81,7 +81,7 @@ package com.dreamofninjas.battler.flows
 			}
 			
 			if (evt.keyCode == 27) { //esc 
-				Complete(false);
+				Complete();
 			}
 		}
 		
@@ -117,7 +117,7 @@ package com.dreamofninjas.battler.flows
 			var attack:AttackModel = evt.data as AttackModel;
 			AttackUtils.doAttack(attack, battleModel.targetUnit);
 			setFlowVisibility(false);
-			DelayedComplete(1, true);
+			DelayedComplete(0.7, attack);
 		}
 		
 		private function tileClicked(evt:TileEvent):void {

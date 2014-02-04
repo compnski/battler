@@ -14,20 +14,21 @@ package com.dreamofninjas.battler.flows
 	import starling.core.Starling;
 	import starling.events.Event;
 	
-	public class AiUnitTurnFlow extends BaseFlow
+	public class AiUnitTurnFlow extends TurnFlow
 	{
 		
 		private var battleModel:BattleModel;
 		private var battleView:BattleView;
 		private var unit:AiUnitModel;
+		private var nextTurnAt:int;
 
 		public function AiUnitTurnFlow(battleModel:BattleModel, battleView:BattleView, unit:AiUnitModel) {
-			super();
+			super(unit);
 			this.battleModel = battleModel;
 			this.battleView = battleView;
 			this.unit = unit;
 		}
-
+						
 		// TODO: return attacks, eventually find most damage across all possible attacks including moving
 		private function tryAttack(target:UnitModel):Boolean {
 			var viableAttacks:Array = new Array();
@@ -42,6 +43,7 @@ package com.dreamofninjas.battler.flows
 			}
 			viableAttacks.sortOn("dmg", Array.DESCENDING | Array.NUMERIC);
 			AttackUtils.doAttack(viableAttacks[0].attack, target);
+			this.addRecoveryTime(attack.recoveryTime);
 			return true;
 		}
 		
@@ -50,7 +52,7 @@ package com.dreamofninjas.battler.flows
 			super.Execute();
 			if (!unit.active) {
 				trace("not active, return");
-				return Complete();
+				return EndTurn();
 			}
 
 			var pathCostFunc:Function = function(loc:GPoint):int {
@@ -72,13 +74,12 @@ package com.dreamofninjas.battler.flows
 			targets.sort(UnitModel.DistanceSort(unit));
 			var target:UnitModel = targets[0]
 			if (target == null) {
-				return Complete();
+				return EndTurn();
 			}
 			battleModel.targetUnit = target;
 			
 			if (tryAttack(target)) {
-				DelayedComplete(1);
-				return;
+				return EndTurn(0, 0.7);
 			}
 			
 			//find a place to stand.
@@ -92,11 +93,11 @@ package com.dreamofninjas.battler.flows
 			} else if(target.gpoint.right() in nodeMap) {
 				targetPoint = target.gpoint.right();
 			} else {
-				return Complete();
+				return EndTurn();
 			}
 			var path:Array = PathUtils.getPath(nodeMap, unit.gpoint, targetPoint);
 			if (path == null || path.length == 0) { 
-				return Complete();
+				return EndTurn();
 			}
 			path = path.slice(0, unit.Move);
 			this.onRestored(afterMove);
@@ -124,11 +125,10 @@ package com.dreamofninjas.battler.flows
 						UnitModel.DistanceSort(unit));
 			var target:UnitModel = targets[0]
 			if (targets == null) {
-				Complete();
-				return;
+				return EndTurn();
 			}
 			tryAttack(target);
-			DelayedComplete(1);
+			return EndTurn(0, 0.7);
 		}
 	//todo find a home
 	}
