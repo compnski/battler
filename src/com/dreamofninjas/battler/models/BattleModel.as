@@ -22,6 +22,10 @@ package com.dreamofninjas.battler.models
 			return _mapModel;
 		}
 
+		public function queueNewTurnAction(unit:UnitModel, ticksAway:int):void {
+			this.actionQueue.enqueue(new TurnAction(unit, this.actionQueue.now + ticksAway));
+		}
+		
 		public function set currentUnit(unit:UnitModel):void {
 			if (_currentUnit != unit) {
 				_currentUnit = unit;
@@ -51,6 +55,7 @@ package com.dreamofninjas.battler.models
 		private var _mapModel:MapModel;
 		private var _factions:Vector.<FactionModel>;
 		public var level:LevelModel;
+		public var actionQueue:ActionQueue = new ActionQueue();
 		
 		public function BattleModel(level:LevelModel, factions:Vector.<FactionModel>)	{
 			super();
@@ -58,12 +63,5 @@ package com.dreamofninjas.battler.models
 			_mapModel = level.mapModel;
 			_factions = factions;
 		}
-		
-		private var _index:int = -1; //temprorary hack until I get speed
-		public function getNextUnit():UnitModel {
-			_index = (_index + 1) % units.length;
-			return units[_index];
-		}
-		
 	}
 }

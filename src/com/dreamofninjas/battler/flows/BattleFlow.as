@@ -1,7 +1,9 @@
 package com.dreamofninjas.battler.flows
 {
+	import com.dreamofninjas.battler.models.Action;
 	import com.dreamofninjas.battler.models.AiUnitModel;
 	import com.dreamofninjas.battler.models.BattleModel;
+	import com.dreamofninjas.battler.models.TurnAction;
 	import com.dreamofninjas.battler.models.UnitModel;
 	import com.dreamofninjas.battler.views.BattleView;
 	import com.dreamofninjas.core.app.BaseFlow;
@@ -36,32 +38,46 @@ package com.dreamofninjas.battler.flows
 		public override function Restored(evt:Event):void {
 			super.Restored(evt);
 			//cleanup?
-			if (battleModel.currentUnit != null) {
-				battleModel.level.afterUnitTurn(battleModel.currentUnit);
+			if (evt.target is TurnFlow) {
+				var unit:UnitModel = evt.data.unit;
+				var recoveryTime:int = evt.data.recoveryTime;
+				if (recoveryTime == 0) {
+					throw new Error("Unit can't move twice in the same instant. Must be at least 1 delay");
+				}
+				battleModel.queueNewTurnAction(unit, recoveryTime);
 			}
-			setNextUnit();
-			postTurnCleanup();
-			if (battleIsComplete(battleModel)) {
-					trace("BATTLE HAS ENDED");
-					//Complete();
-			} else {
-					startNextTurn();
-			}
+			executeNextAction();
 		}
 
-		private function startNextTurn():void {
+		private function executeNextAction():void {
+			trace(battleModel.actionQueue.queue);
+			var action:Action = battleModel.actionQueue.popNextAction();
+			trace(battleModel.actionQueue.queue);
+			if (action is TurnAction) {
+				var turn:TurnAction = action as TurnAction;
+				return startNextTurn(turn.unit);
+			} else {
+				throw new Error("Unexpected action: " + action);
+			}
+		}
+		
+		private function turnComplete(unit:UnitModel):void {
+			battleModel.level.afterUnitTurn(unit);
+			postTurnCleanup();
+			executeNextAction();
+		}
+		
+		private function startNextTurn(unit:UnitModel):void {
+			battleModel.currentUnit = unit;
+			battleView.mapView.centerOn(battleModel.currentUnit);
+			
 			if (battleModel.currentUnit is AiUnitModel) {
 				setNextFlow(new AiUnitTurnFlow(battleModel, battleView, battleModel.currentUnit as AiUnitModel));
 			} else {
 				setNextFlow(new PlayerUnitTurnFlow(battleModel, battleView, battleModel.currentUnit));
 			}
 		}
-		
-		private function setNextUnit():void {
-			battleModel.currentUnit = battleModel.getNextUnit();
-			battleView.mapView.centerOn(battleModel.currentUnit);
-		}
-		
+				
 		protected override function release():void {
 			battleModel.currentUnit = null;
 			battleModel.targetUnit = null;
@@ -83,6 +99,8 @@ package com.dreamofninjas.battler.flows
 			}
 			battleModel.active = anyPlayerUnits && anyEnemyUnits;
 			battleModel.targetUnit = null;
+			
+			//battleIsComplete(battleModel)
 		}
 	}
 }

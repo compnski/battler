@@ -193,8 +193,11 @@ package com.dreamofninjas.battler.models
 			}
 			for each(var group:String in groups) {
 				for each(var aiunit:AiUnitModel in groupMap[group]) {
-					trace("Waking up " + aiunit.toString());
-					aiunit.activate(true);
+					if (!aiunit.active) {
+						trace("Waking up " + aiunit.toString());
+						aiunit.activate(true);
+						this.battleModel.queueNewTurnAction(aiunit, randint(1, 20));
+					}
 				}
 			}
 		}

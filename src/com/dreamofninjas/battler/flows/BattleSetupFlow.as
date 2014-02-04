@@ -1,10 +1,12 @@
 package com.dreamofninjas.battler.flows
 {
-	import starling.events.Event;
 	import com.dreamofninjas.battler.models.BattleModel;
+	import com.dreamofninjas.battler.models.UnitModel;
 	import com.dreamofninjas.battler.views.BattleSetupView;
 	import com.dreamofninjas.battler.views.BattleView;
 	import com.dreamofninjas.core.app.BaseFlow;
+	
+	import starling.events.Event;
 	
 	public class BattleSetupFlow extends BaseFlow {
 		
@@ -19,7 +21,15 @@ package com.dreamofninjas.battler.flows
 		}
 		
 		public override function Execute():void {
-			super.Execute();
+			super.Execute()
+
+			// add all unit turns
+			for each (var unit:UnitModel in battleModel.units) {
+				if (unit.active) {
+					battleModel.queueNewTurnAction(unit, randint(1, 20));
+				}
+			}
+			
 			_battleSetupView = new BattleSetupView(battleModel);
 			_battleSetupView.addEventListener(Event.COMPLETE, battleSetupComplete);
 			battleView.addChild(_battleSetupView);
