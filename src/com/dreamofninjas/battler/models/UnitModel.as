@@ -1,23 +1,23 @@
 package com.dreamofninjas.battler.models
 {
+	import com.dreamofninjas.battler.events.UnitEvent;
+	import com.dreamofninjas.core.app.BaseModel;
+	import com.dreamofninjas.core.engine.StatProperty;
+	import com.dreamofninjas.core.engine.StatType;
 	import com.dreamofninjas.core.interfaces.IHasEffects;
 	import com.dreamofninjas.core.interfaces.IRectangle;
 	import com.dreamofninjas.core.interfaces.IStatusEffect;
-	import com.dreamofninjas.battler.events.UnitEvent;
-	import com.dreamofninjas.core.app.BaseModel;
 	import com.dreamofninjas.core.ui.GPoint;
 	
 	import flash.utils.Dictionary;
 	
 	import starling.events.Event;
-	import com.dreamofninjas.core.engine.StatProperty;
-	import com.dreamofninjas.core.engine.StatType;
 
 	//TODO: Merge this and the builder, remove most of the setters for stats
 	
 	public class UnitModel extends BaseModel implements IHasEffects, IRectangle {
 		public static const Builder:Class = UnitModelBuilder;
-
+	
 		public static const STR:StatType = new StatType("str");
 		public static const INT:StatType = new StatType("dex");
 		public static const DEX:StatType = new StatType("int");
@@ -40,6 +40,8 @@ package com.dreamofninjas.battler.models
 			return _attacks;
 		}
 
+		public var active:Boolean = true;
+		
 		public function getX():int { return x; }
 		public function getY():int { return y; }
 		public function getH():int { return 32; }
@@ -86,6 +88,10 @@ package com.dreamofninjas.battler.models
 
 		public var name:String;
 		public var id:int;
+		private static var __id:int = 0;
+		
+		public var recoveryTime:int = 50;
+		
 
 		// Returns true if the unit takes lethal damage
 		public function takeDamage(amt:int):Boolean {
@@ -100,6 +106,7 @@ package com.dreamofninjas.battler.models
 		
 		private var _properties:Dictionary;
 		public function UnitModel(name:String, faction:String, type:String, x:int, y:int, properties:Dictionary) {
+			this.id = UnitModel.__id++;
 			this._str = new StatProperty(this, STR, properties[STR]);
 			this._int = new StatProperty(this, INT, properties[INT]);
 			this._dex = new StatProperty(this, DEX, properties[DEX]);
