@@ -7,7 +7,6 @@ package com.dreamofninjas.battler.flows
 	import com.dreamofninjas.battler.util.AttackUtils;
 	import com.dreamofninjas.battler.util.BattlerPathUtils;
 	import com.dreamofninjas.battler.views.BattleView;
-	import com.dreamofninjas.core.app.BaseFlow;
 	import com.dreamofninjas.core.engine.PathUtils;
 	import com.dreamofninjas.core.ui.GPoint;
 	
@@ -71,11 +70,12 @@ package com.dreamofninjas.battler.flows
 				battleModel.mapModel.units.filter(UnitModel.Filter(
 					function(u:UnitModel):Boolean { return u.faction != unit.faction;}));
 				
-			targets.sort(UnitModel.DistanceSort(unit));
-			var target:UnitModel = targets[0]
-			if (target == null) {
+			if (targets.length == 0) {
 				return EndTurn();
 			}
+							
+			targets.sort(UnitModel.DistanceSort(unit));
+			var target:UnitModel = targets[0]
 			battleModel.targetUnit = target;
 			
 			if (tryAttack(target)) {

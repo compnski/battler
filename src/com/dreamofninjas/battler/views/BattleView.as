@@ -75,6 +75,12 @@ package com.dreamofninjas.battler.views
 			_selectedUnitView.x = 96;
 			_selectedUnitView.y = 64;
 			addChild(_selectedUnitView);
+			
+			var queueView:ActionQueueView = new ActionQueueView(battleModel.actionQueue);
+			queueView.x = this.width - 200;
+			queueView.y = Math.max(0, this.height - 900);
+			addChild(queueView);
+			
 		}
 		
 		public function highlightUnit(unit:UnitModel, color:uint):DisplayObject {

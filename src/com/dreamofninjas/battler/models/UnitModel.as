@@ -97,6 +97,7 @@ package com.dreamofninjas.battler.models
 		public function takeDamage(amt:int):Boolean {
 			this._currentHp -= amt;
 			if (this._currentHp <= 0) {
+				this.active = false;
 				dispatchEvent(new Event(UnitEvent.DIED));
 				return true
 			}
@@ -126,8 +127,8 @@ package com.dreamofninjas.battler.models
 			this.type = type;
 			this.name = name;
 			this._attacks = new Array();
-			_attacks.push(new AttackModel(this, "Melee", 15, 1,DamageType.PHYSICAL, 150, {}));
-			_attacks.push(new AttackModel(this, "Fire 1", 25, 4, DamageType.MAGIC, 150, {}));
+			_attacks.push(new AttackModel(this, "Melee", 15, 1,DamageType.PHYSICAL, 15, {}));
+			_attacks.push(new AttackModel(this, "Fire 1", 25, 4, DamageType.MAGIC, 25, {}));
 		}
 
 		private var effects:Vector.<IStatusEffect> = new Vector.<IStatusEffect>();

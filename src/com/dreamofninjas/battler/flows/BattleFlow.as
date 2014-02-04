@@ -44,27 +44,30 @@ package com.dreamofninjas.battler.flows
 				if (recoveryTime == 0) {
 					throw new Error("Unit can't move twice in the same instant. Must be at least 1 delay");
 				}
+				battleModel.level.afterUnitTurn(unit);
+				postTurnCleanup();
 				battleModel.queueNewTurnAction(unit, recoveryTime);
 			}
 			executeNextAction();
 		}
 
 		private function executeNextAction():void {
+			if (!battleModel.active) {
+				return //Complete();
+			}
+
 			trace(battleModel.actionQueue.queue);
 			var action:Action = battleModel.actionQueue.popNextAction();
 			trace(battleModel.actionQueue.queue);
 			if (action is TurnAction) {
 				var turn:TurnAction = action as TurnAction;
+				if (!turn.unit.active) {
+					return executeNextAction(); // try again
+				}
 				return startNextTurn(turn.unit);
 			} else {
 				throw new Error("Unexpected action: " + action);
 			}
-		}
-		
-		private function turnComplete(unit:UnitModel):void {
-			battleModel.level.afterUnitTurn(unit);
-			postTurnCleanup();
-			executeNextAction();
 		}
 		
 		private function startNextTurn(unit:UnitModel):void {
@@ -98,6 +101,7 @@ package com.dreamofninjas.battler.flows
 				}
 			}
 			battleModel.active = anyPlayerUnits && anyEnemyUnits;
+			trace("active: " + battleModel.active);
 			battleModel.targetUnit = null;
 			
 			//battleIsComplete(battleModel)

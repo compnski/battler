@@ -11,7 +11,7 @@ package com.dreamofninjas.battler.models
 		private var _now:int = 0;
 		
 		public function get queue():Array {
-			this._queue.sortOn("at", Array.NUMERIC | Array.DESCENDING);
+			this._queue.sortOn("at", Array.NUMERIC);
 			return this._queue;
 		}
 				
@@ -25,7 +25,7 @@ package com.dreamofninjas.battler.models
 		}
 		
 		public function popNextAction():Action {
-			var action:Action = this.queue.pop();
+			var action:Action = this.queue.shift();
 			this._now = action.at;
 			trace("now = " + this._now);
 			dispatchEvent(new Event(Event.CHANGE));

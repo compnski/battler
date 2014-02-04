@@ -78,7 +78,7 @@ package com.dreamofninjas.battler.models
 				.withMove(6)
 				.withMDef(10)
 //				.withCharId(id++)
-				.build();
+				.build(AiUnitModel);
 				if (u is AiUnitModel) {
 					(u as AiUnitModel).active = true;
 				}
