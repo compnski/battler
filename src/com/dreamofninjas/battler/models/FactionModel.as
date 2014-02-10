@@ -1,8 +1,7 @@
 package com.dreamofninjas.battler.models
 {
+	import com.dreamofninjas.battler.levels.UnitSpawnInfo;
 	import com.dreamofninjas.core.app.BaseModel;
-
-	import io.arkeus.tiled.TiledObject;
 
 	/*
 	*	Reads faction from properties, eventually read name/type — do lookup from there. Optionally override.
@@ -21,26 +20,9 @@ package com.dreamofninjas.battler.models
 			_name = name;
 		}
 
-		public function spawnUnit(spawn:TiledObject):UnitModel {
-			return getBaseUnit(spawn).build()
+		public function spawnUnit(spawn:UnitSpawnInfo):UnitModel {
+			throw new Error("NYI");
 		}
-
-		public function getBaseUnit(spawn:TiledObject):UnitModelBuilder {
-			return new UnitModelBuilder()
-			.withName("Hargal")
-				.withFaction(name)
-				.withType("Spearman")
-				.withX(spawn.x)
-				.withY(spawn.y)
-				.withStr(8)
-				.withDex(9)
-				.withInt(2)
-				.withFai(2)
-				.withHp(40)
-				.withMp(10)
-				.withMDef(5)
-				.withPDef(5)
-				.withCharId(id++);
-	}
-}
+		//	return getBaseUnit(spawn).build()
+		}
 }

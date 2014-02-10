@@ -1,6 +1,6 @@
 package com.dreamofninjas.battler.models
 {
-	import io.arkeus.tiled.TiledObject;
+	import com.dreamofninjas.battler.levels.UnitSpawnInfo;
 
 	public class PlayerModel extends FactionModel
 	{
@@ -10,7 +10,7 @@ package com.dreamofninjas.battler.models
 			super("Player");
 		}
 		
-		public override function spawnUnit(spawn:TiledObject):UnitModel {
+		public override function spawnUnit(spawn:UnitSpawnInfo):UnitModel {
 			var u:UnitModel = new UnitModel.Builder()
 				.withName("Jason")
 				.withFaction("Player")

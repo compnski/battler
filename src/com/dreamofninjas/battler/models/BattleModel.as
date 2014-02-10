@@ -54,14 +54,12 @@ package com.dreamofninjas.battler.models
 		
 		private var _mapModel:MapModel;
 		private var _factions:Vector.<FactionModel>;
-		public var level:LevelModel;
 		public var actionQueue:ActionQueue = new ActionQueue();
 		
-		public function BattleModel(level:LevelModel, factions:Vector.<FactionModel>)	{
+		public function BattleModel(mapModel:MapModel) {
 			super();
-			this.level = level;
-			_mapModel = level.mapModel;
-			_factions = factions;
+			//this.level = level;
+			_mapModel = mapModel;
 		}
 	}
 }

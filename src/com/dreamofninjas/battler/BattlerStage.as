@@ -3,12 +3,11 @@ package com.dreamofninjas.battler
 	import com.dreamofninjas.battler.flows.BattleFlow;
 	import com.dreamofninjas.battler.flows.InitialFlow;
 	import com.dreamofninjas.battler.levels.Level1;
-	import com.dreamofninjas.battler.models.LevelModel;
+	import com.dreamofninjas.battler.levels.LevelLoader;
 	import com.dreamofninjas.battler.models.BattleModel;
-	import com.dreamofninjas.battler.models.FactionModel;
+	import com.dreamofninjas.battler.models.LevelModel;
 	import com.dreamofninjas.battler.models.MapModel;
 	import com.dreamofninjas.battler.models.PlayerModel;
-	import com.dreamofninjas.battler.views.MapView;
 	import com.dreamofninjas.core.app.BaseView;
 	import com.dreamofninjas.core.util.MultiLoader;
 	
@@ -20,15 +19,10 @@ package com.dreamofninjas.battler
 	public class BattlerStage extends BaseView {
 		protected var initialAssetLoader:MultiLoader = new MultiLoader();
 		private var q:Quad;
-		
-		private var _mapModel:MapModel;
-		private var _mapView:MapView;
-		
+				
 		private var _timerController:*;
 		private var _timerView:BaseView;
-		
-		private var level:LevelModel = new Level1();
-		
+				
 		private var _item:BattleModel;
 		
 		public function BattlerStage()
@@ -36,7 +30,6 @@ package com.dreamofninjas.battler
 			super(new Rectangle(0, 0, 1280, 720));
 			this.y = 50;
 			this.touchable = true;
-			level.addEventListener(Event.COMPLETE, mapLoaded);
 			trace("BattlerStage");
 			addEventListener(Event.ADDED_TO_STAGE, onAdded);
 		}
@@ -45,30 +38,28 @@ package com.dreamofninjas.battler
 		{
 			this.width = 1280;
 			this.height = 720;
-			level.load();
+			var levelLoader:LevelLoader = Level1.Loader();
+			levelLoader.addEventListener(Event.COMPLETE, levelLoaded);
+			levelLoader.load();
 		}
 
-		protected function mapLoaded(evt:Event):void {
+		protected function levelLoaded(evt:Event):void {
 			trace("loaded!");
-			var level:LevelModel = evt.target as LevelModel;
+			var playerModel:PlayerModel = new PlayerModel();
+			var mapModel:MapModel = new MapModel(evt.data.tiledMap);
+			var battleModel:BattleModel = new BattleModel(mapModel);
+			var levelModel:LevelModel = new Level1(playerModel, evt.data.typeMap, mapModel, battleModel, evt.data.spawns);
+			
 			var atlases:Object = evt.data.atlases;
 			for each (var atlas:Object in atlases) {
 				_assetManager.addTextureAtlas(atlas.name, atlas.textures);
 			}
-
-			var playerModel:PlayerModel = new PlayerModel();
-			var factions:Vector.<FactionModel> = new Vector.<FactionModel>;
-			factions.push(new FactionModel("Enemy"));
-			factions.push(playerModel);
-
-			_item = new BattleModel(level, factions);			
-			level.battleModel = _item;
 			
 			sortChildren(function(a:BaseView, b:BaseView):int {
 				return a.z - b.z;
 			});
 			
-			var bf:BattleFlow = new BattleFlow(_item, this);
+			var bf:BattleFlow = new BattleFlow(levelModel, battleModel, this);
 			new InitialFlow(bf);
 		}
 	}

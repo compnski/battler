@@ -34,7 +34,7 @@ package com.dreamofninjas.core.engine
 				 atlases.push({textures: loadAtlas(tileset), firstId:tileset.firstGid, name:tileset.name});
 			}
 			trace('map loaded');
-			loadComplete({atlases: atlases, map:_tiledMap});
+			loadComplete({atlases: atlases, tiledMap:_tiledMap});
 		}
 		
 		private function loadAtlas(tileset:TiledTileset):TextureAtlas {

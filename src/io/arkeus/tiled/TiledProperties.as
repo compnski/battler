@@ -46,6 +46,14 @@ package io.arkeus.tiled {
 			}
 		}
 		
+		public function addToVector(propName:String, groups:Vector.<String>):int {
+			var initialLen:int = groups.length;
+			if (this.has(propName)) {
+				groups.push(this.get(propName));
+			}
+			return groups.length - initialLen;
+		}
+		
 		/**
 		 * Creates a list of all properties.
 		 */

@@ -34,7 +34,6 @@ package com.dreamofninjas.battler.views
 		
 		private function modelUpdated(evt:Event):void {
 			this.textField.text = this.actionQueue.queue.filter(function(item:Action, _, _):Boolean { return !(item is TurnAction) || (item as TurnAction).unit.active; }).join("\n")
-		}
-		
+		}		
 	}
 }

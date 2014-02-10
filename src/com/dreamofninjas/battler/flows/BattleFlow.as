@@ -3,6 +3,7 @@ package com.dreamofninjas.battler.flows
 	import com.dreamofninjas.battler.models.Action;
 	import com.dreamofninjas.battler.models.AiUnitModel;
 	import com.dreamofninjas.battler.models.BattleModel;
+	import com.dreamofninjas.battler.models.LevelModel;
 	import com.dreamofninjas.battler.models.TurnAction;
 	import com.dreamofninjas.battler.models.UnitModel;
 	import com.dreamofninjas.battler.views.BattleView;
@@ -19,10 +20,12 @@ package com.dreamofninjas.battler.flows
 
 		private var parentSprite:DisplayObjectContainer;
 		private var battleModel:BattleModel;
+		private var levelModel:LevelModel;
 		private var battleView:BattleView;
 
-		public function BattleFlow(battleModel:BattleModel, parentSprite:DisplayObjectContainer) {
+		public function BattleFlow(levelModel:LevelModel, battleModel:BattleModel, parentSprite:DisplayObjectContainer) {
 			super();
+			this.levelModel = levelModel;
 			this.battleModel = battleModel;
 			this.parentSprite = parentSprite;
 		}
@@ -44,7 +47,7 @@ package com.dreamofninjas.battler.flows
 				if (recoveryTime == 0) {
 					throw new Error("Unit can't move twice in the same instant. Must be at least 1 delay");
 				}
-				battleModel.level.afterUnitTurn(unit);
+				this.levelModel.afterUnitTurn(unit);
 				postTurnCleanup();
 				battleModel.queueNewTurnAction(unit, recoveryTime);
 			}

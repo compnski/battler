@@ -4,10 +4,6 @@ TODO:
 Consider moving unit spawn logic and death logic into a Flow? [May violate the only acts when active].
 {Event queueing?}
 
--timing system
-- some interface, getNextActionAt?
-— each unit has nextActionAt
-
 //TODO: Split into LevelLoader and LevelModel
 // action queue view
 
