@@ -23,7 +23,7 @@ package com.dreamofninjas.core.engine
 			trace("Starting flow " + flow.name());
 			if (currentFlow != null) {
 				flowStack.push(currentFlow);
-				trace("Suspensing " + currentFlow);
+				trace("Suspending " + currentFlow);
 				currentFlow.Suspended();
 			}
 			currentFlow = flow;
