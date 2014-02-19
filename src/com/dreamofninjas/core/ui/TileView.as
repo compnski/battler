@@ -10,7 +10,7 @@ package com.dreamofninjas.core.ui
 		public var r:int;
 		public var c:int;
 		
-		public function TileView(tileId:int, r:int, c:int, backgroundTexture:Texture)
+		public function TileView(r:int, c:int, backgroundTexture:Texture)
 		{
 			this.touchable = true;
 			this.r = r;

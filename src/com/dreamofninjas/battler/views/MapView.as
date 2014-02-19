@@ -8,6 +8,8 @@ package com.dreamofninjas.battler.views
 	import com.dreamofninjas.core.app.BaseView;
 	import com.dreamofninjas.core.ui.DisplayFactory;
 	import com.dreamofninjas.core.ui.GPoint;
+	import com.dreamofninjas.core.ui.TileView;
+	import com.dreamofninjas.core.ui.UiUtils;
 	
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
@@ -16,11 +18,13 @@ package com.dreamofninjas.battler.views
 	import starling.animation.Tween;
 	import starling.display.BlendMode;
 	import starling.display.DisplayObject;
+	import starling.display.Image;
 	import starling.display.Quad;
 	import starling.display.QuadBatch;
 	import starling.display.Sprite;
 	import starling.events.Event;
-	import com.dreamofninjas.core.ui.TileView;
+	import starling.textures.RenderTexture;
+	import starling.textures.Texture;
 
 	public class MapView extends BaseView
 	{
@@ -36,16 +40,16 @@ package com.dreamofninjas.battler.views
 		private static const OVERLAY_MOVE:String = "MOVE";
 		private static const MOVE_OVERLAY_COLOR:uint = 0x5566ee;
 		
-		protected var _item:MapModel;
+		protected var _mapModel:MapModel;
 		private var unitModelToView:Dictionary = new Dictionary(true);
 		
 		public function MapView(clipRect:Rectangle, mapModel:MapModel) {
 			super(clipRect);
-			_item = mapModel;
+			_mapModel = mapModel;
 			this.touchable = true;
 			_tileLayer.touchable = true;
-			this.width = _item.cols * _tileWidth;
-			this.height = _item.rows * _tileHeight;
+			this.width = _mapModel.cols * _tileWidth;
+			this.height = _mapModel.rows * _tileHeight;
 			
 			this.scaleX = 1.4;
 			this.scaleY = 1.4;
@@ -135,16 +139,24 @@ package com.dreamofninjas.battler.views
 		}
 		
 		private function drawTiles():void {
-			for (var r:uint = 0; r < _item.rows; r++) {
-				for (var c:uint = 0; c < _item.cols; c++) {
-					var tileId:int = _item.terrainData[r][c];
-					if (tileId == 0) {
-						continue;
+		var texture:RenderTexture = new RenderTexture(32, 32, false);
+
+		trace("drawTiles:" ,_mapModel.rows, _mapModel.cols, _mapModel.terrainData.length);
+			for (var r:uint = 0; r < _mapModel.rows; r++) {
+				for (var c:uint = 0; c < _mapModel.cols; c++) {
+					for (var layerIdx:int = 0 ; layerIdx < _mapModel.terrainData.length; layerIdx++) {
+						var tileId:int = _mapModel.terrainData[layerIdx][r][c];
+						if (tileId == 0) {
+							continue;
+						}
+						texture.draw(new Image(_assetManager.getTexture("tile_" + tileId)));
 					}
-					var tile:TileView = new TileView(tileId, r, c, _assetManager.getTexture("tile_" + tileId));
+					var tile:TileView = new TileView(r, c, Texture.fromBitmapData(UiUtils.copyToBitmap(new Image(texture))))
+					
 					tile.x = c * tile.width;
 					tile.y = r * tile.height;
 					_tileLayer.addChild(tile);
+					texture.clear();
 				}
 			}
 			_tileLayer.flatten();
