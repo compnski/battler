@@ -1,5 +1,6 @@
 package com.dreamofninjas.battler.flows
 {
+	import com.dreamofninjas.battler.events.UnitEvent;
 	import com.dreamofninjas.battler.models.Action;
 	import com.dreamofninjas.battler.models.AiUnitModel;
 	import com.dreamofninjas.battler.models.BattleModel;
@@ -28,8 +29,15 @@ package com.dreamofninjas.battler.flows
 			this.levelModel = levelModel;
 			this.battleModel = battleModel;
 			this.parentSprite = parentSprite;
+			battleModel.mapModel.addEventListener(UnitEvent.ACTIVATED, aiUnitActivated);
 		}
 
+		private function aiUnitActivated(evt:Event):void {
+			if(evt.data as Boolean) {
+				this.battleModel.queueNewTurnAction(evt.target as UnitModel, randint(1, 20));
+			}
+		}
+		
 		public override function Execute():void {
 			super.Execute();
 			battleView = new BattleView(battleModel);

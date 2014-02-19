@@ -1,5 +1,7 @@
 package com.dreamofninjas.battler.models
 {
+	import com.dreamofninjas.battler.events.UnitEvent;
+	
 	import flash.utils.Dictionary;
 	
 	public class AiUnitModel extends UnitModel
@@ -7,6 +9,9 @@ package com.dreamofninjas.battler.models
 		public var groups:Vector.<String>;
 		
 		public function activate(bool:Boolean):void {
+			if (this.active != bool) {
+				dispatchEventWith(UnitEvent.ACTIVATED, true, bool);
+			}
 			this.active = bool;
 		}
 
