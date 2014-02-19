@@ -7,7 +7,7 @@ package com.dreamofninjas.battler.models
 	public class UnitModelBuilder {
 		private var name:String;
 		private var faction:String;
-		private var type:String;
+		private var job:String;
 		private var x:int;
 		private var y:int;
 		private var id:int;
@@ -21,7 +21,12 @@ package com.dreamofninjas.battler.models
 		}
 
 		public function withType(type:String):UnitModelBuilder {
-			this.type = type;
+			this.job = type;
+			return this;
+		}
+
+		public function withJob(job:String):UnitModelBuilder {
+			this.job = job;
 			return this;
 		}
 
@@ -94,7 +99,7 @@ package com.dreamofninjas.battler.models
 			if (klass == null) {
 				klass = UnitModel;
 			}
-			var unit:UnitModel = new klass(name, faction, type, x, y, this.props);
+			var unit:UnitModel = new klass(name, faction, job, x, y, this.props);
 			unit.id = this.id; //todo - clean this up
 			return unit;
 		}

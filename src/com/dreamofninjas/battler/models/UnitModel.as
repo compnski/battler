@@ -8,16 +8,16 @@ package com.dreamofninjas.battler.models
 	import com.dreamofninjas.core.interfaces.IRectangle;
 	import com.dreamofninjas.core.interfaces.IStatusEffect;
 	import com.dreamofninjas.core.ui.GPoint;
-	
+
 	import flash.utils.Dictionary;
-	
+
 	import starling.events.Event;
 
 	//TODO: Merge this and the builder, remove most of the setters for stats
-	
+
 	public class UnitModel extends BaseModel implements IHasEffects, IRectangle {
 		public static const Builder:Class = UnitModelBuilder;
-	
+
 		public static const STR:StatType = new StatType("str");
 		public static const INT:StatType = new StatType("dex");
 		public static const DEX:StatType = new StatType("int");
@@ -41,13 +41,13 @@ package com.dreamofninjas.battler.models
 		}
 
 		public var active:Boolean = true;
-		
+
 		public function getX():int { return x; }
 		public function getY():int { return y; }
 		public function getH():int { return 32; }
 		public function getW():int { return 32; }
 
-		
+
 		private var _move:StatProperty;
 		public function get Move():int {  return this._move.currentValue() }
 
@@ -69,7 +69,7 @@ package com.dreamofninjas.battler.models
 		private var _hp:StatProperty;
 		public function get MaxHP():int {  return this._hp.currentValue() }
 		public function get curHP():int { return this._currentHp }
-		
+
 		private var _mp:StatProperty;
 		public function get MaxMP():int {  return this._mp.currentValue() }
 		public function get curMP():int {  return this._currentMp }
@@ -82,16 +82,16 @@ package com.dreamofninjas.battler.models
 
 		private var _currentHp:int;
 		private var _currentMp:int;
-	
+
 		public var faction:String;
 		public var type:String; //class?
 
 		public var name:String;
 		public var id:int;
 		private static var __id:int = 0;
-		
+
 		public var recoveryTime:int = 50;
-		
+
 
 		// Returns true if the unit takes lethal damage
 		public function takeDamage(amt:int):Boolean {
@@ -104,9 +104,9 @@ package com.dreamofninjas.battler.models
 			dispatchEvent(new Event(Event.CHANGE, curHP));
 			return false
 		}
-		
+
 		private var _properties:Dictionary;
-		public function UnitModel(name:String, faction:String, type:String, x:int, y:int, properties:Dictionary) {
+		public function UnitModel(name:String, faction:String, job:String, x:int, y:int, properties:Dictionary) {
 			this.id = UnitModel.__id++;
 			this._str = new StatProperty(this, STR, properties[STR]);
 			this._int = new StatProperty(this, INT, properties[INT]);
@@ -120,7 +120,7 @@ package com.dreamofninjas.battler.models
 			this._move = new StatProperty(this, MOVE, properties[MOVE]);
 			this._currentHp = this.MaxHP;
 			this._currentMp = this.MaxMP;
-			
+
 			_x = x;
 			_y = y;
 			this.faction = faction;
@@ -181,24 +181,24 @@ package com.dreamofninjas.battler.models
 		public function toString():String {
 			return "Unit<" + faction + " " + type + " (" +x + ", " + y + ")>";
 		}
-		
+
 		public function distance(u:UnitModel):int {
 			return Math.abs(this.r - u.r) + Math.abs(this.c - u.c);
 		}
-		
+
 		////static
-		
+
 		public static function Filter(filter:Function):Function {
 			return function(u:UnitModel, idx:int, v:Vector.<UnitModel>):Boolean {
 				return filter(u);
 			}
-		}	
-		
+		}
+
 		public static function DistanceSort(from:UnitModel):Function {
 			return function(a:UnitModel, b:UnitModel):Number {
 				return  a.distance(from) - b.distance(from);
 			}
-		}	
-		
+		}
+
 	}
 }
