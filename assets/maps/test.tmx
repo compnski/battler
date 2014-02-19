@@ -29,8 +29,26 @@
   <properties>
    <property name="faction" value="Player"/>
   </properties>
-  <object name="1" type="Spawn" x="256" y="384" width="32" height="32"/>
-  <object name="2" type="Spawn" x="256" y="448" width="32" height="32"/>
+  <object name="1" type="Spawn" x="256" y="384" width="32" height="32">
+   <properties>
+    <property name="name" value="1"/>
+   </properties>
+  </object>
+  <object name="2" type="Spawn" x="256" y="448" width="32" height="32">
+   <properties>
+    <property name="name" value="2"/>
+   </properties>
+  </object>
+  <object name="3" type="Spawn" x="256" y="512" width="32" height="32">
+   <properties>
+    <property name="name" value="3"/>
+   </properties>
+  </object>
+  <object name="4" type="Spawn" x="256" y="576" width="32" height="32">
+   <properties>
+    <property name="name" value="4"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup color="#ff0000" name="EnemySpawn" width="51" height="36">
   <properties>

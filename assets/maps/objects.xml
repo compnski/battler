@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objecttypes>
+ <objecttype name="Spawn" color="#2056d5"/>
+ <objecttype name="Doodad" color="#99ffcc"/>
+ <objecttype name="Triggers" color="#fc0f04"/>
+</objecttypes>

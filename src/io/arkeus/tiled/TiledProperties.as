@@ -24,6 +24,16 @@ package io.arkeus.tiled {
 			return properties[key];
 		}
 		
+		public function getBool(key:String):Boolean {
+			switch(properties[key].toLowerCase()) {
+				case "yes":
+				case "true":
+					return true;
+				default:
+					return false;
+			}
+		}
+		
 		/**
 		 * Sets the property for the given key to the given value.
 		 * 
