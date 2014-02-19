@@ -67,7 +67,7 @@ package com.dreamofninjas.battler.models
 			this._tileFactory = new TileFactory(map);
 			// find terrain layer
 			for each (var layer:TiledLayer in map.layers.getAllLayers()) {
-				if (layer is TiledTileLayer && (layer as TiledTileLayer).visible) {
+				if (layer is TiledTileLayer && (layer as TiledTileLayer).drawable) {
 					terrainData.push((layer as TiledTileLayer).data);
 				}
 			}

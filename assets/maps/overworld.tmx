@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="100" height="100" tilewidth="32" tileheight="32">
+<map version="1.0" orientation="orthogonal" width="38" height="27" tilewidth="32" tileheight="32">
  <tileset firstgid="1" source="tilesets/terrain.tsx"/>
  <tileset firstgid="465" source="tilesets/town.tsx"/>
- <layer name="Terrain" width="100" height="100">
+ <layer name="Terrain" width="38" height="27">
   <properties>
    <property name="visible" value="true"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJzt08ENgzAABEHSf400kESiBVIAjvIBNvKMdB8/vfb6WJb1YK/B+VWb1eg+9LiHHi16tOjRokeLHi16tOjRokeLHi16tOjRokeLHi2j+3h/9jxhmx5fXf3uf/13s9KjRY8WPVr0aNGjRY8WPVr0aNGjRQ8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/tkO7tx8iA==
+   eJy7y8jAcBcLfo1DfKDxqLtG3TXqrsGDR9016q5Rdw0ePOou0vAbIH5FA/x+EPhtKMXDqLtG3TXqrsGDR901stwFACe6fIg=
   </data>
  </layer>
- <objectgroup name="Object Layer 1" width="100" height="100"/>
- <layer name="Houses" width="100" height="100">
+ <objectgroup name="Object Layer 1" width="38" height="27"/>
+ <layer name="Houses" width="38" height="27">
   <properties>
    <property name="visible" value="true"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJzt2jkKAkEARNGxjV0P5v0T7yJGKuIygWWh70FjIvhrmsmcJuCR9cj8zmo8PlxsnjyjZ8/wk2f7x3eUej/maGxKadze2JTSuL2xKaVxe2NTSuP2xqaUxu2NTSmN2xubUt7dflxM02Lcn282/aK59zHG7ec3m36R96PLu9sPV3ewdB8f07i9sSmlcXtjU0rj9samlMbtjU0pjdsbm1Iatzc2pTRub2xKadze2JTSuL2xKaVxe2NTSuP2xqaUXfi/PGevvrP/4/sAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYJ4TFzEKyA==
+   eJzt1zsKgDAQhOHJWhsfB/P+jXcx6SIuyDTrIvPBEBCLn3QB5A8WA2Znnfc9YmtbtW/vxVPVRVEXR10cpussQLHnsnSZ3c8sXdnu6xhapkRdkdTFURdHXRx1cdTF6U1b8Buse/tnb7sAHwEKTw==
   </data>
  </layer>
- <objectgroup name="Triggers" width="100" height="100">
+ <objectgroup name="Triggers" width="38" height="27">
   <object type="Triggers" x="416" y="448" width="32" height="32">
    <properties>
     <property name="map_name" value="shop1"/>
@@ -33,7 +33,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="Spawns" width="100" height="100">
+ <objectgroup name="Spawns" width="38" height="27">
   <object name="1" type="Spawn" x="192" y="128" width="32" height="32">
    <properties>
     <property name="faction" value="Player"/>

@@ -10,7 +10,7 @@ package io.arkeus.tiled {
 		/** The parsed layer data, uncompressed and unencoded. */
 		public var data:Array;
 
-		public function get visible():Boolean {
+		public function get drawable():Boolean {
 			return this.name == "Terrain" || this.properties.getBool("visible");
 		}
 		
