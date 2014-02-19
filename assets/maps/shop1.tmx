@@ -82,7 +82,7 @@
   </object>
  </objectgroup>
  <objectgroup name="Triggers" width="11" height="7">
-  <object name="Exit" type="Triggers" x="160" y="192" width="32" height="32">
+  <object name="Exit" type="Trigger" x="160" y="192" width="32" height="32">
    <properties>
     <property name="trigger_type" value="exit"/>
    </properties>

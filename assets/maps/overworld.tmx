@@ -20,13 +20,13 @@
   </data>
  </layer>
  <objectgroup name="Triggers" width="38" height="27">
-  <object type="Triggers" x="416" y="448" width="32" height="32">
+  <object type="Trigger" x="416" y="448" width="32" height="32">
    <properties>
     <property name="map_name" value="shop1"/>
     <property name="trigger_type" value="load_map"/>
    </properties>
   </object>
-  <object name="Level1" type="Triggers" x="896" y="832" width="32" height="32">
+  <object name="Level1" type="Trigger" x="896" y="832" width="32" height="32">
    <properties>
     <property name="map_name" value="level1"/>
     <property name="trigger_type" value="load_map"/>

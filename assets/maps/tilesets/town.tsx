@@ -7,6 +7,8 @@
   <terrain name="Sand" tile="36"/>
   <terrain name="Water" tile="134"/>
   <terrain name="Table" tile="110"/>
+  <terrain name="Path" tile="-1"/>
+  <terrain name="Door" tile="-1"/>
  </terraintypes>
  <tile id="0" terrain="1,1,1,1"/>
  <tile id="1" terrain="1,1,1,1"/>
@@ -24,15 +26,26 @@
  <tile id="15" terrain="0,0,0,0"/>
  <tile id="16" terrain="0,0,0,0"/>
  <tile id="17" terrain="0,0,0,0"/>
+ <tile id="25" terrain="5,5,5,5"/>
+ <tile id="26" terrain="5,5,5,5"/>
+ <tile id="27" terrain="5,5,5,5"/>
+ <tile id="28" terrain="5,5,5,5"/>
+ <tile id="29" terrain="5,5,5,5"/>
+ <tile id="30" terrain="5,5,5,5"/>
  <tile id="36" terrain="2,2,2,2"/>
  <tile id="37" terrain="2,3,2,3"/>
  <tile id="38" terrain="3,2,3,2"/>
  <tile id="39" terrain="2,2,3,3"/>
  <tile id="40" terrain="3,3,2,2"/>
  <tile id="41" terrain="3,2,3,3"/>
+ <tile id="42" terrain="2,3,3,3"/>
  <tile id="43" terrain="3,3,3,2"/>
  <tile id="44" terrain="3,3,2,3"/>
+ <tile id="50" terrain="6,6,6,6"/>
+ <tile id="99" terrain="6,6,6,6"/>
  <tile id="110" terrain="4,4,4,4"/>
+ <tile id="111" terrain="6,6,6,6"/>
+ <tile id="112" terrain="6,6,6,6"/>
  <tile id="134" terrain="3,3,3,3"/>
  <tile id="135" terrain="3,3,3,3"/>
  <tile id="136" terrain="3,3,3,3"/>
