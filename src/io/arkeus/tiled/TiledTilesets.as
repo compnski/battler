@@ -35,7 +35,7 @@ package io.arkeus.tiled {
 		public function getTile(tileId:int):TiledTile {
 			var ts:TiledTileset = getTilesetForTile(tileId);
 			if (getTilesetForTile(tileId).tiles[tileId] == null) {
-				throw new Error("");
+				return null;
 			}
 			return getTilesetForTile(tileId).tiles[tileId];
 		}

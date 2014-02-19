@@ -9,7 +9,7 @@ package com.dreamofninjas.battler.levels
 	import flash.utils.Dictionary;
 	
 	public class Level1 extends LevelModel {
-
+		
 		public static const MAP_FILE:String = "test.tmx";
 		
 		public static function Loader(playerModel:PlayerModel):LevelLoader {

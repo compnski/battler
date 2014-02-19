@@ -36,6 +36,9 @@ package com.dreamofninjas.battler.util
 		}
 		
 		public static function getTileCost(unit:UnitModel, tile:TileModel):uint {
+			if (tile == null) {
+				return 999;
+			}
 			var cost:int = tile.terrain.map(function(item:Terrain, i:int, v:Array):int {
 				return getBaseTerrainCost(item.name);
 			}).sort(Array.DESCENDING | Array.NUMERIC)[0];

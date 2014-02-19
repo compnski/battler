@@ -49,7 +49,7 @@ package com.dreamofninjas.battler.flows
 				break;
 				case LevelModel.OVERWORLD:
 					onRestored(Complete);
-					setNextFlow(new OverworldFlow(levelModel, _baseView));
+					setNextFlow(new OverworldFlow(_playerModel, levelModel, _baseView));
 					break;
 			default:
 				throw new Error("Don't know how to deal with worlds of type " + levelModel.worldType);

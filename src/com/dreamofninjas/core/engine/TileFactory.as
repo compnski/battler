@@ -34,13 +34,17 @@ package com.dreamofninjas.core.engine
 			var terrain:Array = new Array();
 			
 			for each(var layer:TiledTileLayer in map.layers.getTileLayers()) {
+				if (loc.r >= layer.data.length || loc.c >= layer.data[loc.r].length) {
+					return null;
+				}
 				var tileId:int = layer.data[loc.r][loc.c];
 				if (tileId == 0) {
 					continue;
 				}
 				var tile:TiledTile = getTilesetTile(tileId);
 				if (tile == null) {
-					throw new Error("TileId " + tileId + " not found in any tileset.");
+					return null;
+					//throw new Error("TileId " + tileId + " not found in any tileset.");
 				}
 				for each(var s:String in tile.rawTerrain.split(",")) {
 					var t:Terrain = getTerrain(tileId, s);

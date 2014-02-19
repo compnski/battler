@@ -36,6 +36,10 @@ package com.dreamofninjas.core.engine
 		}
 		
 		private static function getNodeHelper(pathMap:Dictionary, loc:GPoint, parent:Node, pathCost:Function, maxDistance:uint): Node {
+			if (loc.r < 0 || loc.c < 0) {
+				return null;
+			}
+
 			var cost:int = pathCost(loc);
 			var node:Node = pathMap[loc];
 			if (node == null) {
@@ -63,6 +67,7 @@ package com.dreamofninjas.core.engine
 			var nodes:Vector.<Node> = new Vector.<Node>();
 			var pathMap:Dictionary = new Dictionary();
 
+			
 			var head:Node = new Node(start, 0, null);
 			pathMap[start] = head;
 			nodes.push(head);

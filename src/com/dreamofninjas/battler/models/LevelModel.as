@@ -55,12 +55,15 @@ package com.dreamofninjas.battler.models
 
 			for each(var trigger:TiledObject in this._typeMap["Trigger"]) {
 				if (trigger.contains(unit)) {
-					switch (trigger.properties["trigger_type"]) {
+					if(!trigger.properties.has("trigger_type")) {
+						continue;
+					}
+					switch (trigger.properties.get("trigger_type")) {
 						case "ai_activate":
 							aiActivateTrigger(trigger);
 							break;
 						case "load_map":
-							dispatchEventWith(LevelEvent.LOAD_MAP, true, trigger.properties['map_name'])
+							dispatchEventWith(LevelEvent.LOAD_MAP, true, trigger.properties.get('map_name'))
 						break;
 						case "exit":
 							dispatchEventWith(LevelEvent.EXIT_MAP, true);	

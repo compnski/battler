@@ -25,6 +25,9 @@ package io.arkeus.tiled {
 		}
 		
 		public function getBool(key:String):Boolean {
+			if(!has(key)) {
+				return false;
+			}
 			switch(properties[key].toLowerCase()) {
 				case "yes":
 				case "true":
