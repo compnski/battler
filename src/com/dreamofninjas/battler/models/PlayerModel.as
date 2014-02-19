@@ -34,7 +34,7 @@ package com.dreamofninjas.battler.models
 			if (spawnId >= this.squad.length) {
 				return null;
 			}
-			var u:UnitModel = squad[spawnId].getUnitBuilder().build();
+			var u:UnitModel = squad[spawnId].getUnitBuilder().withX(spawn.x).withY(spawn.y).build();
 			return u;
 		}
 		

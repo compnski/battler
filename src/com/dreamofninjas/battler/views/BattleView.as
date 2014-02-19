@@ -101,10 +101,6 @@ package com.dreamofninjas.battler.views
 		private function addedToStage(evt:Event):void {
 			addChild(mapView);
 			initUi();
-			for each(var unit:UnitModel in battleModel.units) {
-				var unitView:UnitView = new UnitView(unit);
-				mapView.addUnit(unit, unitView);
-			}
 		}		
 	}
 }

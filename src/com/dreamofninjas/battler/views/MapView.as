@@ -86,6 +86,12 @@ package com.dreamofninjas.battler.views
 			
 			drawGrid();
 			
+			for each(var unit:UnitModel in _mapModel.units) {
+				var unitView:UnitView = new UnitView(unit);
+				addUnit(unit, unitView);
+			}
+
+			
 			addChild(_gridLayer);
 			addChild(_overlayLayer);
 			addChild(_unitLayer);
