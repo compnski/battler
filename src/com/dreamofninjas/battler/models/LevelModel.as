@@ -1,5 +1,6 @@
 package com.dreamofninjas.battler.models
 {
+	import com.dreamofninjas.battler.events.LevelEvent;
 	import com.dreamofninjas.battler.levels.LevelProperties;
 	import com.dreamofninjas.battler.levels.UnitSpawnInfo;
 	import com.dreamofninjas.core.app.BaseModel;
@@ -10,6 +11,14 @@ package com.dreamofninjas.battler.models
 
 	public class LevelModel extends BaseModel
 	{
+		// battle or overworld
+		public function get worldType():String {
+			return this._worldType;
+		}
+		
+		public static const BATTLE:String = "battle";
+		public static const OVERWORLD:String = "overworld";
+		
 		// Map of types to UnitModelBuilder
 		private var _unitMap:Object;
 		// Map of group name to Vector.<UnitModel>
@@ -17,39 +26,15 @@ package com.dreamofninjas.battler.models
 		public var mapModel:MapModel;
 		// Map of objects from their type to a vector of contents;
 		private var _typeMap:Dictionary = new Dictionary();
-		public var battleModel:BattleModel;
+		
+		private var _worldType:String;
 		
 		private var groupList:Vector.<TiledObject>;
-//TODO: Split into LevelLoader and LevelModel
-		public function LevelModel(typeMap:Dictionary, mapModel:MapModel, battleModel:BattleModel)
+		public function LevelModel(worldType:String, typeMap:Dictionary, mapModel:MapModel)
 		{
+			this._worldType = worldType;
 			this.mapModel = mapModel;
 			this._typeMap = typeMap;
-			this.battleModel = battleModel;
-		}
-
-		private function getPlayerUnit(spawn:TiledObject):UnitModel {
-			var u:UnitModel = new UnitModel.Builder()
-				.withName("Jason")
-				.withFaction("Player")
-				.withType("Swordman")
-				.withX(spawn.x)
-				.withY(spawn.y)
-				.withStr(10)
-				.withDex(10)
-				.withInt(10)
-				.withFai(10)
-				.withHp(50)
-				.withMp(20)
-				.withPDef(11)
-				.withMove(6)
-				.withMDef(10)
-//				.withCharId(id++)
-				.build(AiUnitModel);
-				if (u is AiUnitModel) {
-					(u as AiUnitModel).active = true;
-				}
-			return u;
 		}
 
 		protected function registerUnitMap(obj:Object):void {
@@ -67,18 +52,32 @@ package com.dreamofninjas.battler.models
 			if (unit.faction != "Player") {
 				return;
 			}
-			var groups:Vector.<String> = new Vector.<String>();
+
 			for each(var trigger:TiledObject in this._typeMap["Trigger"]) {
 				if (trigger.contains(unit)) {
-					trigger.properties.addToVector(LevelProperties.GROUP , groups);
+					switch (trigger.properties["trigger_type"]) {
+						case "ai_activate":
+							aiActivateTrigger(trigger);
+							break;
+						case "load_map":
+							dispatchEventWith(LevelEvent.LOAD_MAP, true, trigger.properties['map_name'])
+						break;
+						case "exit":
+							dispatchEventWith(LevelEvent.EXIT_MAP, true);	
+						break;
+					}
 				}
 			}
+		}
+		
+		private function aiActivateTrigger(trigger:TiledObject):void {
+			var groups:Vector.<String> = new Vector.<String>();
+			trigger.properties.addToVector(LevelProperties.GROUP , groups);
 			for each(var group:String in groups) {
 				for each(var aiunit:AiUnitModel in groupMap[group]) {
 					if (!aiunit.active) {
 						trace("Waking up " + aiunit.toString());
 						aiunit.activate(true);
-						this.battleModel.queueNewTurnAction(aiunit, randint(1, 20));
 					}
 				}
 			}

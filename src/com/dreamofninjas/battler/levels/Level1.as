@@ -1,9 +1,9 @@
 package com.dreamofninjas.battler.levels
 {
-	import com.dreamofninjas.battler.models.BattleModel;
 	import com.dreamofninjas.battler.models.LevelModel;
 	import com.dreamofninjas.battler.models.MapModel;
 	import com.dreamofninjas.battler.models.PlayerModel;
+	import com.dreamofninjas.battler.models.UnitModel;
 	import com.dreamofninjas.battler.models.UnitModelBuilder;
 	
 	import flash.utils.Dictionary;
@@ -12,8 +12,8 @@ package com.dreamofninjas.battler.levels
 
 		public static const MAP_FILE:String = "test.tmx";
 		
-		public static function Loader():LevelLoader {
-			return new LevelLoader(MAP_FILE);
+		public static function Loader(playerModel:PlayerModel):LevelLoader {
+			return new LevelLoader(MAP_FILE, Level1, playerModel);
 		}
 		
 		private var unitMap:Object= {
@@ -63,12 +63,15 @@ package com.dreamofninjas.battler.levels
 			.withPDef(16)
 		};
 			
-		public function Level1(playerModel:PlayerModel, typeMap:Dictionary, mapModel:MapModel, battleModel:BattleModel, spawns:Vector.<UnitSpawnInfo>) {
-			super(typeMap, mapModel, battleModel)
+		public function Level1(playerModel:PlayerModel, mapModel:MapModel, typeMap:Dictionary, spawns:Vector.<UnitSpawnInfo>) {
+			super(LevelModel.BATTLE, typeMap, mapModel)
 			registerUnitMap(unitMap);
 			for each(var spawn:UnitSpawnInfo in spawns) {
 				if (spawn.faction == "Player") {
-					mapModel.addUnit(playerModel.spawnUnit(spawn));		
+					var u:UnitModel = playerModel.spawnUnit(spawn);
+					if (u) {
+						mapModel.addUnit(u);
+					}
 				} else {
 					mapModel.addUnit(this.spawnAiUnit(spawn));
 				}

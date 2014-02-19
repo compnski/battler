@@ -1,12 +1,8 @@
 package com.dreamofninjas.battler
 {
-	import com.dreamofninjas.battler.flows.BattleFlow;
 	import com.dreamofninjas.battler.flows.InitialFlow;
-	import com.dreamofninjas.battler.levels.Level1;
-	import com.dreamofninjas.battler.levels.LevelLoader;
+	import com.dreamofninjas.battler.flows.LoadLevelFlow;
 	import com.dreamofninjas.battler.models.BattleModel;
-	import com.dreamofninjas.battler.models.LevelModel;
-	import com.dreamofninjas.battler.models.MapModel;
 	import com.dreamofninjas.battler.models.PlayerModel;
 	import com.dreamofninjas.core.app.BaseView;
 	import com.dreamofninjas.core.util.MultiLoader;
@@ -38,29 +34,9 @@ package com.dreamofninjas.battler
 		{
 			this.width = 1280;
 			this.height = 720;
-			var levelLoader:LevelLoader = Level1.Loader();
-			levelLoader.addEventListener(Event.COMPLETE, levelLoaded);
-			levelLoader.load();
-		}
-
-		protected function levelLoaded(evt:Event):void {
-			trace("loaded!");
 			var playerModel:PlayerModel = new PlayerModel();
-			var mapModel:MapModel = new MapModel(evt.data.tiledMap);
-			var battleModel:BattleModel = new BattleModel(mapModel);
-			var levelModel:LevelModel = new Level1(playerModel, evt.data.typeMap, mapModel, battleModel, evt.data.spawns);
-			
-			var atlases:Object = evt.data.atlases;
-			for each (var atlas:Object in atlases) {
-				_assetManager.addTextureAtlas(atlas.name, atlas.textures);
-			}
-			
-			sortChildren(function(a:BaseView, b:BaseView):int {
-				return a.z - b.z;
-			});
-			
-			var bf:BattleFlow = new BattleFlow(levelModel, battleModel, this);
-			new InitialFlow(bf);
+
+			new InitialFlow(new LoadLevelFlow(this, playerModel, "overworld"));
 		}
 	}
 }

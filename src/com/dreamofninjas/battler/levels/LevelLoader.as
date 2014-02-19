@@ -1,5 +1,8 @@
 package com.dreamofninjas.battler.levels
 {
+	import com.dreamofninjas.battler.models.LevelModel;
+	import com.dreamofninjas.battler.models.MapModel;
+	import com.dreamofninjas.battler.models.PlayerModel;
 	import com.dreamofninjas.battler.models.UnitModelBuilder;
 	import com.dreamofninjas.core.engine.MapLoader;
 	import com.dreamofninjas.core.interfaces.IRectangle;
@@ -18,9 +21,14 @@ package com.dreamofninjas.battler.levels
 	{
 		private var mapLoader:MapLoader;
 		
-		public function LevelLoader(fileName:String)
+		private var _playerModel:PlayerModel;
+		private var _levelClass:Class;
+		
+		public function LevelLoader(fileName:String, levelClass:Class, playerModel:PlayerModel)
 		{
 			super();
+			this._levelClass = levelClass;
+			this._playerModel = playerModel;
 			mapLoader = new MapLoader("assets/maps/", fileName);
 			mapLoader.addEventListener(Event.COMPLETE, mapLoaded);
 		}
@@ -63,11 +71,12 @@ package com.dreamofninjas.battler.levels
 				
 				spawns.push(spawnInfo);
 			}
-			loadComplete({atlases: evt.data.atlases, 
-				tiledMap:evt.data.tiledMap,
-				typeMap:typeMap,
-				spawns:spawns
-			});
+			var mapModel:MapModel = new MapModel(evt.data.tiledMap);
+			var levelModel:LevelModel = new this._levelClass(this._playerModel, mapModel, typeMap, spawns); 
+			
+			loadComplete({atlases: evt.data.atlases,
+										mapModel: mapModel,
+										levelModel: levelModel});			
 		}
 		
 		private function loadObjects(typeMap:Dictionary, layer:TiledObjectLayer):void {

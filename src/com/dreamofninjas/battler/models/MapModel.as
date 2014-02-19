@@ -15,7 +15,7 @@ package com.dreamofninjas.battler.models
 	public class MapModel extends BaseModel
 	{
 		// Raw map data, int of IDs
-		public var terrainData:Array; 
+		public var terrainData:Array = new Array(); 
 		public var rows:int; // in tiles
 		public var cols:int; // in tiles
 				
@@ -27,6 +27,10 @@ package com.dreamofninjas.battler.models
 		
 		public function addUnit(unit:UnitModel):void {
 			_units.push(unit);
+			// Bubble
+			unit.addEventListener(UnitEvent.ACTIVATED, dispatchEventIfBubbles);
+			unit.addEventListener(UnitEvent.DIED, dispatchEventIfBubbles);
+
 			unit.addEventListener(UnitEvent.DIED, unitDied);
 		}
 		
@@ -63,8 +67,8 @@ package com.dreamofninjas.battler.models
 			this._tileFactory = new TileFactory(map);
 			// find terrain layer
 			for each (var layer:TiledLayer in map.layers.getAllLayers()) {
-				if (layer is TiledTileLayer && layer.name == "Terrain") {
-					terrainData = (layer as TiledTileLayer).data;
+				if (layer is TiledTileLayer && (layer as TiledTileLayer).visible) {
+					terrainData.push((layer as TiledTileLayer).data);
 				}
 			}
 			if (terrainData == null) {

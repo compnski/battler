@@ -15,6 +15,12 @@ package com.dreamofninjas.core.app
 		public var paused:Boolean = false; // set to pause time advancing on this object
 		
 		
+		public function loadTextures(atlases:Object):void {
+			for each (var atlas:Object in atlases) {
+				_assetManager.addTextureAtlas(atlas.name, atlas.textures);
+			}
+		}
+		
 		public function get z():int {
 			return 0;
 		}
