@@ -172,6 +172,15 @@ package com.dreamofninjas.battler.views
 			if (obj is UnitModel) {
 				obj = getUnit(obj as UnitModel);
 			}
+			
+			if (obj is GPoint) {
+				obj = {x: _tileWidth * obj.c,
+							 y: _tileHeight * obj.r,
+							 width: _tileWidth,
+							 height: _tileHeight
+				};
+			}
+			
 			cx = obj.x + obj.width / 2;
 			cy = obj.y + obj.height / 2;
 

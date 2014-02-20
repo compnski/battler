@@ -101,7 +101,7 @@ package com.dreamofninjas.battler.flows
 			}
 			path = path.slice(0, unit.Move);
 			this.onRestored(afterMove);
-			setNextFlow(new MoveUnitFlow(battleView.mapView.getUnit(unit), path, Starling.juggler));
+			setNextFlow(new MoveUnitFlow(battleView.mapView.getUnit(unit), 10, path, Starling.juggler));
 			//DFS to first target
 			
 			// single-turn plans

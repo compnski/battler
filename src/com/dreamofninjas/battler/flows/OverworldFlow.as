@@ -86,7 +86,8 @@ package com.dreamofninjas.battler.flows
 			
 			var path:Array = PathUtils.getPath(floodMap, start, dest);
 			trace(path)
-			setNextFlow(new MoveUnitFlow(_overworldView._mapView.getUnit(_mainUnit), path, Starling.juggler));
+			_overworldView._mapView.centerOn(dest);
+			setNextFlow(new MoveUnitFlow(_overworldView._mapView.getUnit(_mainUnit), 10, path, Starling.juggler));
 		}
 		
 		public override function Suspended():void {
