@@ -7,8 +7,9 @@
   <terrain name="Sand" tile="36"/>
   <terrain name="Water" tile="134"/>
   <terrain name="Table" tile="110"/>
-  <terrain name="Path" tile="-1"/>
-  <terrain name="Door" tile="-1"/>
+  <terrain name="Path" tile="25"/>
+  <terrain name="Door" tile="50"/>
+  <terrain name="Floor" tile="51"/>
  </terraintypes>
  <tile id="0" terrain="1,1,1,1"/>
  <tile id="1" terrain="1,1,1,1"/>
@@ -42,6 +43,7 @@
  <tile id="43" terrain="3,3,3,2"/>
  <tile id="44" terrain="3,3,2,3"/>
  <tile id="50" terrain="6,6,6,6"/>
+ <tile id="51" terrain="7,7,7,7"/>
  <tile id="99" terrain="6,6,6,6"/>
  <tile id="110" terrain="4,4,4,4"/>
  <tile id="111" terrain="6,6,6,6"/>
