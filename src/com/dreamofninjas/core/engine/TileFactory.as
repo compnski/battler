@@ -43,8 +43,8 @@ package com.dreamofninjas.core.engine
 				}
 				var tile:TiledTile = getTilesetTile(tileId);
 				if (tile == null) {
-					return null;
-					//throw new Error("TileId " + tileId + " not found in any tileset.");
+					trace("TileId " + tileId + " not found in any tileset.");
+					return null;					
 				}
 				for each(var s:String in tile.rawTerrain.split(",")) {
 					var t:Terrain = getTerrain(tileId, s);
