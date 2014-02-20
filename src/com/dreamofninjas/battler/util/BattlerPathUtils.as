@@ -21,7 +21,8 @@ package com.dreamofninjas.battler.util
 		private static const terrainCostMap:Object = {
 			"Lava": 999,
 			"Water": 999,
-			"Sand": 2
+			"Sand": 2,
+			"Table": 999
 		};
 				
 		/**

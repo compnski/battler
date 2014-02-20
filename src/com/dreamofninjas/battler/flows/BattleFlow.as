@@ -8,6 +8,7 @@ package com.dreamofninjas.battler.flows
 	import com.dreamofninjas.battler.models.TurnAction;
 	import com.dreamofninjas.battler.models.UnitModel;
 	import com.dreamofninjas.battler.views.BattleView;
+	import com.dreamofninjas.battler.views.MapView;
 	import com.dreamofninjas.core.app.BaseFlow;
 	
 	import starling.display.DisplayObjectContainer;
@@ -24,12 +25,14 @@ package com.dreamofninjas.battler.flows
 		private var levelModel:LevelModel;
 		private var battleView:BattleView;
 
-		public function BattleFlow(levelModel:LevelModel, battleModel:BattleModel, parentSprite:DisplayObjectContainer) {
+		public function BattleFlow(levelModel:LevelModel, battleModel:BattleModel, parentSprite:DisplayObjectContainer, mapView:MapView) {
 			super();
 			this.levelModel = levelModel;
 			this.battleModel = battleModel;
 			this.parentSprite = parentSprite;
 			battleModel.mapModel.addEventListener(UnitEvent.ACTIVATED, aiUnitActivated);
+			this.battleView = new BattleView(battleModel, mapView);
+
 		}
 
 		private function aiUnitActivated(evt:Event):void {
@@ -40,7 +43,6 @@ package com.dreamofninjas.battler.flows
 		
 		public override function Execute():void {
 			super.Execute();
-			battleView = new BattleView(battleModel);
 			parentSprite.addChild(battleView);
 
 			setNextFlow(new BattleSetupFlow(battleModel, battleView));
@@ -64,7 +66,7 @@ package com.dreamofninjas.battler.flows
 
 		private function executeNextAction():void {
 			if (!battleModel.active) {
-				return //Complete();
+				return Complete();
 			}
 
 			trace(battleModel.actionQueue.queue);
@@ -93,8 +95,10 @@ package com.dreamofninjas.battler.flows
 		}
 				
 		protected override function release():void {
+			super.release();
 			battleModel.currentUnit = null;
 			battleModel.targetUnit = null;
+			battleView.release();
 		}
 		
 		private function postTurnCleanup():void {

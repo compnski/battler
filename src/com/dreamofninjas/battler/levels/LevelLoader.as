@@ -16,6 +16,7 @@ package com.dreamofninjas.battler.levels
 	import io.arkeus.tiled.TiledProperties;
 	
 	import starling.events.Event;
+	import starling.utils.AssetManager;
 	
 	public class LevelLoader extends BaseLoader
 	{
@@ -74,7 +75,12 @@ package com.dreamofninjas.battler.levels
 			var mapModel:MapModel = new MapModel(evt.data.tiledMap);
 			var levelModel:LevelModel = new this._levelClass(this._playerModel, mapModel, typeMap, spawns); 
 			
-			loadComplete({atlases: evt.data.atlases,
+			var assetManager:AssetManager = new AssetManager();
+			for each (var atlas:Object in evt.data.atlases) {
+				assetManager.addTextureAtlas(atlas.name, atlas.textures);
+			}
+			
+			loadComplete({assetManager: assetManager,
 										mapModel: mapModel,
 										levelModel: levelModel});			
 		}

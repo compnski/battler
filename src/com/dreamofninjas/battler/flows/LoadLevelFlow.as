@@ -8,8 +8,11 @@ package com.dreamofninjas.battler.flows
 	import com.dreamofninjas.battler.models.LevelModel;
 	import com.dreamofninjas.battler.models.MapModel;
 	import com.dreamofninjas.battler.models.PlayerModel;
+	import com.dreamofninjas.battler.views.MapView;
 	import com.dreamofninjas.core.app.BaseFlow;
 	import com.dreamofninjas.core.app.BaseView;
+	
+	import flash.geom.Rectangle;
 	
 	import starling.events.Event;
 	
@@ -35,21 +38,20 @@ package com.dreamofninjas.battler.flows
 		}
 		
 		private function levelLoaded(evt:Event):void {
-			var atlases:Object = evt.data.atlases;
 			var levelModel:LevelModel = evt.data.levelModel;
 			var mapModel:MapModel = evt.data.mapModel;
-			
-			_baseView.loadTextures(evt.data.atlases);
+
+			var mapView:MapView = new MapView(new Rectangle(0, 0, 1280, 720), mapModel, evt.data.assetManager);
 			trace("Loading world of type " + levelModel.worldType)
 			switch(levelModel.worldType) {
 				case LevelModel.BATTLE:
 					var battleModel:BattleModel = new BattleModel(mapModel);
 					onRestored(Complete);
-					setNextFlow(new BattleFlow(levelModel, battleModel, _baseView));
+					setNextFlow(new BattleFlow(levelModel, battleModel, _baseView, mapView));
 				break;
 				case LevelModel.OVERWORLD:
 					onRestored(Complete);
-					setNextFlow(new OverworldFlow(_playerModel, levelModel, _baseView));
+					setNextFlow(new OverworldFlow(_playerModel, levelModel, _baseView, mapView));
 					break;
 			default:
 				throw new Error("Don't know how to deal with worlds of type " + levelModel.worldType);

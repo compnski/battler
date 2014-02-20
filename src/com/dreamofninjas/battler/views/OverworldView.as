@@ -12,12 +12,12 @@ package com.dreamofninjas.battler.views
 		private var _level:LevelModel;
 		public var _mapView:MapView;
 		
-		public function OverworldView(level:LevelModel)
+		public function OverworldView(level:LevelModel, mapView:MapView)
 		{
 			super(new Rectangle(0, 0, 1280, 720));
 			this._level = level;
 			this.touchable = true;
-			this._mapView = new MapView(new Rectangle(0, 0, 1280, 720), level.mapModel);
+			this._mapView = mapView;
 			
 			addEventListener(Event.ADDED_TO_STAGE, addedToStage);
 		}

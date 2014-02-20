@@ -25,6 +25,7 @@ package com.dreamofninjas.battler.views
 	import starling.events.Event;
 	import starling.textures.RenderTexture;
 	import starling.textures.Texture;
+	import starling.utils.AssetManager;
 
 	public class MapView extends BaseView
 	{
@@ -42,9 +43,12 @@ package com.dreamofninjas.battler.views
 		
 		protected var _mapModel:MapModel;
 		private var unitModelToView:Dictionary = new Dictionary(true);
+		private var _assetManager:AssetManager;
+		//private var _level:LevelModel;
 		
-		public function MapView(clipRect:Rectangle, mapModel:MapModel) {
+		public function MapView(clipRect:Rectangle, mapModel:MapModel, assetManager:AssetManager, showGrid=false) {
 			super(clipRect);
+			_assetManager = assetManager;
 			_mapModel = mapModel;
 			this.touchable = true;
 			_tileLayer.touchable = true;
@@ -54,6 +58,15 @@ package com.dreamofninjas.battler.views
 			this.scaleX = 1.4;
 			this.scaleY = 1.4;
 			
+			for each(var unit:UnitModel in _mapModel.units) {
+				var unitView:UnitView = new UnitView(unit);
+				addUnit(unit, unitView);
+			}
+
+			drawTiles();
+			if(showGrid) {
+				drawGrid();
+			}
 			addEventListener(Event.ADDED_TO_STAGE, addedToStage);
 		}
 		
@@ -84,17 +97,11 @@ package com.dreamofninjas.battler.views
 		}
 		
 		private function addedToStage(evt:Event):void {
-			
-			drawTiles();
+	
 			addChild(_tileLayer);
-			
-			drawGrid();
-			
-			for each(var unit:UnitModel in _mapModel.units) {
-				var unitView:UnitView = new UnitView(unit);
-				addUnit(unit, unitView);
-			}
+			//if(_gridLayer.numQuads == 0) {
 
+		//}
 			
 			addChild(_gridLayer);
 			addChild(_overlayLayer);
@@ -102,6 +109,11 @@ package com.dreamofninjas.battler.views
 			
 			addEventListener(Event.TRIGGERED, onTileClicked);
 		}	
+		
+		private function removedFromStage(evt:Event):void {
+			
+			
+		}
 		
 		private function onTileClicked(evt:Event):void {
 			var t:TileView = evt.target as TileView;
@@ -152,7 +164,6 @@ package com.dreamofninjas.battler.views
 						texture.draw(new Image(_assetManager.getTexture("tile_" + tileId)));
 					}
 					var tile:TileView = new TileView(r, c, Texture.fromBitmapData(UiUtils.copyToBitmap(new Image(texture))))
-					
 					tile.x = c * tile.width;
 					tile.y = r * tile.height;
 					_tileLayer.addChild(tile);
@@ -188,9 +199,10 @@ package com.dreamofninjas.battler.views
 			cx = (clipRect.width / scaleX / 2) - cx;
 			cy = (clipRect.height / scaleY / 2) - cy;			
 
+			trace(cy, -(_tileLayer.height - (clipRect.height / scaleY)), _tileLayer.height, clipRect.height, scaleY);
 			// Bound to make sure we always cover the viewbox 100%
-			cx = Math.min(0, Math.max(cx, -(_tileLayer.width - (clipRect.width / scaleX))));
-			cy = Math.min(0, Math.max(cy, -(_tileLayer.height - (clipRect.height / scaleY))));
+			cx = Math.min(0, Math.max(cx, -(_tileLayer.width - ((-32+clipRect.width) / scaleX))));
+			cy = Math.min(0, Math.max(cy, -(_tileLayer.height - ((-32+clipRect.height) / scaleY))));
 			
 			// Clamp to full tiles.
 			cx = int(cx / _tileWidth) * _tileWidth;
@@ -214,22 +226,22 @@ package com.dreamofninjas.battler.views
 		
 		private function drawGrid():void {
 			var q:Quad;
-			var gridLines:QuadBatch = DisplayFactory.getQuadBatch();
-			gridLines.blendMode = BlendMode.MULTIPLY;
-			gridLines.alpha = 0.3;
-			var numC:int = this.height / _tileHeight + 1;
-			var numR:int = this.width / _tileWidth + 1;
-			for (var r:int = -1; r < numR; r++) {
-				q = new Quad(this.width + _tileWidth, 1, 0xCFCFE3);
+			_gridLayer.blendMode = BlendMode.MULTIPLY;
+			_gridLayer.alpha = 0.3;
+			var numR:int = _mapModel.rows
+			var numC:int = _mapModel.cols
+			var h:int = _mapModel.rows * _tileHeight;
+			var w:int = _mapModel.cols * _tileWidth;
+			for (var r:int = -1; r <= numR; r++) {
+				q = new Quad(w, 1, 0xCFCFE3);
 				q.y = r * _tileHeight;
-				gridLines.addQuad(q);
+				_gridLayer.addQuad(q);
 			}
-			for (var c:int = -1; c < numC; c++) {
-				q = new Quad(1, this.height + _tileHeight, 0xCFCFE3);
+			for (var c:int = -1; c <= numC; c++) {
+				q = new Quad(1, h, 0xCFCFE3);
 				q.x = c * _tileWidth;
-				gridLines.addQuad(q);
+				_gridLayer.addQuad(q);
 			}
-			addChild(gridLines); 
 		}
 	}
 }

@@ -25,29 +25,18 @@ package com.dreamofninjas.battler.views
 		private var targetUnitHighlight:DisplayObject;
 		private var currentUnitHighlight:DisplayObject;
 		
-		public function BattleView(battleModel:BattleModel)
+		public function BattleView(battleModel:BattleModel, mapView:MapView)
 		{
 			super(new Rectangle(0, 0, 1280, 720));
 			this.battleModel = battleModel;
-			mapView = new MapView(new Rectangle(0, 0, 1280, 720), battleModel.mapModel);
+			this.mapView = mapView;
 			this.touchable = true;
 			_mapLayer.touchable = true;
 
 			addEventListener(Event.ADDED_TO_STAGE, addedToStage);
 			battleModel.addEventListener(Event.CHANGE, modelUpdated);
 		}
-		
-		private function release():void {
-			if (targetUnitHighlight) {
-				targetUnitHighlight.removeFromParent(true);
-				targetUnitHighlight = null;
-			}
-			if (currentUnitHighlight) {
-				currentUnitHighlight.removeFromParent(true);
-				currentUnitHighlight = null;
-			}
-		}
-		
+				
 		private function modelUpdated(evt:Event):void {
 			if (evt.data == BattleModel.CURRENT_UNIT) {
 				if (currentUnitHighlight) {

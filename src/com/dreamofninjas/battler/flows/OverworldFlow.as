@@ -6,6 +6,7 @@ package com.dreamofninjas.battler.flows
 	import com.dreamofninjas.battler.models.PlayerModel;
 	import com.dreamofninjas.battler.models.UnitModel;
 	import com.dreamofninjas.battler.util.BattlerPathUtils;
+	import com.dreamofninjas.battler.views.MapView;
 	import com.dreamofninjas.battler.views.OverworldView;
 	import com.dreamofninjas.core.app.BaseFlow;
 	import com.dreamofninjas.core.app.BaseView;
@@ -26,12 +27,14 @@ package com.dreamofninjas.battler.flows
 		private var _playerModel:PlayerModel;
 		
 		
-		public function OverworldFlow(playerModel:PlayerModel, level:LevelModel, parentView:BaseView)
+		public function OverworldFlow(playerModel:PlayerModel, level:LevelModel, parentView:BaseView, mapView:MapView)
 		{
 			super();
 			this._playerModel = playerModel;
 			this._level = level;
 			this._baseView = parentView;
+			this._overworldView = new OverworldView(this._level, mapView);
+
 			for each(var unit:UnitModel in level.mapModel.units) {
 				if (unit.faction == "Player") {
 					_mainUnit = unit;
@@ -43,13 +46,17 @@ package com.dreamofninjas.battler.flows
 			}
 		}
 		
+		protected override function release():void {
+			super.release();
+			this._overworldView.release();
+		}
+		
 		public override function Execute():void {
 			super.Execute();
 			
 			floodMap = PathUtils.floodFill(GPoint.g(_mainUnit.r, _mainUnit.c), BattlerPathUtils.getStdPathCostFunction(_mainUnit, _level.mapModel), 20);
 
 			
-			_overworldView = new OverworldView(this._level);
 			_overworldView.addEventListener(KeyboardEvent.KEY_DOWN, keyDown);
 			_overworldView.addEventListener(KeyboardEvent.KEY_UP, keyUp);
 			_overworldView.addEventListener(TileEvent.CLICKED, tileClicked);
@@ -65,6 +72,8 @@ package com.dreamofninjas.battler.flows
 		}
 
 		private function loadMap(evt:Event):void {
+			//_overworldView.visible = false;
+			_overworldView.removeFromParent();
 			setNextFlow(new LoadLevelFlow(_baseView, _playerModel, evt.data as String));
 		}
 		
@@ -96,6 +105,8 @@ package com.dreamofninjas.battler.flows
 
 		public override function Restored(evt:Event):void {
 			super.Restored(evt);
+			_overworldView.visible = true;
+
 			if (evt.target is MoveUnitFlow) {
 				// :[
 				_mainUnit.r = (evt.target as MoveUnitFlow).dest.r;
@@ -103,8 +114,10 @@ package com.dreamofninjas.battler.flows
 				floodMap = PathUtils.floodFill(GPoint.g(_mainUnit.r, _mainUnit.c), BattlerPathUtils.getStdPathCostFunction(_mainUnit, _level.mapModel), 20);
 				_level.afterUnitTurn(_mainUnit);
 			}
+			if (evt.target is LoadLevelFlow) {
+				_baseView.addChild(_overworldView);
+			}
 		}
-
 		
 		private function keyUp(evt:KeyboardEvent):void {
 			//trace("up", evt)
