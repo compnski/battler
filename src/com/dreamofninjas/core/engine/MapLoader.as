@@ -39,26 +39,11 @@ package com.dreamofninjas.core.engine
 		
 		private function loadAtlas(tileset:TiledTileset):TextureAtlas {
 			trace("loading atlas " + tileset.name);
-			var numRows:uint = (tileset.image.height - tileset.margin) / (tileset.tileHeight + tileset.spacing);
-			var numCols:uint = (tileset.image.width - tileset.margin) / (tileset.tileWidth + tileset.spacing);
-			var id:int = tileset.firstGid;
-			
-			var xml:XML = <Atlas></Atlas>;
-			
-			xml.appendChild(<TextureAtlas imagePath={tileset.image.source}></TextureAtlas>);
-			
-			for (var r:int = 0; r < numRows; r++) {
-				for (var c:int = 0; c < numCols; c++) {
-					xml.child("TextureAtlas").appendChild(<SubTexture name={"tile_" + id} x = {(tileset.margin + (c * (tileset.tileWidth + tileset.spacing)))} y={(tileset.margin + (r * (tileset.tileHeight + tileset.spacing))) } width={tileset.tileWidth} height={tileset.tileHeight}/>);
-					id++;
-				}
-			}
-			
-			var newxml:XML = XML(xml.TextureAtlas);
-			return new TextureAtlas(Texture.fromBitmap(tileset.imageData), newxml);
+			var xml:XML = SpriteManager.getSpriteXml(tileset.image.source, "tile", tileset.firstGid, tileset.image.height, tileset.image.width, tileset.tileWidth, tileset.tileHeight, tileset.margin, tileset.spacing)
+			//var newxml:XML = XML(xml.TextureAtlas);
+			return new TextureAtlas(Texture.fromBitmap(tileset.imageData), xml);
 			
 			trace("done with atlas, dispatching");
 		}
-
 	}
 }

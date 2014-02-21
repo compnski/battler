@@ -5,6 +5,7 @@ package com.dreamofninjas.battler.levels
 	import com.dreamofninjas.battler.models.PlayerModel;
 	import com.dreamofninjas.battler.models.UnitModelBuilder;
 	import com.dreamofninjas.core.engine.MapLoader;
+	import com.dreamofninjas.core.engine.SpriteManager;
 	import com.dreamofninjas.core.interfaces.IRectangle;
 	import com.dreamofninjas.core.util.BaseLoader;
 	
@@ -15,6 +16,7 @@ package com.dreamofninjas.battler.levels
 	import io.arkeus.tiled.TiledObjectLayer;
 	import io.arkeus.tiled.TiledProperties;
 	
+	import starling.display.MovieClip;
 	import starling.events.Event;
 	import starling.utils.AssetManager;
 	
@@ -47,6 +49,33 @@ package com.dreamofninjas.battler.levels
 				}
 			}
 			
+			var spawns:Vector.<UnitSpawnInfo> = createSpawns(typeMap);
+			var doodads:Vector.<MovieClip> = createDoodads(typeMap);
+			
+			var mapModel:MapModel = new MapModel(evt.data.tiledMap);
+			var levelModel:LevelModel = new this._levelClass(this._playerModel, mapModel, typeMap, spawns); 
+			
+			var assetManager:AssetManager = new AssetManager();
+			for each (var atlas:Object in evt.data.atlases) {
+				assetManager.addTextureAtlas(atlas.name, atlas.textures);
+			}
+			
+			loadComplete({assetManager: assetManager,
+										mapModel: mapModel,
+										levelModel: levelModel,
+										doodads:doodads});			
+		}
+	
+		private function createDoodads(typeMap:Object):Vector.<MovieClip> {
+			var doodads:Vector.<MovieClip> = new Vector.<MovieClip>();
+			var s:SpriteManager = SpriteManager.get();
+			for each(var spawn:TiledObject in typeMap[LevelObjects.DOODAD]) {
+				doodads.push(s.getDoodad(spawn.properties.get(LevelProperties.CLIP), spawn.x, spawn.y));
+			}
+			return doodads;
+		}
+		
+		private function createSpawns(typeMap:Object):Vector.<UnitSpawnInfo> {
 			var spawns:Vector.<UnitSpawnInfo> = new Vector.<UnitSpawnInfo>();
 			for each(var spawn:TiledObject in typeMap[LevelObjects.SPAWN]) {
 				// Create Spawn Event
@@ -72,17 +101,7 @@ package com.dreamofninjas.battler.levels
 				
 				spawns.push(spawnInfo);
 			}
-			var mapModel:MapModel = new MapModel(evt.data.tiledMap);
-			var levelModel:LevelModel = new this._levelClass(this._playerModel, mapModel, typeMap, spawns); 
-			
-			var assetManager:AssetManager = new AssetManager();
-			for each (var atlas:Object in evt.data.atlases) {
-				assetManager.addTextureAtlas(atlas.name, atlas.textures);
-			}
-			
-			loadComplete({assetManager: assetManager,
-										mapModel: mapModel,
-										levelModel: levelModel});			
+			return spawns;
 		}
 		
 		private function loadObjects(typeMap:Dictionary, layer:TiledObjectLayer):void {

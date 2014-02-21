@@ -10,6 +10,10 @@ package com.dreamofninjas.battler.levels
 		public static const TYPE:String = "type";
 		public static const NAME:String = "name";
 		
+		
+		// Doodads
+		public static const CLIP:String = "clip";
+		
 		public function LevelProperties()
 		{
 		}

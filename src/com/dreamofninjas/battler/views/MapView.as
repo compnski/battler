@@ -19,6 +19,7 @@ package com.dreamofninjas.battler.views
 	import starling.display.BlendMode;
 	import starling.display.DisplayObject;
 	import starling.display.Image;
+	import starling.display.MovieClip;
 	import starling.display.Quad;
 	import starling.display.QuadBatch;
 	import starling.display.Sprite;
@@ -36,6 +37,7 @@ package com.dreamofninjas.battler.views
 		protected var _gridLayer:QuadBatch = DisplayFactory.getQuadBatch();
 		protected var _overlayLayer:Sprite = DisplayFactory.getSprite();
 		protected var _unitLayer:Sprite = DisplayFactory.getSprite();
+		protected var _doodadLayer:Sprite = DisplayFactory.getSprite();
 		
 		private static const OVERLAY_ATTACK:String = "ATTACK";
 		private static const OVERLAY_MOVE:String = "MOVE";
@@ -106,6 +108,7 @@ package com.dreamofninjas.battler.views
 			addChild(_gridLayer);
 			addChild(_overlayLayer);
 			addChild(_unitLayer);
+			addChild(_doodadLayer);
 			
 			addEventListener(Event.TRIGGERED, onTileClicked);
 		}	
@@ -243,5 +246,12 @@ package com.dreamofninjas.battler.views
 				_gridLayer.addQuad(q);
 			}
 		}
+		
+		public function addDoodads(doodads:Vector.<MovieClip>):void {
+			for each(var doodad:MovieClip in doodads) {
+				this.juggler.add(doodad);
+				this._doodadLayer.addChild(doodad);
+			}
+		}	
 	}
 }

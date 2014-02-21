@@ -40,8 +40,11 @@ package com.dreamofninjas.battler.flows
 		private function levelLoaded(evt:Event):void {
 			var levelModel:LevelModel = evt.data.levelModel;
 			var mapModel:MapModel = evt.data.mapModel;
-
+			
 			var mapView:MapView = new MapView(new Rectangle(0, 0, 1280, 720), mapModel, evt.data.assetManager);
+			mapView.addDoodads(evt.data.doodads);
+			
+			
 			trace("Loading world of type " + levelModel.worldType)
 			switch(levelModel.worldType) {
 				case LevelModel.BATTLE:
