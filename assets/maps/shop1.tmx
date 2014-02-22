@@ -13,22 +13,22 @@
   </data>
  </layer>
  <objectgroup name="Doodads" width="11" height="7">
-  <object type="Doodad" gid="221" x="64" y="64">
+  <object name="Pink" type="Doodad" gid="221" x="64" y="32">
    <properties>
-    <property name="clip" value="crystal_purple"/>
+    <property name="clip" value="crystal_pink"/>
    </properties>
   </object>
-  <object type="Doodad" gid="214" x="128" y="64">
+  <object name="Red" type="Doodad" gid="214" x="128" y="32">
    <properties>
-    <property name="clip" value="crystal_red"/>
+    <property name="clip" value="crystal_orange"/>
    </properties>
   </object>
-  <object type="Doodad" gid="200" x="192" y="64">
+  <object name="Green" type="Doodad" gid="200" x="192" y="32">
    <properties>
     <property name="clip" value="crystal_green"/>
    </properties>
   </object>
-  <object type="Doodad" gid="193" x="256" y="64">
+  <object name="Blue" type="Doodad" gid="193" x="256" y="32">
    <properties>
     <property name="clip" value="crystal_blue"/>
    </properties>
