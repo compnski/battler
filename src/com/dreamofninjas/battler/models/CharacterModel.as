@@ -1,13 +1,22 @@
 package com.dreamofninjas.battler.models
 {
 	import com.dreamofninjas.core.engine.StatType;
-	
+
 	import flash.utils.Dictionary;
 
 	public class CharacterModel extends BaseUnitModel
 	{
-		public var job:String;
 		public var xp:int;
+
+
+		//TODO: ENUM for jobs
+		public function jp(job:String):int {
+			return 0;
+		}
+
+		public function job():JobModel {
+			return JobModel.GetJob(this._job, this.jp(this._job));
+		}
 
 		private var equip:Vector.<ItemModel> = new Vector.<ItemModel>();
 		private var faction:String = "Player";
@@ -15,7 +24,7 @@ package com.dreamofninjas.battler.models
 		public function CharacterModel(name:String, job:String, properties:Dictionary) {
 			super(name, job, properties);
 		}
-		
+
 		public static function LoadFromJsonObj(obj:Object):CharacterModel {
 			var ub:UnitModelBuilder = new UnitModelBuilder()
 				.withName(obj["name"])
@@ -66,7 +75,7 @@ package com.dreamofninjas.battler.models
 			}
 			return statVal;
 		}
-		
+
 		public override function getUnitBuilder():UnitModelBuilder
 		{
 			return (super.getUnitBuilder()
