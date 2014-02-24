@@ -2,6 +2,7 @@ package com.dreamofninjas.battler.models
 {
 	
 	import flash.utils.Dictionary;
+	import flash.utils.describeType;
 
 
 	public class UnitModelBuilder {
@@ -51,55 +52,63 @@ package com.dreamofninjas.battler.models
 		}
 
 		public function withStr(amt:int):UnitModelBuilder {
-			this.props[UnitModel.STR] = amt;
+			this.props[BaseUnitModel.STR] = amt;
 			return this;
 		}
 
 		public function withDex(amt:int):UnitModelBuilder {
-			this.props[UnitModel.DEX] = amt;
+			this.props[BaseUnitModel.DEX] = amt;
 			return this;
 		}
 
 		public function withInt(amt:int):UnitModelBuilder {
-			this.props[UnitModel.INT] = amt;
+			this.props[BaseUnitModel.INT] = amt;
 			return this;
 		}
 
 		public function withFai(amt:int):UnitModelBuilder {
-			this.props[UnitModel.FAI] = amt;
+			this.props[BaseUnitModel.FAI] = amt;
 			return this;
 		}
 
 		public function withPDef(amt:int):UnitModelBuilder {
-			this.props[UnitModel.PDEF] = amt;
+			this.props[BaseUnitModel.PDEF] = amt;
 			return this;
 		}
 
 		public function withMDef(amt:int):UnitModelBuilder {
-			this.props[UnitModel.MDEF] = amt;
+			this.props[BaseUnitModel.MDEF] = amt;
 			return this;
 		}
 
 		public function withHp(amt:int):UnitModelBuilder {
-			this.props[UnitModel.HP] = amt;
+			this.props[BaseUnitModel.HP] = amt;
 			return this;
 		}
 
 		public function withMp(amt:int):UnitModelBuilder {
-			this.props[UnitModel.MP] = amt;
+			this.props[BaseUnitModel.MP] = amt;
 			return this;
 		}
 
 		public function withMove(amt:int):UnitModelBuilder {
-			this.props[UnitModel.MOVE] = amt;
+			this.props[BaseUnitModel.MOVE] = amt;
 			return this;
 		}
 
-		public function build(klass:Class = null):UnitModel {
+		public function build(klass:Class = null):BaseUnitModel {
 			if (klass == null) {
 				klass = UnitModel;
 			}
-			var unit:UnitModel = new klass(name, faction, job, x, y, this.props);
+
+			var numArgs:int = describeType(klass)..constructor.parameter.length();
+			
+			var unit:BaseUnitModel;
+			if (numArgs == 6 ) {
+				unit = new klass(name, faction, job, x, y, this.props);
+			} else {
+				unit = new klass(name, job, this.props);
+			}
 			unit.id = this.id; //todo - clean this up
 			return unit;
 		}

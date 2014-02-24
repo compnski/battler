@@ -2,6 +2,7 @@ package com.dreamofninjas.battler.flows
 {
 	import com.dreamofninjas.battler.models.AiUnitModel;
 	import com.dreamofninjas.battler.models.AttackModel;
+	import com.dreamofninjas.battler.models.BaseUnitModel;
 	import com.dreamofninjas.battler.models.BattleModel;
 	import com.dreamofninjas.battler.models.UnitModel;
 	import com.dreamofninjas.battler.util.AttackUtils;
@@ -67,7 +68,7 @@ package com.dreamofninjas.battler.flows
 			//TODO: Sort by actual travel cost
 			//TODO: Need to set up factions / allies / etc.
 			var targets:Vector.<UnitModel> = 
-				battleModel.mapModel.units.filter(UnitModel.Filter(
+				battleModel.mapModel.units.filter(BaseUnitModel.Filter(
 					function(u:UnitModel):Boolean { return u.faction != unit.faction;}));
 				
 			if (targets.length == 0) {
@@ -119,7 +120,7 @@ package com.dreamofninjas.battler.flows
 			}
 
 			var targets:Vector.<UnitModel> = 
-				battleModel.mapModel.units.filter(UnitModel.Filter(
+				battleModel.mapModel.units.filter(BaseUnitModel.Filter(
 					function(u:UnitModel):Boolean { return u.faction == "Player";})).sort(
 			
 						UnitModel.DistanceSort(unit));

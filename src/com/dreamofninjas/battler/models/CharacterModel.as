@@ -1,72 +1,62 @@
 package com.dreamofninjas.battler.models
 {
-	import com.dreamofninjas.core.app.BaseModel;
 	import com.dreamofninjas.core.engine.StatType;
 	
 	import flash.utils.Dictionary;
 
-	public class CharacterModel extends BaseModel
+	public class CharacterModel extends BaseUnitModel
 	{
-
-		public var name:String;
 		public var job:String;
 		public var xp:int;
 
-		private var str:int;
-		private var dex:int;
-		private var intl:int;
-		private var fai:int;
-		private var att:int;
-		private var move:int;
 		private var equip:Vector.<ItemModel> = new Vector.<ItemModel>();
 		private var faction:String = "Player";
 
-		public function CharacterModel(name:String, job:String, xp:int) {
-			this.name = name;
-			this.job = job;
-			this.xp = xp;
+		public function CharacterModel(name:String, job:String, properties:Dictionary) {
+			super(name, job, properties);
 		}
-
+		
 		public static function LoadFromJsonObj(obj:Object):CharacterModel {
-			var c:CharacterModel = new CharacterModel(obj["name"], obj["job"], obj["xp"]);
-			c.str = obj["str"];
-			c.dex = obj["dex"];
-			c.intl = obj["intl"];
-			c.fai = obj["fai"];
-			c.att = obj["att"];
-			c.move = obj["move"];
+			var ub:UnitModelBuilder = new UnitModelBuilder()
+				.withName(obj["name"])
+				.withJob(obj["job"])
+				.withStr(obj["str"])
+				.withDex(obj["dex"])
+				.withInt(obj["int"])
+				.withFai(obj["fai"])
+				.withMove(obj["move"])
+				var c:CharacterModel = ub.build(CharacterModel) as CharacterModel;
 
-			for each(var item:Object in obj["items"]) {
-				var props:Dictionary = new Dictionary();
-				for (var statName:String in item["properties"]) {
-					props[StatType.ValueOf(statName)] = item["properties"][statName];
+				for each(var item:Object in obj["items"]) {
+					var props:Dictionary = new Dictionary();
+					for (var statName:String in item["properties"]) {
+						props[StatType.ValueOf(statName)] = item["properties"][statName];
+					}
+					c.equip.push(new ItemModel(props));
 				}
-				c.equip.push(new ItemModel(props));
+				return c;
 			}
-			return c;
-		}
 
 		public function serializeToJson():String {
 			return "";
 		}
-
 
 		public function get level():int {
 			return Math.floor(xp / 100); //TBD
 		}
 
 		private function get pdef():int {
-			return getStatFromGear(UnitModel.PDEF);
+			return getStatFromGear(BaseUnitModel.PDEF);
 		}
 		private function get mdef():int {
-			return getStatFromGear(UnitModel.MDEF);
+			return getStatFromGear(BaseUnitModel.MDEF);
 		}
 		private function get hp():int {
-			return (this.level * 2) + getStatFromGear(UnitModel.HP);
+			return (this.level * 2) + getStatFromGear(BaseUnitModel.HP);
 
 		}
 		private function get mp():int {
-			return getStatFromGear(UnitModel.MP);
+			return getStatFromGear(BaseUnitModel.MP);
 		}
 
 		private function getStatFromGear(stat:StatType):int {
@@ -76,22 +66,11 @@ package com.dreamofninjas.battler.models
 			}
 			return statVal;
 		}
-
-		public function getUnitBuilder():UnitModelBuilder
+		
+		public override function getUnitBuilder():UnitModelBuilder
 		{
-			return (new UnitModelBuilder()
-				.withName(this.name)
-				.withFaction(this.faction)
-				.withJob(this.job)
-				.withStr(this.str)
-				.withDex(this.dex)
-				.withInt(this.intl)
-				.withFai(this.fai)
-				.withMove(this.move)
-				.withPDef(this.pdef)
-				.withMDef(this.mdef)
-				.withHp(this.hp)
-				.withMp(this.mp));
+			return (super.getUnitBuilder()
+				.withFaction(this.faction));
 		}
 	}
 }

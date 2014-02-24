@@ -85,7 +85,7 @@ package com.dreamofninjas.battler.views
 			}
 			//_nameLabel.text = _item.name;
 			_factionLabel.text = _item.faction;
-			_typeLabel.text = _item.type;
+			_typeLabel.text = _item.Job();
 
 			_hpBar.reset(_item.curHP, _item.MaxHP);
 			_mpBar.reset(_item.curMP, _item.MaxMP);	

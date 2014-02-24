@@ -1,6 +1,13 @@
 
 TODO:
 
+Make new base object that has stats.
+Unit / Job / Char all extend from it
+
+All can have status effects?
+UI will always show both somehow e.g Str: 16(32)
+
+
 DooDads
 
 Doodad-scripts? play/pause/etc. [shimmer, loop, playonce]
