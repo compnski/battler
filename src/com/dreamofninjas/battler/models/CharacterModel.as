@@ -18,7 +18,7 @@ package com.dreamofninjas.battler.models
 			return JobModel.GetJob(this._job, this.jp(this._job));
 		}
 
-		private var equip:Vector.<ItemModel> = new Vector.<ItemModel>();
+		private var items:Vector.<ItemModel> = new Vector.<ItemModel>();
 		private var faction:String = "Player";
 
 		public function CharacterModel(name:String, job:String, properties:Dictionary) {
@@ -33,7 +33,7 @@ package com.dreamofninjas.battler.models
 				.withDex(obj["dex"])
 				.withInt(obj["int"])
 				.withFai(obj["fai"])
-				.withMove(obj["move"])
+				.withMove(obj["move"]);
 				var c:CharacterModel = ub.build(CharacterModel) as CharacterModel;
 
 				for each(var item:Object in obj["items"]) {
@@ -41,7 +41,7 @@ package com.dreamofninjas.battler.models
 					for (var statName:String in item["properties"]) {
 						props[StatType.ValueOf(statName)] = item["properties"][statName];
 					}
-					c.equip.push(new ItemModel(props));
+					c.items.push(new ItemModel(props));
 				}
 				return c;
 			}
@@ -70,8 +70,10 @@ package com.dreamofninjas.battler.models
 
 		private function getStatFromGear(stat:StatType):int {
 			var statVal:int = 0;
-			for each(var item:ItemModel in this.equip) {
-				statVal += item.getStatValue(stat);
+			for each(var item:ItemModel in this.items) {
+				if(!item.equipped) {
+					statVal += item.getStatValue(stat);
+				}
 			}
 			return statVal;
 		}
