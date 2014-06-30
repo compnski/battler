@@ -1,3 +1,15 @@
+import com.dreamofninjas.battler.models.UnitModel;
+
+internal interface IProvidesAttacks {
+	function getAttacks(unit:com.dreamofninjas.battler.models.UnitModel):Vector.<com.dreamofninjas.battler.models.AttackModel>;	
+}
+internal interface ISkill extends IProvidesAttacks {
+
+}
+internal interface IItem extends IProvidesAttacks {
+
+}
+
 package com.dreamofninjas.battler.models
 {
 	import com.dreamofninjas.battler.events.UnitEvent;
@@ -10,7 +22,6 @@ package com.dreamofninjas.battler.models
 	
 	public class UnitModel extends BaseUnitModel implements IRectangle
 	{
-		
 		private var _x:int;
 		private var _y:int;
 		private var _attacks:Array;
@@ -20,6 +31,20 @@ package com.dreamofninjas.battler.models
 		private var _currentMp:int;
 		public var faction:String;
 
+		private var _skills:Vector.<ISkill>;
+		private var _items:Vector.<IItem>;
+		
+		protected function recalcluateAttacks():Array {
+			//look in skills, weapons
+			var attacks:Array = new Array();
+			for each(var skill:ISkill in _skills) {
+				attacks.concat(skill.getAttacks(this));
+			}
+			for each(var weapon:IItem in _items) {
+				attacks.concat(weapon.getAttacks(this));
+			}
+			return attacks;
+		}
 		
 		public function get attacks():Array {
 			return _attacks;
