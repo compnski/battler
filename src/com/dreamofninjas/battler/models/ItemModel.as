@@ -11,6 +11,14 @@ package com.dreamofninjas.battler.models
 		// Map of StatType to value
 		private var _properties:Dictionary;
 		
+		public function get name():String { return this._properties['name']; }	
+		public function get icon():String { return this._properties['icon']; }	
+			
+		public function get type():String { return this._properties['type']; }	
+		public function get slot():String { return this._properties['slot']; }	
+
+		
+		
 		public function get equipped():Boolean {
 			return "equip" in this._properties && this._properties["equip"];
 		}
